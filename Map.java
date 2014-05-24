@@ -34,7 +34,7 @@ public class Map {
     }
     
     public static void main(String[] args) {
-        Map m = new Map("1.MAP");
+        Map m = new Map("resources/maps/Example.MAP");
         System.out.println(m.toString());
     } 
 }
