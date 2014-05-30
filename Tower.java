@@ -1,20 +1,19 @@
 /* Super Class For all Towers/Turrets*/
-public class Tower{
+public abstract class Tower{
 
     private int range,damage,speed,upgradePrice,sellPrice;
 
     //Should we make it like GridWorld type of getting monsters and modifying them
 
-    public void shoot(){
+
+    //Abstract Functions to be implemented in subclasses
+    public abstract void shoot();
 	//Generic Shooting
-    }
-
-    public void upgrade(){
+    
+    public abstract void upgrade();
 	//Upgrades Stats at a cost
-    }
 
-    public void sell(){
+    public abstract void sell();
 	//Removes the tower
-    }
-
+   
 }
