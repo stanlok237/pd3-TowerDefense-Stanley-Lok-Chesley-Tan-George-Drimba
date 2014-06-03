@@ -7,5 +7,5 @@
 6/3 George Drimba Worked on Base Search
 
 ------------------------------------------------------------------------------
-6/2 Chesley Did Nothing
-6/3 Chesley Did Everything
+6/2 Chesley Nothing
+6/3 Chesley Add Tile and Board classes
