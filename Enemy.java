@@ -1,4 +1,4 @@
-public abstract class Enemy{
+public abstract class Enemy extends Agent{
 
     private int health,speed,armor,damage;
 

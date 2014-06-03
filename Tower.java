@@ -1,5 +1,5 @@
 /* Super Class For all Towers/Turrets*/
-public abstract class Tower{
+public abstract class Tower extends Agent{
 
     private int range,damage,speed,upgradePrice,sellPrice;
 
