@@ -1,9 +1,26 @@
-import java.util.*;
-import java.io.*;
-
 public abstract class Tower extends Agent{
 
     private int range,damage,speed,upgradePrice,sellPrice;
+
+    public int getRange() {
+        return range;
+    }
+
+    public int getDamage() {
+        return damage;
+    }
+
+    public int getSpeed() {
+        return speed;
+    }
+
+    public int getUpgradePrice() {
+        return upgradePrice; 
+    }
+
+    public int getSellPrice() {
+        return sellPrice;
+    }
 
     //Should we make it like GridWorld type of getting monsters and modifying them
 
