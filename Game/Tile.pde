@@ -27,6 +27,10 @@ public class Tile {
         yCoor = y;
     }
 
+    public void addAgent(Agent a) {
+        myAgent = a;
+    }
+
     public Agent getAgent() {
         return myAgent;
     }

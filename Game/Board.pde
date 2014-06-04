@@ -1,3 +1,6 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 public class Board {
     Tile[][] board;
     int numRows, numCols;
@@ -18,6 +21,27 @@ public class Board {
         numRows = r;
         numCols = c;
         board = new Tile[numRows][numCols];
+    }
+    
+    public void loadMap(String file) {
+        try {
+            BufferedReader mapFile = new BufferedReader(new FileReader(file));
+            String nextLine = mapFile.readLine();
+            board = new Tile[Integer.parseInt(nextLine.split(" ")[0])][Integer.parseInt(nextLine.split(" ")[1])];
+            nextLine = mapFile.readLine();
+            int row = 0;
+            for (;nextLine != null;nextLine = mapFile.readLine()) {
+                String[] objects = nextLine.split(" ");
+                for (int i = 0;i < objects.length;i++) {
+                    board[row][i].addAgent(new Agent(objects[i]));
+                    // Add recognition for each different type of Agent here
+                }
+                row++;
+            }
+        } catch (IOException e) {
+            System.err.println("Error reading map file. Exiting....");
+            System.exit(1);
+        }
     }
 
     public boolean tileInBounds(Tile t) {
@@ -63,5 +87,16 @@ public class Board {
             return (board[t.getY()][t.getX()].equals(t));
         }
         return false;
+    }
+
+    public String toString() {
+        String retStr = "";
+        for (int r = 0;r < board.length;r++) {
+            for (int c = 0;c < board[0].length;c++) {
+                retStr += board[r][c] + " ";
+            }
+            retStr += "\n";
+        }
+        return retStr;
     }
 }
