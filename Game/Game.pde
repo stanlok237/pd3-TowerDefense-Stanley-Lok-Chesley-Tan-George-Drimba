@@ -14,4 +14,23 @@ void setup(){
 }
 
 void draw(){
+  void mouseClicked() {
 }
+ 
+void mousePressed() {
+ 
+}
+ 
+void mouseReleased() {
+    
+}
+ 
+void mouseMoved() {
+ 
+}
+ 
+void mouseDragged() {
+
+}
+}
+
