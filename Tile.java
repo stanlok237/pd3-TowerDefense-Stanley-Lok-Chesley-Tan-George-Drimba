@@ -68,7 +68,7 @@ public class Tile {
     }
 
     public boolean equals(Tile t) {
-        return (xCoor = t.getX() && yCoor = t.getY());
+        return (xCoor == t.getX() && yCoor == t.getY());
     }
 
 }

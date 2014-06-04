@@ -1,33 +1,33 @@
 public class Board {
-    Agent[][] board;
-    int numRows, numColumns;
+    Tile[][] board;
+    int numRows, numCols;
     int defaultSize = 5;
 
     public Board() {
-         numRows = defaultSize;
-         numCols = defaultSize;
-         board = new Agent[numRows][numCols];
+        numRows = defaultSize;
+        numCols = defaultSize;
+        board = new Tile[numRows][numCols];
     }
 
     public Board(int s) {
         numRows = numCols = s;
-        board = new Agent[numRows][numCols];
+        board = new Tile[numRows][numCols];
     }
 
     public Board(int r, int c) {
         numRows = r;
         numCols = c;
-        board = new Agent[numRows][numCols];
+        board = new Tile[numRows][numCols];
     }
 
     public boolean tileInBounds(Tile t) {
         int otherX = t.getX();
         int otherY = t.getY();
-        return !(otherX < 0 || otherX > numColumns - 1 || otherY < 0 || otherY > numRows - 1); 
+        return !(otherX < 0 || otherX > numCols - 1 || otherY < 0 || otherY > numRows - 1); 
     }
-    
+
     public boolean tileInBounds(int x, int y) {
-        return !(x < 0 || x > numColumns - 1 || y < 0 || y > numRows - 1);
+        return !(x < 0 || x > numCols - 1 || y < 0 || y > numRows - 1);
     }
 
     public Tile getLeft(Tile t) {
