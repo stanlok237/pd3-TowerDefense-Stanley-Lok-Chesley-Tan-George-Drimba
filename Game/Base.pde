@@ -10,7 +10,7 @@ public class Base extends Agent{
     }
     
     public Base(){
-	health = 500;
+	maxHealth = 500;
 	level = 1;
     }
     
@@ -20,6 +20,7 @@ public class Base extends Agent{
 
     public int takeDamage(int change){
 	currentHealth -= change;
+        return -1;
     }
 
     public void upgrade(String type){

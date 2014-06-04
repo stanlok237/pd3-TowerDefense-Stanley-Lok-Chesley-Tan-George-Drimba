@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.*;
 import java.io.*;
-
+/*
 public class basesearch {
         private AreaMap map;
         private ArrayList<Node> closedList;
@@ -31,4 +31,4 @@ public class basesearch {
 
                 //tobecontinued
         }
-}
+}*/

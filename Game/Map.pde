@@ -32,9 +32,10 @@ public class Map {
         }
         return retStr;
     }
-    
+ /* Static Breaks this  
     public static void main(String[] args) {
         Map m = new Map("resources/maps/Example.MAP");
         System.out.println(m.toString());
     } 
+*/
 }
