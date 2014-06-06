@@ -12,16 +12,16 @@ class IntroState extends State {
   color outline = color(250,250,250);
   color fill = color(0,0,0);
   int y = height/2 - 60;
-  textWithOutline("Tower Defense", width/2, y, outline, fill);
+  text("Tower Defense", width/2, y, outline, fill);
   y += 50;
    
   textSize(20);
-  textWithOutline("How to Play", width/2, y, outline, fill);
+  text("How to Play", width/2, y, outline, fill);
   y += 40;
    
   outline = color(0,0,255);
   fill = color(255,255,255);
-  textWithOutline("Press a certain key to start", width/2, y, outline, fill);
+  text("Press a certain key to start", width/2, y, outline, fill);
   y += 20;
 }
     
