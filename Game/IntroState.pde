@@ -1,6 +1,7 @@
 class IntroState extends State {
    
   void setup() {
+  }
      
   void drawBackground() {
  // fill(, ,);
@@ -23,6 +24,5 @@ class IntroState extends State {
   textWithOutline("Press a certain key to start", width/2, y, outline, fill);
   y += 20;
 }
-     
-    frameRate(10);
+    
   }

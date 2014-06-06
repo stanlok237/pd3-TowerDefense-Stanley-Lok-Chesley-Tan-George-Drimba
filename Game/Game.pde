@@ -13,7 +13,7 @@ void setup(){
   music.loop();
 }
 
-void draw(){
+/*void draw(){
   void mouseClicked() {
 }
  
@@ -30,7 +30,8 @@ void mouseMoved() {
 }
  
 void mouseDragged() {
+ */
 
-}
-}
+
+
 
