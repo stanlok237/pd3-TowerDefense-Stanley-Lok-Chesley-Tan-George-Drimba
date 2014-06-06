@@ -1,10 +1,15 @@
 class IntroState extends State {
-   
+ int playBW, playBH;
+ int playButtonX, playButtonY
   void setup() {
+    playBW = width / 7;
+    playBH = height / 7;
+    play ButtonX = width /2 ;
+    play ButtonY = height /2 ; 
   }
      
   void drawBackground() {
- // fill(, ,);
+ fill (#8888FF)
   rect(0, 0, width, height);
    
   textAlign(CENTER, TOP);
@@ -19,10 +24,25 @@ class IntroState extends State {
   text("How to Play", width/2, y, outline, fill);
   y += 40;
    
-  outline = color(0,0,255);
-  fill = color(255,255,255);
-  text("Press a certain key to start", width/2, y, outline, fill);
-  y += 20;
+//play
+fill(#EEEE88);
+rectMode(CENTER);
+rect (width / 2, 6 * height / 7, width / 7, height /7);
+//(fill idk)
+textSize (24);
+text ( "Play", width / 2, 6 * height / 7)
+
 }
+
+boolean isMouseOnButton(){
+  int h = playBW / 2 ; 
+  int h2 = playBH /2;
+    return mouseX >= playButtonX - hw && mouseX <= playButtonX + hw &&
+      mouseY >= playButtonY - hh && mouseY <= playButtonY + hh;
+  
+  
+  
+  
+  
     
   }
