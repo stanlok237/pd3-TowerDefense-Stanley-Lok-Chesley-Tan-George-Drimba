@@ -33,7 +33,7 @@ public class Board {
             for (;nextLine != null;nextLine = mapFile.readLine()) {
                 String[] objects = nextLine.split(" ");
                 for (int i = 0;i < objects.length;i++) {
-                    board[row][i].addAgent(new Agent(objects[i]));
+                    // board[row][i].addAgent(new Agent(objects[i]));
                     // Add recognition for each different type of Agent here
                 }
                 row++;

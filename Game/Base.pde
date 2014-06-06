@@ -40,5 +40,11 @@ public class Base extends Agent{
     public String toString(){
 	return "Base: " + currentHealth + " / " + maxHealth;
     }
+  
+    public int getManDistance(Agent other){
+        Tile baseTile = getTile();
+        Tile otherTile = other.getTile();
+        return Math.abs(baseTile.getY() - otherTile.getY()) + Math.abs(baseTile.getX() + otherTile.getX());
+    }
 
 }
