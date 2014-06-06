@@ -38,6 +38,7 @@ public class AStarSearch{
    private PriorityQueue<Agent> frontier;
    private ManhattanDistance distance;
    private Base base;
+   
    public AStarSearch(int size, Base b){
      board = new Board(size);
      base = b;
@@ -52,6 +53,7 @@ public class AStarSearch{
      public ManhattanDistance(Base b){
          base = b;
      }
+     
      public Agent compare(Agent a, Agent b){
          int aDistance = base.getManDistance(a);
          int bDistance = base.getManDistance(b);

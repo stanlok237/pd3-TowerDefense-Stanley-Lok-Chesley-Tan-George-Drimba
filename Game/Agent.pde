@@ -4,7 +4,7 @@ import java.io.*;
 public abstract class Agent{
   
     private Board myBoard;
-    private Tile myTile;
+    private Tile myTile, tempTile;
     
     //Will Add Necessary Stuff Later
 
@@ -24,7 +24,14 @@ public abstract class Agent{
     public Tile getTile(){
         return myTile;
     }
+    
+    public Tile getTempTile(){
+         return tempTile;
+    }
+    
+    public void set
 
     public abstract String toString();
+    public abstract void act();
 }
 
