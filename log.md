@@ -9,5 +9,6 @@
 6/3 George Drimba Worked on Base Search
 
 ------------------------------------------------------------------------------
-6/2 Chesley Nothing
 6/3 Chesley Add Tile and Board classes
+6/4 Chesley Add accessors and mutators for Agent; Work with Stanley on A* search
+6/7 Add basic setup for graphical board
