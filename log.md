@@ -1,14 +1,22 @@
-6/1 Stanley Lok Add Music Player in Processing
-6/2 Stanley Lok Add Tower and Enemy Class
-6/3 Stanley Lok Add Abstract Agent Class: Tower, Enemy, and Base extends Agent
-6/3 Stanley Lok Moved Java Files into Processing and Fixed minor compiling issues
-6/6 Stanley Lok Worked on A* Search for Path Finding
-6/6 Stanley Lok Modified A* Search to be Node Based
--------------------------------------------------------------------------------
-6/2 George Drimba Add Display Frame
-6/3 George Drimba Worked on Base Search
-
-------------------------------------------------------------------------------
-6/3 Chesley Add Tile and Board classes
-6/4 Chesley Add accessors and mutators for Agent; Work with Stanley on A* search
-6/7 Add basic setup for graphical board
+<table>
+<h1>Stanley Lok</h1>
+<tr><td>6/1</td><td>Add Music Player in Processing</td></tr>
+<tr><td>6/2</td><td>Add Tower and Enemy Class</td></tr>
+<tr><td>6/3</td><td>Add Abstract Agent Class: Tower, Enemy, and Base extends Agent</td></tr>
+<tr><td>6/3</td><td>Moved Java Files into Processing and Fixed minor compiling issues</td></tr>
+<tr><td>6/6</td><td>Worked on A* Search for Path Finding</td></tr>
+<tr><td>6/6</td><td>Modified A* Search to be Node Based</td></tr>
+</table>
+<hr>
+<table>
+<h1>George Drimba</h1>
+<tr><td>6/2</td><td>Add Display Frame</td></tr>
+<tr><td>6/3</td><td>Worked on Base Search</td></tr>
+</table>
+<hr>
+<table>
+<h1>Chesley Tan</h1>
+<tr><td>6/3</td><td>Add Tile and Board classes</td></tr>
+<tr><td>6/4</td><td>Add accessors and mutators for Agent; Work with Stanley on A* search</td></tr>
+<tr><td>6/7</td><td>Add basic setup for graphical board</td></tr>
+</table>
