@@ -35,60 +35,11 @@ public class basesearch {
 public class AStarSearch{
   
    private Board board;
-   private PriorityQueue<Agent> frontier;
+   private PriorityQueue<Node> frontier;
   //private ManhattanDistance distance;
    private Base base;
-   
-   public class Node{  //SHOULD THIS BE A SEPERATE CLASS IN GENERAL SO A TILE COULD HAVE A NODE ATTACHED??
-     //Tile Agent is on
-     private Tile tile;
-     //You can actually have a path
-     private Node parent;
-     //The Base for Location
-     //private Base base;  Better to be in Comparator
-     //private int gCost, hCost  Going to be calculated in the Comparator
-         
-     public Node(Node n, Tile t){
-       //base = b;
-       tile = t;
-       parent = n;
-     }   
-       
-     public Node(Tile t){
-       tile = t;
-       parent = null;
-     }
-   
-     public Node getParent(){
-       return parent;
-     }
-     
-     public boolean hasParent(){
-       return parent != null;
-     }
-     
-     public Tile getTile(){
-       return tile;
-     }
-     
-     public void setTile(Tile t){
-       tile = t;
-     }
- 
-     /*
-     public int getFCost(){
-       return gCost + hCost;
-     }
-     
-     public int getGCost(){
-       return gCost;
-     }
-     
-     public int getHCost(){
-       return hCost;
-     }
-     */
-   }
+   private Distance distance;
+   private Comparator<Node> comparator;
    
    public class Distance implements Comparator{
      
@@ -98,19 +49,48 @@ public class AStarSearch{
         base = b;
      }
      
-     public Tile compare(Node a, Node b){
+     public int compare(Node a, Node b){
        hDistanceA = Math.abs(a.getX() - base.getTile().getX()) + Math.abs(a.getY() - base.getTile().getY()); //Tile A Heuristic Distance
        hDistanceB = Math.abs(b.getX() - base.getTile().getX()) + Math.abs(b.getY() - base.getTile().getY()); //Tile B Heuristic Distance
+       //Get Start Location
+       Node tmpa = a;
+       Node tmpb = b;
+       while(tmpa.hasParent()){
+           tmpa = tmpa.getParent();
+       }
+       while(tmpb.hasParent()){
+           tmpb = tmpb.getParent();
+       }
        
-       sDistanceA = 
+       hDistanceA += Math.abs(a.getX() - tmpa.getX()) + Math.abs(a.getY() - tmpa.getY());
+       hDistanceB += Math.abs(b.getX() - tmpb.getX()) + Math.abs(b.getY() - tmpb.getY());
+       
+       if(hDistanceA > hDistanceB){
+         return 1;
+       }
+       else if(hDistanceA == hDistanceB){
+         return 0;
+       }
+       else{
+         return -1
+       }
+     }
+   }
        
    
    public AStarSearch(int size, Base b){
      board = new Board(size);
      base = b;
-     distance = new ManhattanDistance(base);
-     frontier = new PriorityQueue<Agent>();
+     comparator = new Distance(base);
+     frontier = new PriorityQueue<Node>(10, comparator);
    }
+   
+   public Node search(Tile start){
+     Node s = new Node(start);
+     frontier.add(s);//Initial Frontier
+     while(frontier.size() > 0){
+       
+     
    
    /*  I'm Going to make the class Node based
    public class ManhattanDistance implements Comparator{
