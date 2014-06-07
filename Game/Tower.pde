@@ -21,8 +21,6 @@ public abstract class Tower extends Agent{
     public int getSellPrice() {
         return sellPrice;
     }
-}}}}
-/* Syntax Error for some reason
     //Should we make it like GridWorld type of getting monsters and modifying them
     //Abstract Functions to be implemented in subclasses
     public abstract void shoot();
@@ -33,5 +31,5 @@ public abstract class Tower extends Agent{
 
     public abstract void sell();
   //Removes the tower
-*/
+}
 
