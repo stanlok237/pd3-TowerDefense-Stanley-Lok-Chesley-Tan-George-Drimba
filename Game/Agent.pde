@@ -1,5 +1,3 @@
-import java.util.*;
-import java.io.*;
 
 public abstract class Agent{
   
@@ -29,7 +27,7 @@ public abstract class Agent{
          return tempTile;
     }
     
-    public void set
+    //public void set
 
     public abstract String toString();
     public abstract void act();
