@@ -1,5 +1,3 @@
 class State {
-  void setup() {}
-  void draw() {}
-  void keyPressed() {}
+  void drawBackground() {}
 }
