@@ -4,22 +4,50 @@ Minim minim;
 AudioPlayer music;
 AudioInput song;
 GraphicsTile[][] tiles = new GraphicsTile[20][20];
+IntroState is = new IntroState();
+color introBgColor = #EEEEEE;
+color introHoverColor = #FF0000;
+boolean introHovered = false;
+int state = 0;
 
-void setup(){
-  size(500, 500);
-  background(255);
-  fill(0);
-  stroke(255);
-  for (int i = 0;i < height;i += 25) {
-    for (int u = 0;u < width;u += 25) {
-      tiles[i / 25][u / 25] = new GraphicsTile(u, i, 25, 25);
-    }
+void setup() {
+  if (state == 0) {
+    setupIntroScreen();
   }
-  minim = new Minim(this);
-  music = minim.loadFile("../resources/Thor.mp3");
-  song = minim.getLineIn();
-  music.play();
-  music.loop();
+  if (state == 1) {
+    frame.setResizable(true);
+    size(500,500);
+    frame.setSize(500,500);
+    frame.setResizable(false);
+    background(255);
+    fill(0);
+    stroke(255);
+    for (int i = 0; i < height; i += 25) {
+      for (int u = 0; u < width; u += 25) {
+        tiles[i / 25][u / 25] = new GraphicsTile(u, i, 25, 25);
+      }
+    }
+    //minim = new Minim(this);
+    //music = minim.loadFile("../resources/Thor.mp3");
+    //song = minim.getLineIn();
+    //music.play();
+    //music.loop();
+  }
+}
+
+void draw() {
+  if (state == 0) {
+    drawIntroScreen();
+  } else if (state == 1) {
+    for (int i = 0; i < tiles.length; i++) {
+      for (int u = 0; u < tiles[0].length; u++) {
+        tiles[i][u].setColor(0);
+      }
+    }
+    int userX = mouseX / 25;
+    int userY = mouseY / 25;
+    tiles[userY][userX].setColor(100);
+  }
 }
 
 class GraphicsTile {
@@ -37,28 +65,84 @@ class GraphicsTile {
   }
 }
 
-void draw(){
-  for (int i = 0;i < tiles.length;i++) {
-    for (int u = 0;u < tiles[0].length;u++) {
-       tiles[i][u].setColor(0);  
-    }
+class IntroState extends State {
+
+  IntroState() {
   }
-  int userX = mouseX / 25;
-  int userY = mouseY / 25;
-  tiles[userY][userX].setColor(100);
+
+  void drawBackground() {
+    background(introBgColor);
+    textAlign(CENTER, TOP);
+    fill(0);
+    textSize(40);
+    text("Tower Defense", width / 2, 70);
+    fill(0);
+    textSize(20);
+    text("How to Play", width / 2, 170);
+
+    textSize(20);
+    text("About", width / 2, 220);
+
+    textSize(38);
+    text("Play!", width / 2, 270);
+  }
+
+  void redraw1() {
+    fill(introBgColor);
+    noStroke();
+    textSize(20);
+    rect(0, 170, width, textAscent() + textDescent());
+    fill(introHoverColor);
+    text("How to Play", width / 2, 170);
+  }
+
+  void redraw2() {
+    fill(introBgColor);
+    noStroke();
+    textSize(20);
+    rect(0, 220, width, textAscent() + textDescent());
+    fill(introHoverColor);
+    text("About", width / 2, 220);
+  }
+
+  void redraw3() {
+    fill(introBgColor);
+    noStroke();
+    textSize(38);
+    rect(0, 270, width, textAscent() + textDescent());
+    fill(introHoverColor);
+    text("Play!", width / 2, 270);
+  }
 }
 
-void mouseClicked() {
+void setupIntroScreen() {
+  size(500, 400);
+  is.drawBackground();
 }
- 
-void mousePressed() { 
+
+void drawIntroScreen() {
+  int threshold = 30;
+  if (get(mouseX, mouseY) != introBgColor) {
+    if (abs(mouseY - 170) < 20) {
+      is.redraw1();
+      introHovered = true;
+    } else if (abs(mouseY - 220) < 20) {
+      is.redraw2();
+      introHovered = true;
+    } else if (abs(mouseY - 270) < 38) {
+      is.redraw3();
+      introHovered = true;
+    }
+  } else if (introHovered == true && get(mouseX, mouseY) == introBgColor) {
+    is.drawBackground();
+    introHovered = false;
+  }
 }
- 
-void mouseReleased() {
+
+void mouseClicked() { // event to start state 1 (the actual game) will be changed
+  if (state == 0) {
+    state = 1;
+    setup();
+  }
 }
- 
-void mouseMoved() {
-}
- 
-void mouseDragged() {
-}
+
