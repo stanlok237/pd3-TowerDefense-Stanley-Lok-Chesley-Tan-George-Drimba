@@ -2,15 +2,18 @@ IntroState is = new IntroState();
 color background = #EEEEEE;
 color hoverColor = #FF0000;
 boolean hovered = false;
+
+/*
 void setup() {
   size(500, 500);
   is.drawBackground();
-}
+}*/
 class IntroState extends State {
   int playBW, playBH;
   int playButtonX, playButtonY;
 
   IntroState() {
+    
   }
 
   void drawBackground() {
@@ -58,6 +61,7 @@ class IntroState extends State {
     text("Play!", width / 2, 270);
   }
 }
+/*
 void draw() {
   int threshold = 30;
   println(hovered);
@@ -77,4 +81,4 @@ void draw() {
     hovered = false;
   }
 }
-
+*/
