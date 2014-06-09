@@ -16,27 +16,20 @@ void setup() {
     setupIntroScreen();
   }
   if (state == 1) {
-    board.loadMap("/home/students/2014/chesley.tan/Desktop/GitHub/pd3-TowerDefense-Stanley-Lok-Chesley-Tan-George-Drimba/Game/Example.MAP");
+    board.loadMap("../resources/maps/Example.MAP");
     frame.setResizable(true);
-    size(board.getCols() * 25,board.getRows() * 25);
-    frame.setSize(board.getCols() * 25,board.getRows() * 25);
+    frame.setSize(board.getCols() * 25, board.getRows() * 25 + frame.getInsets().top);
+    // lower-level java resize causes inconsistency in window size, so we need another method to load different states
     frame.setResizable(false);
     tiles = new GraphicsTile[board.getRows()][board.getCols()];
     background(255);
     fill(0);
     stroke(255);
-    for (int i = 0;i < board.getRows();i++) {
-      for (int u = 0;u < board.getCols();u++) {
+    for (int i = 0; i < board.getRows (); i++) {
+      for (int u = 0; u < board.getCols (); u++) {
         tiles[i][u] = new GraphicsTile(u * 25, i * 25, 25, 25);
       }
     }
-    /*
-    for (int i = 0; i < height; i += 25) {
-      for (int u = 0; u < width; u += 25) {
-        tiles[i / 25][u / 25] = new GraphicsTile(u, i, 25, 25);
-      }
-    }
-    */
     //minim = new Minim(this);
     //music = minim.loadFile("../resources/Thor.mp3");
     //song = minim.getLineIn();
@@ -47,24 +40,15 @@ void setup() {
 
 void draw() {
   if (state == 0) {
-    drawIntroScreen();
-  } else if (state == 1) {
-    for (int i = 0; i < tiles.length; i++) {
-      for (int u = 0; u < tiles[0].length; u++) {
-        tiles[i][u].setColor(0);
-      }
-    }
-    int userX = mouseX / 25;
-    int userY = mouseY / 25;
-    if (userY < tiles.length && userX < tiles[0].length) {
-      tiles[userY][userX].setColor(100);
-    }
+  } 
+  else if (state == 1) {
   }
 }
 
 class GraphicsTile {
   int x, y, width, height;
   Tile myTile;
+
   GraphicsTile(int x, int y, int width, int height) {
     this.x = x;
     this.y = y;
@@ -72,13 +56,16 @@ class GraphicsTile {
     this.height = height;
     rect(x, y, width, height);
   }
+
   void setColor(int c) {
     fill(c, 100);
     rect(x, y, width, height);
   }
+
   void setTile(Tile t) {
     myTile = t;
   }
+
   Tile getTile() {
     return myTile;
   }
@@ -155,6 +142,24 @@ void drawIntroScreen() {
   } else if (introHovered == true && get(mouseX, mouseY) == introBgColor) {
     is.drawBackground();
     introHovered = false;
+  }
+}
+
+void mouseMoved() {
+  if (state == 0) {
+    drawIntroScreen();
+  }
+  if (state == 1) {
+    int userX = mouseX / 25;
+    int userY = mouseY / 25;
+    if (userY < tiles.length && userX < tiles[0].length) {
+      for (int i = 0; i < tiles.length; i++) {
+        for (int u = 0; u < tiles[0].length; u++) {
+          tiles[i][u].setColor(0);
+        }
+      }
+      tiles[userY][userX].setColor(100);
+    }
   }
 }
 
