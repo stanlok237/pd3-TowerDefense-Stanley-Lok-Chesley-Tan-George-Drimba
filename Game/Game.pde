@@ -3,8 +3,9 @@ import ddf.minim.*;
 Minim minim;
 AudioPlayer music;
 AudioInput song;
-GraphicsTile[][] tiles = new GraphicsTile[20][20];
+GraphicsTile[][] tiles;
 IntroState is = new IntroState();
+Board board = new Board();
 color introBgColor = #EEEEEE;
 color introHoverColor = #FF0000;
 boolean introHovered = false;
@@ -15,18 +16,27 @@ void setup() {
     setupIntroScreen();
   }
   if (state == 1) {
+    board.loadMap("/home/students/2014/chesley.tan/Desktop/GitHub/pd3-TowerDefense-Stanley-Lok-Chesley-Tan-George-Drimba/Game/Example.MAP");
     frame.setResizable(true);
-    size(500,500);
-    frame.setSize(500,500);
+    size(board.getCols() * 25,board.getRows() * 25);
+    frame.setSize(board.getCols() * 25,board.getRows() * 25);
     frame.setResizable(false);
+    tiles = new GraphicsTile[board.getRows()][board.getCols()];
     background(255);
     fill(0);
     stroke(255);
+    for (int i = 0;i < board.getRows();i++) {
+      for (int u = 0;u < board.getCols();u++) {
+        tiles[i][u] = new GraphicsTile(u * 25, i * 25, 25, 25);
+      }
+    }
+    /*
     for (int i = 0; i < height; i += 25) {
       for (int u = 0; u < width; u += 25) {
         tiles[i / 25][u / 25] = new GraphicsTile(u, i, 25, 25);
       }
     }
+    */
     //minim = new Minim(this);
     //music = minim.loadFile("../resources/Thor.mp3");
     //song = minim.getLineIn();
@@ -46,12 +56,15 @@ void draw() {
     }
     int userX = mouseX / 25;
     int userY = mouseY / 25;
-    tiles[userY][userX].setColor(100);
+    if (userY < tiles.length && userX < tiles[0].length) {
+      tiles[userY][userX].setColor(100);
+    }
   }
 }
 
 class GraphicsTile {
   int x, y, width, height;
+  Tile myTile;
   GraphicsTile(int x, int y, int width, int height) {
     this.x = x;
     this.y = y;
@@ -62,6 +75,12 @@ class GraphicsTile {
   void setColor(int c) {
     fill(c, 100);
     rect(x, y, width, height);
+  }
+  void setTile(Tile t) {
+    myTile = t;
+  }
+  Tile getTile() {
+    return myTile;
   }
 }
 

@@ -24,11 +24,29 @@ public class Board {
         board = new Tile[numRows][numCols];
     }
     
+    public Tile get(int r, int c) {
+      return board[r][c];
+    }
+    
+    public void set(int r, int c, Tile t) {
+      board[r][c] = t;
+    }
+    
+    public int getRows() {
+      return numRows;
+    }
+    
+    public int getCols() {
+      return numCols;
+    }
+    
     public void loadMap(String file) {
         try {
             BufferedReader mapFile = new BufferedReader(new FileReader(file));
             String nextLine = mapFile.readLine();
-            board = new Tile[Integer.parseInt(nextLine.split(" ")[0])][Integer.parseInt(nextLine.split(" ")[1])];
+            numRows = Integer.parseInt(nextLine.split(" ")[0]);
+            numCols = Integer.parseInt(nextLine.split(" ")[1]);
+            board = new Tile[numRows][numCols];
             nextLine = mapFile.readLine();
             int row = 0;
             for (;nextLine != null;nextLine = mapFile.readLine()) {
@@ -41,6 +59,7 @@ public class Board {
             }
         } catch (IOException e) {
             System.err.println("Error reading map file. Exiting....");
+            System.err.println(e.getMessage());
             System.exit(1);
         }
     }
@@ -100,4 +119,5 @@ public class Board {
         }
         return retStr;
     }
+    
 }
