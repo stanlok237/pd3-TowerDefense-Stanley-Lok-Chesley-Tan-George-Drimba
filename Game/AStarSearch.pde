@@ -6,10 +6,9 @@ public class AStarSearch{
   
    private Board board;
    private PriorityQueue<Node> frontier;
-  //private ManhattanDistance distance;
    private Base base;
-   private Distance distance;
    private Comparator<Node> comparator;
+   private ArrayList<Node> checkedNodes;
    
    public class Distance implements Comparator{
      
@@ -20,8 +19,8 @@ public class AStarSearch{
      }
      
      public int compare(Node a, Node b){
-       hDistanceA = Math.abs(a.getX() - base.getTile().getX()) + Math.abs(a.getY() - base.getTile().getY()); //Tile A Heuristic Distance
-       hDistanceB = Math.abs(b.getX() - base.getTile().getX()) + Math.abs(b.getY() - base.getTile().getY()); //Tile B Heuristic Distance
+       hDistanceA = Math.abs(a.getTile().getX() - base.getTile().getX()) + Math.abs(a.getTile().getY() - base.getTile().getY()); //Tile A Heuristic Distance
+       hDistanceB = Math.abs(b.getTile().getX() - base.getTile().getX()) + Math.abs(b.getTile().getY() - base.getTile().getY()); //Tile B Heuristic Distance
        //Get Start Location
        Node tmpa = a;
        Node tmpb = b;
@@ -32,8 +31,8 @@ public class AStarSearch{
            tmpb = tmpb.getParent();
        }
        
-       hDistanceA += Math.abs(a.getX() - tmpa.getX()) + Math.abs(a.getY() - tmpa.getY());
-       hDistanceB += Math.abs(b.getX() - tmpb.getX()) + Math.abs(b.getY() - tmpb.getY());
+       hDistanceA += Math.abs(a.getTile().getX() - tmpa.getTile().getX()) + Math.abs(a.getTile().getY() - tmpa.getTile().getY());
+       hDistanceB += Math.abs(b.getTile().getX() - tmpb.getTile().getX()) + Math.abs(b.getTile().getY() - tmpb.getTile().getY());
        
        if(hDistanceA > hDistanceB){
          return 1;
@@ -52,13 +51,20 @@ public class AStarSearch{
      board = new Board(size);
      base = b;
      comparator = new Distance(base);
-     frontier = new PriorityQueue<Node>(10, comparator);
+     frontier = new PriorityQueue<Node>(comparator);
+     checkedNodes = new ArrayList<Node>();
    }
    
    public Node search(Tile start){
      Node s = new Node(start);
      frontier.add(s);//Initial Frontier
      while(frontier.size() > 0){
+         Node current = frontier.remove();
+         if (current.getTile().getX() == base.getTile().getX() && current.getTile().getY() == base.getTile().getY()){
+            return current;
+         }
+         checkedNodes.add(current);
+          
        
      
    
