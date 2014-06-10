@@ -1,6 +1,6 @@
 public abstract class Tower extends Agent{
 
-    private int range,damage,speed,upgradePrice,sellPrice;
+    private int range,damage,speed,upgradePrice,sellPrice,level;
 
     public int getRange() {
         return range;
@@ -9,7 +9,9 @@ public abstract class Tower extends Agent{
     public int getDamage() {
         return damage;
     }
-
+    public int getLevel(){
+      return level;
+    }
     public int getSpeed() {
         return speed;
     }
