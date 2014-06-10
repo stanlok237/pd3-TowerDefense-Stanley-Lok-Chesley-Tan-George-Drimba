@@ -1,6 +1,0 @@
-I forgot to pull before working and since you guys worked on the game state
-proponents a merge error came up and it is too
-late right now to manually merge as I don't want to mess
-anything up. So I'll update it tomorrow with all of 
-changes to the game menu's, state , etc .
-
