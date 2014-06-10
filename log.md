@@ -15,6 +15,7 @@
 <tr><td>6/2</td><td>Add Display Frame</td></tr>
 <tr><td>6/3</td><td>Worked on Base Search</td></tr>
 <tr><td>6/6</td><td>Intro Screen, Game State </td></tr>
+<tr><td>6/9</td><td>Exp, Towers, Enemies</td></tr>
 <hr>
 <table>
 <h1>Chesley Tan</h1>
