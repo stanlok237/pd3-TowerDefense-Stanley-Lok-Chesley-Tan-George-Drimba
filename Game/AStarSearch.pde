@@ -1,4 +1,4 @@
-/*
+
 import java.util.*;
 import java.io.*;
 
@@ -64,22 +64,26 @@ public class AStarSearch{
             return current;
          }
          checkedNodes.add(current);
-          
-       
-     
-   
-   /*  I'm Going to make the class Node based
-   public class ManhattanDistance implements Comparator{
-     
-     private Base base;
-     
-     public ManhattanDistance(Base b){
-         base = b;
+         //Making Nearby Nodes
+         Node up = new Node(current, Board.getUpper(current.getTile()));
+         Node down = new Node(current, Board.getLower(current.getTile()));
+         Node left = new Node(current, Board.getLeft(current.getTile()));
+         Node right = new Node(current, Board.getRight(current.getTile()));
+         //Possible bug here considering each node could possibly contain different parent pointers
+         if(!checkedNodes.contain(up)){
+           frontier.add(up);
+         }
+         if(!checkedNodes.contain(down)){
+           frontier.add(down);
+         }
+         if(!checkedNodes.contain(left)){
+           frontier.add(left);
+         }
+         if(!checkedNodes.contain(right)){
+           frontier.add(right);
+         }
      }
-     
-     public Agent compare(Agent a, Agent b){
-         int aDistance = base.getManDistance(a);
-         int bDistance = base.getManDistance(b);
-    */     
-         
-         
+     return null;
+   }
+       
+}
