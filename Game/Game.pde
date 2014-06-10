@@ -18,16 +18,16 @@ void setup() {
   if (state == 1) {
     board.loadMap("../resources/maps/Example.MAP");
     frame.setResizable(true);
-    frame.setSize(board.getCols() * 25, board.getRows() * 25 + frame.getInsets().top);
+    //frame.setSize(board.getCols() * 25, board.getRows() * 25 + frame.getInsets().top);
     // lower-level java resize causes inconsistency in window size, so we need another method to load different states
-    frame.setResizable(false);
+    //frame.setResizable(false);
     tiles = new GraphicsTile[board.getRows()][board.getCols()];
     background(255);
     fill(0);
     stroke(255);
     for (int i = 0; i < board.getRows (); i++) {
       for (int u = 0; u < board.getCols (); u++) {
-        tiles[i][u] = new GraphicsTile(u * 25, i * 25, 25, 25);
+        tiles[i][u] = new GraphicsTile(u * 25, i * 25, 25, 25, board.get(i, u));
       }
     }
     //minim = new Minim(this);
@@ -48,12 +48,29 @@ void draw() {
 class GraphicsTile {
   int x, y, width, height;
   Tile myTile;
+  String myTileName;
 
   GraphicsTile(int x, int y, int width, int height) {
     this.x = x;
     this.y = y;
     this.width = width;
     this.height = height;
+    rect(x, y, width, height);
+  }
+  
+  GraphicsTile(int x, int y, int width, int height, Tile t) {
+    this.x = x;
+    this.y = y;
+    this.width = width;
+    this.height = height;
+    myTile = t;
+    myTileName = t.getAgentName();
+    if (myTileName.equals("p")) {
+      fill(50, 200, 0);
+    }
+    else {
+      fill(0, 100);
+    }
     rect(x, y, width, height);
   }
 
@@ -64,10 +81,21 @@ class GraphicsTile {
 
   void setTile(Tile t) {
     myTile = t;
+    myTileName = t.getAgentName();
   }
 
   Tile getTile() {
     return myTile;
+  }
+  
+  void display() {
+    if (myTileName.equals("p")) {
+      fill(50, 200, 0, 100);
+    }
+    else {
+      fill(0, 100);
+    }
+    rect(x, y, width, height);
   }
 }
 
@@ -155,7 +183,7 @@ void mouseMoved() {
     if (userY < tiles.length && userX < tiles[0].length) {
       for (int i = 0; i < tiles.length; i++) {
         for (int u = 0; u < tiles[0].length; u++) {
-          tiles[i][u].setColor(0);
+          tiles[i][u].display();
         }
       }
       tiles[userY][userX].setColor(100);

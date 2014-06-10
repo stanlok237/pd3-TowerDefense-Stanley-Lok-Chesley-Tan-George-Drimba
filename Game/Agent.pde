@@ -3,6 +3,7 @@ public abstract class Agent{
   
     private Board myBoard;
     private Tile myTile, tempTile;
+    private String myName;
     
     //Will Add Necessary Stuff Later
 
@@ -27,7 +28,9 @@ public abstract class Agent{
          return tempTile;
     }
     
-    //public void set
+    public String getName() {
+      return myName;
+    }
 
     public abstract String toString();
     public abstract void act();

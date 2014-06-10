@@ -1,6 +1,7 @@
 public class Tile {
     private Agent myAgent;
     private Board myBoard;
+    private String myAgentName;
     private int xCoor, yCoor;
     
     public Tile() {
@@ -12,16 +13,19 @@ public class Tile {
         xCoor = x;
         yCoor = y;
         myAgent = null;
+        myAgentName = "";
         myBoard = null;
     }
 
     public Tile(Agent a) {
         myAgent = a;
+        myAgentName = a.getName();
         myBoard = null;
     }
 
     public Tile(Agent a, int x, int y) {
         myAgent = a;
+        myAgentName = a.getName();
         myBoard = null;
         xCoor = x;
         yCoor = y;
@@ -29,6 +33,13 @@ public class Tile {
 
     public void addAgent(Agent a) {
         myAgent = a;
+        myAgentName = a.getName();
+    }
+
+    public void addAgent(String s) {
+        myAgent = null;
+        myBoard = null;
+        myAgentName = s;
     }
 
     public Agent getAgent() {
@@ -38,6 +49,7 @@ public class Tile {
     public Agent removeAgent() {
         Agent tmp = myAgent;
         myAgent = null;
+        myAgentName = "";
         return tmp;
     }
 
@@ -67,6 +79,10 @@ public class Tile {
         return Math.abs(t.getX() - xCoor) + Math.abs(t.getY() - yCoor);         
     }
 
+    public String getAgentName() {
+        return myAgentName;
+    }
+    
     public String toString() {
         return myAgent.toString();
     }

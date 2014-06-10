@@ -1,11 +1,17 @@
-10 6
-a a a a a a
-b b b b b b
-a a a a a a
-b b b b b b
-a a a a a a
-b b b b b b
-a a a a a a
-b b b b b b
-a a a a a a
-b b b b b b
+16 20
+w w w w w w w w w w w w w w w w w w w w
+w p w w w w w w w w w w w w w w w w w w
+w p w w w w w w w w w w w w w w w w w w
+w p w w w w w w w w w w w w w w w w w w
+w p w w w w w w w w w w w w w w w w w w
+w p p p w w w w p p p p w w w w w w w w
+w w w p w w w w p w w p w w w w w w w w
+w w w p p p p w p w w p p p w w w w w w
+w w w w w w p w p w w w w p w w w w w w
+w w w w w w p p p w p w w p w w w w w w
+w w w w w w w w w w w w w p w w w w w w
+w w w w w w w w w w w w w p w w w w w w
+w w w w w w w w w w w w w p w w w w w w
+w w w w w w w w w w w w w p w w w w w w
+w w w w w w w w w w w w w p w p p p w w
+w w w w w w w w w w w w w p p p w p p p
