@@ -7,7 +7,7 @@ GraphicsTile[][] tiles;
 IntroState is = new IntroState();
 Board board = new Board();
 color introBgColor = #EEEEEE;
-color introHoverColor = #FF0000;
+color introHoverColor = #FF8300;
 boolean introHovered = false;
 int state = 0;
 
