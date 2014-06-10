@@ -8,9 +8,9 @@ public class AStarSearch{
    private PriorityQueue<Node> frontier;
    private Base base;
    private Comparator<Node> comparator;
-   private ArrayList<Node> checkedNodes;
+   private ArrayList<Tile> checkedNodes;
    
-   public class Distance implements Comparator{
+   public class Distance implements Comparator<Node>{
      
      private Base base;
      
@@ -19,8 +19,10 @@ public class AStarSearch{
      }
      
      public int compare(Node a, Node b){
-       hDistanceA = Math.abs(a.getTile().getX() - base.getTile().getX()) + Math.abs(a.getTile().getY() - base.getTile().getY()); //Tile A Heuristic Distance
-       hDistanceB = Math.abs(b.getTile().getX() - base.getTile().getX()) + Math.abs(b.getTile().getY() - base.getTile().getY()); //Tile B Heuristic Distance
+       //Node a = (Node)(tma);
+       //Node b = (Node)(tmb);
+       int hDistanceA = Math.abs(a.getTile().getX() - base.getTile().getX()) + Math.abs(a.getTile().getY() - base.getTile().getY()); //Tile A Heuristic Distance
+       int hDistanceB = Math.abs(b.getTile().getX() - base.getTile().getX()) + Math.abs(b.getTile().getY() - base.getTile().getY()); //Tile B Heuristic Distance
        //Get Start Location
        Node tmpa = a;
        Node tmpb = b;
@@ -51,8 +53,8 @@ public class AStarSearch{
      board = new Board(size);
      base = b;
      comparator = new Distance(base);
-     frontier = new PriorityQueue<Node>(comparator);
-     checkedNodes = new ArrayList<Node>();
+     frontier = new PriorityQueue<Node>(10, comparator);
+     checkedNodes = new ArrayList<Tile>();
    }
    
    public Node search(Tile start){
@@ -60,26 +62,26 @@ public class AStarSearch{
      frontier.add(s);//Initial Frontier
      while(frontier.size() > 0){
          Node current = frontier.remove();
-         if (current.getTile().getX() == base.getTile().getX() && current.getTile().getY() == base.getTile().getY()){
+         if (current.getTile().equals(base.getTile())){
             return current;
          }
-         checkedNodes.add(current);
+         checkedNodes.add(current.getTile());
          //Making Nearby Nodes
-         Node up = new Node(current, Board.getUpper(current.getTile()));
-         Node down = new Node(current, Board.getLower(current.getTile()));
-         Node left = new Node(current, Board.getLeft(current.getTile()));
-         Node right = new Node(current, Board.getRight(current.getTile()));
+         Node up = new Node(current, board.getUpper(current.getTile()));
+         Node down = new Node(current, board.getLower(current.getTile()));
+         Node left = new Node(current, board.getLeft(current.getTile()));
+         Node right = new Node(current, board.getRight(current.getTile()));
          //Possible bug here considering each node could possibly contain different parent pointers
-         if(!checkedNodes.contain(up)){
+         if(!checkedNodes.contains(up.getTile())){
            frontier.add(up);
          }
-         if(!checkedNodes.contain(down)){
+         if(!checkedNodes.contains(down.getTile())){
            frontier.add(down);
          }
-         if(!checkedNodes.contain(left)){
+         if(!checkedNodes.contains(left.getTile())){
            frontier.add(left);
          }
-         if(!checkedNodes.contain(right)){
+         if(!checkedNodes.contains(right.getTile())){
            frontier.add(right);
          }
      }
