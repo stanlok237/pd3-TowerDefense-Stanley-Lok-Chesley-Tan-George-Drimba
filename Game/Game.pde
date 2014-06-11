@@ -30,11 +30,11 @@ void setup() {
         tiles[i][u] = new GraphicsTile(u * 25, i * 25, 25, 25, board.get(i, u));
       }
     }
-    //minim = new Minim(this);
-    //music = minim.loadFile("../resources/Thor.mp3");
-    //song = minim.getLineIn();
-    //music.play();
-    //music.loop();
+    minim = new Minim(this);
+    music = minim.loadFile("../resources/Thor.mp3");
+    song = minim.getLineIn();
+    music.play();
+    music.loop();
   }
 }
 
