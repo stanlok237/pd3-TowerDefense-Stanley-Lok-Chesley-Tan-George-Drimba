@@ -24,4 +24,5 @@
 <tr><td>6/7</td><td>Add basic setup for graphical board; Finish basic frontend for intro screen; Merge intro screen into the main driver class and code structure for transition between intro and game state</td></tr>
 <tr><td>6/9</td><td>Work on loading map from file and dynamically displaying the window size</td></tr>
 <tr><td>6/10</td><td>Work on loading multiple sketch windows; Complete basic Agent loading from map file and primitive representations of Agents on the graphical board for search testing</td></tr>
+<tr><td>6/11</td><td>Finish implementation of multiple sketch windows and basic user-controlled game initialization</td></tr>
 </table>
