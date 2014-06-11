@@ -10,6 +10,8 @@ color introBgColor = #EEEEEE;
 color introHoverColor = #FF8300;
 boolean introHovered = false;
 int state = 0;
+Base base = new Base();
+AStarSearch god = new AStarSearch(board.getRows(), base);
 
 void setup() {
   if (state == 0) {
@@ -24,6 +26,7 @@ void setup() {
     tiles = new GraphicsTile[board.getRows()][board.getCols()];
     background(255);
     fill(0);
+    god.search(New Tile(0,0));
     stroke(255);
     for (int i = 0; i < board.getRows (); i++) {
       for (int u = 0; u < board.getCols (); u++) {

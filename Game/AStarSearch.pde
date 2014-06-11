@@ -66,21 +66,24 @@ public class AStarSearch{
          }
          checkedNodes.add(current.getTile());
          //Making Nearby Nodes
+         
          Node up = new Node(current, board.getUpper(current.getTile()));
          Node down = new Node(current, board.getLower(current.getTile()));
          Node left = new Node(current, board.getLeft(current.getTile()));
          Node right = new Node(current, board.getRight(current.getTile()));
+        
+           
          //Possible bug here considering each node could possibly contain different parent pointers
-         if(!checkedNodes.contains(up.getTile())){
+         if(up.getTile() != null && !checkedNodes.contains(up.getTile()) && up.getTile().getAgent() == null){
            frontier.add(up);
          }
-         if(!checkedNodes.contains(down.getTile())){
+         if(down.getTile() != null && !checkedNodes.contains(down.getTile()) && down.getTile().getAgent() == null){
            frontier.add(down);
          }
-         if(!checkedNodes.contains(left.getTile())){
+         if(left.getTile() != null && !checkedNodes.contains(left.getTile()) && left.getTile().getAgent() == null){
            frontier.add(left);
          }
-         if(!checkedNodes.contains(right.getTile())){
+         if(right.getTile() != null && !checkedNodes.contains(right.getTile()) && right.getTile().getAgent() == null){
            frontier.add(right);
          }
      }
