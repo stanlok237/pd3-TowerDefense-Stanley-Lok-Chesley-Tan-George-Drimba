@@ -1,32 +1,33 @@
 import ddf.minim.*;
-
+import java.awt.Frame;
 Minim minim;
 AudioPlayer music;
 AudioInput song;
 GraphicsTile[][] tiles;
-IntroState is = new IntroState();
+IntroState is;
+PFrame f;
 Board board = new Board();
-color introBgColor = #EEEEEE;
-color introHoverColor = #FF8300;
-boolean introHovered = false;
 int state = 0;
 Base base = new Base();
 AStarSearch god = new AStarSearch(board.getRows(), base);
+PApplet self = this;
 
 void setup() {
   if (state == 0) {
-    setupIntroScreen();
+    f = new PFrame();
   }
   if (state == 1) {
     board.loadMap("../resources/maps/Example.MAP");
     frame.setResizable(true);
-    //frame.setSize(board.getCols() * 25, board.getRows() * 25 + frame.getInsets().top);
+    frame.setSize(board.getCols() * 25 + frame.getInsets().left + frame.getInsets().right, board.getRows() * 25 + frame.getInsets().top + frame.getInsets().bottom);
     // lower-level java resize causes inconsistency in window size, so we need another method to load different states
     //frame.setResizable(false);
+    // Window size is inconsistent when frame resizeable is false
+    size(board.getCols() * 25, board.getRows() * 25);
     tiles = new GraphicsTile[board.getRows()][board.getCols()];
     background(255);
     fill(0);
-    god.search(New Tile(0,0));
+    //god.search(New Tile(0,0));
     stroke(255);
     for (int i = 0; i < board.getRows (); i++) {
       for (int u = 0; u < board.getCols (); u++) {
@@ -45,6 +46,30 @@ void draw() {
   if (state == 0) {
   } 
   else if (state == 1) {
+  }
+}
+
+public void setState(int n) {
+  state = n;
+}
+
+public int getState() {
+  return state;
+}
+
+public void startGame() {
+  state = 1;
+  setup();
+  f.setVisible(false);
+}
+
+public class PFrame extends Frame {
+  public PFrame() {
+    setBounds(0, 0, 500, 400);
+    is = new IntroState(self);
+    add(is);
+    is.init();
+    show();
   }
 }
 
@@ -102,84 +127,7 @@ class GraphicsTile {
   }
 }
 
-class IntroState extends State {
-
-  IntroState() {
-  }
-
-  void drawBackground() {
-    background(introBgColor);
-    textAlign(CENTER, TOP);
-    fill(0);
-    textSize(40);
-    text("Tower Defense", width / 2, 70);
-    fill(0);
-    textSize(20);
-    text("How to Play", width / 2, 170);
-
-    textSize(20);
-    text("About", width / 2, 220);
-
-    textSize(38);
-    text("Play!", width / 2, 270);
-  }
-
-  void redraw1() {
-    fill(introBgColor);
-    noStroke();
-    textSize(20);
-    rect(0, 170, width, textAscent() + textDescent());
-    fill(introHoverColor);
-    text("How to Play", width / 2, 170);
-  }
-
-  void redraw2() {
-    fill(introBgColor);
-    noStroke();
-    textSize(20);
-    rect(0, 220, width, textAscent() + textDescent());
-    fill(introHoverColor);
-    text("About", width / 2, 220);
-  }
-
-  void redraw3() {
-    fill(introBgColor);
-    noStroke();
-    textSize(38);
-    rect(0, 270, width, textAscent() + textDescent());
-    fill(introHoverColor);
-    text("Play!", width / 2, 270);
-  }
-}
-
-void setupIntroScreen() {
-  size(500, 400);
-  is.drawBackground();
-}
-
-void drawIntroScreen() {
-  int threshold = 30;
-  if (get(mouseX, mouseY) != introBgColor) {
-    if (abs(mouseY - 170) < 20) {
-      is.redraw1();
-      introHovered = true;
-    } else if (abs(mouseY - 220) < 20) {
-      is.redraw2();
-      introHovered = true;
-    } else if (abs(mouseY - 270) < 38) {
-      is.redraw3();
-      introHovered = true;
-    }
-  } else if (introHovered == true && get(mouseX, mouseY) == introBgColor) {
-    is.drawBackground();
-    introHovered = false;
-  }
-}
-
 void mouseMoved() {
-  if (state == 0) {
-    drawIntroScreen();
-  }
   if (state == 1) {
     int userX = mouseX / 25;
     int userY = mouseY / 25;
@@ -193,11 +141,3 @@ void mouseMoved() {
     }
   }
 }
-
-void mouseClicked() { // event to start state 1 (the actual game) will be changed
-  if (state == 0) {
-    state = 1;
-    setup();
-  }
-}
-

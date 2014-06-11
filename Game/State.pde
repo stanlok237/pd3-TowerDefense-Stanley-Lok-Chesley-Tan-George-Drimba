@@ -1,6 +1,0 @@
-
-class State {
-  void drawBackground(){
-  }
-}
-
