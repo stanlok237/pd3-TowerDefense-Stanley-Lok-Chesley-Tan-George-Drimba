@@ -24,6 +24,10 @@ void setup() {
     //frame.setResizable(false);
     // Window size is inconsistent when frame resizeable is false
     size(board.getCols() * 25, board.getRows() * 25);
+    if (height != board.getRows() * 25) {
+      System.err.println("Sanity check failed: Resize consistency error. Exiting...");
+      System.exit(1);
+    }
     tiles = new GraphicsTile[board.getRows()][board.getCols()];
     background(255);
     fill(0);
