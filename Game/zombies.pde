@@ -7,6 +7,10 @@
    damage = 92;
    this.level = level;
  }
+  public void Zombies (int xstart, int ystart){
+   xcor = xstart;
+   ycor = ystart;
+ }
    //public act here --------------------
    public String toString(){
      String stat = "";

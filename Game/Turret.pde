@@ -16,6 +16,10 @@ public class Turret extends Tower {
      return stat + name + " r =" + range + "s = "+ speed + "u= " + upgradePrice + "s= "+ sellPrice + "d=" + damage;
    }
  }
+ public void Turret (int xstart, int ystart){
+   xcor = xstart;
+   ycor = ystart;
+ }
 public void level(int exp) {
   experience = experience + exp;
   if (exp > expneed) {

@@ -7,6 +7,11 @@
    damage = 45;
    this.level = level;
  }
+ 
+  public void Sloths (int xstart, int ystart){
+   xcor = xstart;
+   ycor = ystart;
+ }
    //public act here -----------------------
    public String toString(){
      String stat = "";

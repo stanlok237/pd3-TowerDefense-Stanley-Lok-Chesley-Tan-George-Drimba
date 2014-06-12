@@ -3,6 +3,8 @@ public abstract class Agent{
     private Board myBoard;
     private Tile myTile, tempTile;
     private String myName;
+    private int xcor;
+    private int ycor;
     
     //Will Add Necessary Stuff Later
 
