@@ -1,6 +1,5 @@
 import ddf.minim.*;
 import java.awt.Frame;
-import java.awt.Dimension;
 Minim minim;
 AudioPlayer music;
 AudioInput song;
