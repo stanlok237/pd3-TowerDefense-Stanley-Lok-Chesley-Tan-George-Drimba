@@ -1,13 +1,13 @@
 /*
-public class Turret extends Tower {
+public class Cannon extends Tower {
   
   public Turret (int level){
    name = Turret;
-   range = 15;
-   speed = 10;
-   expneed = 10;
-   upgradePrice = 20;
-   sellPrice = 92;
+   range = ;
+   speed = ;
+   expneed = ;
+   upgradePrice = ;
+   sellPrice = ;
    this.level = level;
  }
    //public act here --------------------
@@ -16,7 +16,7 @@ public class Turret extends Tower {
      return stat + name + " r =" + range + "s = "+ speed + "u= " + upgradePrice + "s= "+ sellPrice + "d=" + damage;
    }
  }
- public void Turret (int xstart, int ystart){
+ public void Cannon (int xstart, int ystart){
    xcor = xstart;
    ycor = ystart;
  }
@@ -43,5 +43,4 @@ public void level(int exp) {
   health = maxhealth; //health regeneration
   }
 */
-  
   
