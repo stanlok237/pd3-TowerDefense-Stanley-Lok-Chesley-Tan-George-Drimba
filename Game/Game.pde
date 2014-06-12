@@ -1,8 +1,6 @@
 import ddf.minim.*;
 import java.awt.Frame;
-Minim minim;
 AudioPlayer music;
-AudioInput song;
 GraphicsTile[][] tiles;
 IntroState is;
 PFrame f;
@@ -22,7 +20,6 @@ void setup() {
     board.loadMap("../resources/maps/Example.MAP");
     frame.setResizable(true);
     frame.setSize(board.getCols() * 25 + frame.getInsets().left + frame.getInsets().right, board.getRows() * 25 + frame.getInsets().top + frame.getInsets().bottom);
-    // lower-level java resize causes inconsistency in window size, so we need another method to load different states
     // Window size is inconsistent when frame resizeable is set to false immediately, so it is delayed
     size(board.getCols() * 25, board.getRows() * 25);
     if (height != board.getRows() * 25) {
@@ -39,9 +36,7 @@ void setup() {
         tiles[i][u] = new GraphicsTile(u * 25, i * 25, 25, 25, board.get(i, u));
       }
     }
-    minim = new Minim(this);
-    music = minim.loadFile("../resources/Thor.mp3");
-    song = minim.getLineIn();
+    music = new Minim(this).loadFile("../resources/Thor.mp3");
     music.play();
     music.loop();
     
