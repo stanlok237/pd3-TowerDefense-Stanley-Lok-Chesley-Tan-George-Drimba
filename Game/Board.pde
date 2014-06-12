@@ -37,7 +37,7 @@ public class Board {
   }
 
   public void loadMap(String file) {
-    String[] d = loadStrings("../resources/maps/Example.MAP");
+    String[] d = loadStrings(file);
     numRows = Integer.parseInt(d[0].split(" ")[0]);
     numCols = Integer.parseInt(d[0].split(" ")[1]);
     board = new Tile[numRows][numCols];

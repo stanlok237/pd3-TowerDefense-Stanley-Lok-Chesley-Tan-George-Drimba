@@ -9,6 +9,9 @@ int state = 0;
 Base base = new Base();
 AStarSearch god = new AStarSearch(board.getRows(), base);
 PApplet self = this;
+//Tile tmpTile = new Tile(0,0);
+//board.set(0, 0, tmpTile);
+//Node tmp = god.search(tmpTile);
 
 void setup() {
   if (state == 0) {
@@ -29,7 +32,7 @@ void setup() {
     tiles = new GraphicsTile[board.getRows()][board.getCols()];
     background(255);
     fill(0);
-    //god.search(New Tile(0,0));
+    god.search(new Tile(0,0));
     stroke(255);
     for (int i = 0; i < board.getRows (); i++) {
       for (int u = 0; u < board.getCols (); u++) {
@@ -41,7 +44,7 @@ void setup() {
     music.loop();
     
     // Set resizable to false at a later time to allow java time to resize properly
-    frame.setResizable(false);
+    //frame.setResizable(false);
   }
 }
 
