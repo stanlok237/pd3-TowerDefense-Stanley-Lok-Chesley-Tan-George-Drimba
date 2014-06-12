@@ -1,5 +1,6 @@
 import ddf.minim.*;
 import java.awt.Frame;
+import java.awt.Dimension;
 Minim minim;
 AudioPlayer music;
 AudioInput song;
@@ -15,14 +16,15 @@ PApplet self = this;
 void setup() {
   if (state == 0) {
     f = new PFrame();
+    f.setTitle("Menu");
+    frame.setTitle("Game");
   }
   if (state == 1) {
     board.loadMap("../resources/maps/Example.MAP");
     frame.setResizable(true);
     frame.setSize(board.getCols() * 25 + frame.getInsets().left + frame.getInsets().right, board.getRows() * 25 + frame.getInsets().top + frame.getInsets().bottom);
     // lower-level java resize causes inconsistency in window size, so we need another method to load different states
-    //frame.setResizable(false);
-    // Window size is inconsistent when frame resizeable is false
+    // Window size is inconsistent when frame resizeable is set to false immediately, so it is delayed
     size(board.getCols() * 25, board.getRows() * 25);
     if (height != board.getRows() * 25) {
       System.err.println("Sanity check failed: Resize consistency error. Exiting...");
@@ -43,6 +45,9 @@ void setup() {
     song = minim.getLineIn();
     music.play();
     music.loop();
+    
+    // Set resizable to false at a later time to allow java time to resize properly
+    frame.setResizable(false);
   }
 }
 
