@@ -2,14 +2,17 @@ public class Base extends Agent {
 
   private int maxHealth, currentHealth, level, price;
 
-  public Base(int health) {
+  public Base(int health, int x, int y) {
+    super(x,y);
     maxHealth = health;
     currentHealth = health;
     level = 1;
     price = 200;
+    //myTile = new Tile(10,10);
   }
 
   public Base() {
+    super(4,4);
     maxHealth = 500;
     level = 1;
   }
@@ -50,4 +53,3 @@ public class Base extends Agent {
   public void act() {
   }
 }
-

@@ -60,11 +60,14 @@ public class AStarSearch{
      frontier.add(s);//Initial Frontier
      while(frontier.size() > 0){
          Node current = frontier.remove();
+         System.out.println(current);
+         //System.out.println("remove");
          if (current.getTile().equals(base.getTile())){
             return current;
          }
          checkedNodes.add(current.getTile());
          //Making Nearby Nodes
+         //System.out.println(current.getTile());
          
          Node up = new Node(current, board.getUpper(current.getTile()));
          Node down = new Node(current, board.getLower(current.getTile()));
@@ -74,6 +77,7 @@ public class AStarSearch{
            
          //Possible bug here considering each node could possibly contain different parent pointers
          if(up.getTile() != null && !checkedNodes.contains(up.getTile()) && up.getTile().getAgent() == null){
+           System.out.println("up");
            frontier.add(up);
          }
          if(down.getTile() != null && !checkedNodes.contains(down.getTile()) && down.getTile().getAgent() == null){

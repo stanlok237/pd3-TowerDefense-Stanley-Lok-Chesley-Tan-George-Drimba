@@ -7,17 +7,32 @@ public class Board {
     numRows = defaultSize;
     numCols = defaultSize;
     board = new Tile[numRows][numCols];
+    for(int i = 0; i < numRows; i++){
+      for(int j = 0; j < numCols; j++){
+        board[i][j] = new Tile(i,j);
+      }
+    }
   }
 
   public Board(int s) {
     numRows = numCols = s;
     board = new Tile[numRows][numCols];
+    for(int i = 0; i < numRows; i++){
+      for(int j = 0; j < numCols; j++){
+        board[i][j] = new Tile(i,j);
+      }
+    }
   }
 
   public Board(int r, int c) {
     numRows = r;
     numCols = c;
     board = new Tile[numRows][numCols];
+    for(int i = 0; i < numRows; i++){
+      for(int j = 0; j < numCols; j++){
+        board[i][j] = new Tile(i,j);
+      }
+    }
   }
 
   public Tile get(int r, int c) {
@@ -109,4 +124,3 @@ public class Board {
     return retStr;
   }
 }
-

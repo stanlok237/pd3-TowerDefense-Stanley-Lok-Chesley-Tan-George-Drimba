@@ -8,6 +8,9 @@ public abstract class Agent{
     
     //Will Add Necessary Stuff Later
 
+    public Agent(int x, int y){
+      myTile = new Tile(x,y);
+    }
 
     public void setBoard(Board b) {
         myBoard = b;
@@ -36,4 +39,3 @@ public abstract class Agent{
     public abstract String toString();
     public abstract void act();
 }
-

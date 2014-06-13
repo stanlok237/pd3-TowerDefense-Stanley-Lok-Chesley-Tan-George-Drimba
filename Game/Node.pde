@@ -34,5 +34,7 @@ public class Node {
   public void setTile(Tile t) {
     tile = t;
   }
+  public String toString(){
+    return "" + tile.getX() + " " + tile.getY();
+  }
 }
-

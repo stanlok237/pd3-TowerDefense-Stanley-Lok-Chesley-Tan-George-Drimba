@@ -10,10 +10,14 @@ Base base = new Base();
 AStarSearch god = new AStarSearch(board.getRows(), base);
 PApplet self = this;
 Tile tmpTile = new Tile(0,0);
-Node tmp = god.search(tmpTile);
+//board.set(0,0,tmpTile)
+
+//Node tmp = god.search(tmpTile);
 
 void setup() {
   board.set(0, 0, tmpTile);
+  Node tmp = god.search(tmpTile);
+  System.out.println(tmp);
   if (state == 0) {
     f = new PFrame();
     f.setTitle("Menu");
@@ -32,6 +36,12 @@ void setup() {
     tiles = new GraphicsTile[board.getRows()][board.getCols()];
     background(255);
     fill(0);
+    while(tmp.hasParent()){
+      Tile travelPath = tmp.getTile();
+      tiles[travelPath.getX()][travelPath.getY()] = new GraphicsTile(travelPath.getX() * 25, travelPath.getY() * 25, 25 , 25, travelPath);
+      tiles[travelPath.getX()][travelPath.getY()].setColor(90);
+      tmp = tmp.getParent();
+    }
     //god.search(new Tile(0,0));
     stroke(255);
     for (int i = 0; i < board.getRows (); i++) {
@@ -43,8 +53,8 @@ void setup() {
     music.play();
     music.loop();
     
-    // Set resizable to false at a later time to allow java time to resize properly
-    //frame.setResizable(false);
+    // Works with Oracle's JDK
+    frame.setResizable(false);
   }
 }
 
@@ -99,12 +109,12 @@ class GraphicsTile {
     this.height = height;
     myTile = t;
     myTileName = t.getAgentName();
-    if (myTileName.equals("p")) {
-      fill(50, 200, 0);
-    }
-    else {
+    //if (myTileName.equals("p")){
+      //fill(50, 200, 0);
+    //}
+    //else {
       fill(0, 100);
-    }
+    //}
     rect(x, y, width, height);
   }
 
@@ -123,12 +133,12 @@ class GraphicsTile {
   }
   
   void display() {
-    if (myTileName.equals("p")) {
-      fill(50, 200, 0, 100);
-    }
-    else {
+    //if (myTileName.equals("p")) {
+      //fill(50, 200, 0, 100);
+    //}
+    //else {
       fill(0, 100);
-    }
+    //}
     rect(x, y, width, height);
   }
 }

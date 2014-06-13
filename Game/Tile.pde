@@ -84,7 +84,10 @@ public class Tile {
     }
     
     public String toString() {
+      if(myAgent != null){
         return myAgent.toString();
+      }
+      return null;
     }
 
     public boolean equals(Tile t) {
