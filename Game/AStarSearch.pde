@@ -25,14 +25,16 @@ public class AStarSearch{
        Node tmpa = a;
        Node tmpb = b;
        while(tmpa.hasParent()){
+          hDistanceA++;
            tmpa = tmpa.getParent();
        }
        while(tmpb.hasParent()){
+           hDistanceB++;
            tmpb = tmpb.getParent();
        }
        
-       hDistanceA += Math.abs(a.getTile().getX() - tmpa.getTile().getX()) + Math.abs(a.getTile().getY() - tmpa.getTile().getY());
-       hDistanceB += Math.abs(b.getTile().getX() - tmpb.getTile().getX()) + Math.abs(b.getTile().getY() - tmpb.getTile().getY());
+       //hDistanceA += Math.abs(a.getTile().getX() - tmpa.getTile().getX()) + Math.abs(a.getTile().getY() - tmpa.getTile().getY());
+       //hDistanceB += Math.abs(b.getTile().getX() - tmpb.getTile().getX()) + Math.abs(b.getTile().getY() - tmpb.getTile().getY());
        
        if(hDistanceA > hDistanceB){
          return 1;
