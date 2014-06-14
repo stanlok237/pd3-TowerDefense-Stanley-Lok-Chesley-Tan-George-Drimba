@@ -1,7 +1,7 @@
 public class GuiButton {
   String myText;
   int x, y, myHeight, myWidth;
-  color myColor, myTextColor, myHoverColor, myHoverTextColor, currentColor, currentTextColor;
+  color myColor, myTextColor, myHoverColor, myHoverTextColor, myClickedColor, myClickedTextColor, currentColor, currentTextColor;
   int myTextSize;
 
   void setText(String s) {
@@ -43,6 +43,14 @@ public class GuiButton {
   color getHoverColor() {
     return myHoverColor;
   }
+  
+  void setClickedColor(color c) {
+    myClickedColor = c;
+  }
+  
+  color getClickedColor() {
+    return myClickedColor;
+  }
 
   void setTextColor(color c) {
     myTextColor = c;
@@ -58,6 +66,14 @@ public class GuiButton {
 
   color getHoverTextColor() {
     return myHoverTextColor;
+  }
+  
+  void setClickedTextColor(color c) {
+    myClickedTextColor = c;
+  }
+  
+  color getClickedTextColor() {
+    return myClickedTextColor;
   }
 
   void setHeight(int n) {
@@ -98,6 +114,20 @@ public class GuiButton {
     }
   }
 
+  void clicked() {
+    if (currentColor != myClickedColor || currentTextColor != myClickedTextColor) {
+      clear();
+      fill(myClickedColor);
+      currentColor = myClickedColor;
+      rect(x, y, myWidth, myHeight);
+      textAlign(CENTER, CENTER);
+      fill(myClickedTextColor);
+      currentTextColor = myClickedTextColor;
+      textSize(myTextSize);
+      text(myText, x + myWidth / 2, myHeight / 2);
+    }
+  }
+  
   void display() {
     if (currentColor != myColor || currentTextColor != myTextColor) {
       forceDisplay();

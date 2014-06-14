@@ -9,7 +9,10 @@ IntroState is;
 PFrame f;
 int state = 1;
 int boardHeight, boardWidth;
-boolean preload = false;
+final color defaultTileHoverColor = color(100, 100);
+color tileHoverColor = defaultTileHoverColor;
+final boolean preload = false;
+boolean newWallButtonClicked = false;
 boolean displayGlitchCorrected = false;
 //Base base = new Base();
 //AStarSearch god = new AStarSearch(board.getRows(), base, board);
@@ -29,22 +32,24 @@ void setup() {
       setupBoard();
     }
 
-    background(0);
+    background(0); // Should be different from all other colors used so that the blank display glitch can be caught
 
     newWallButton = new GuiButton();
     newWallButton.setColor(color(100, 100, 200, 100));
     newWallButton.setHoverColor(color(150, 150, 250, 100));
+    newWallButton.setClickedColor(color(255, 3, 16, 100));
     newWallButton.setX(boardWidth);
     newWallButton.setY(0);
     newWallButton.setWidth(Constants.SIDEBAR_WIDTH);
     newWallButton.setHeight(100);
     newWallButton.setTextColor(color(240));
     newWallButton.setHoverTextColor(color(240));
+    newWallButton.setClickedTextColor(color(255, 153, 0));
     newWallButton.setText("Place New Wall");
     newWallButton.setTextSize(20);
 
     drawAll();
-    
+
     //music = new Minim(this).loadFile("../resources/Thor.mp3");
     //music.play();
     //music.loop();
@@ -135,8 +140,8 @@ public class PFrame extends Frame {
 
 class GraphicsTile {
   int x, y;
-  int defaultColor = 10;
-  int myColor;
+  color defaultColor = color(10);
+  color myColor;
   Tile myTile;
 
   GraphicsTile(int x, int y) {
@@ -150,14 +155,10 @@ class GraphicsTile {
     myTile = t;
   }
 
-  void setColor(int c) { 
+  void setColor(color c) { 
     if (myColor != c) {
       myColor = c;
-      if (c == defaultColor) {
-        fill(c);
-      } else {
-        fill(c, 200);
-      }
+      fill(c);
       rect(x, y, Constants.PIXEL_TO_BOARD_INDEX_RATIO, Constants.PIXEL_TO_BOARD_INDEX_RATIO);
     }
   }
@@ -208,9 +209,9 @@ class GraphicsTile {
 
   void hover() {
     if (myTile.getAgent() != null) {
-      setColor(100);
+      setColor(tileHoverColor);
     } else {
-      setColor(100);
+      setColor(tileHoverColor);
     }
   }
 
@@ -242,21 +243,41 @@ void mouseMoved() {
         }
       }
       tiles[tileHoveredY][tileHoveredX].hover();
-      newWallButton.display();
-    } else if (userX > boardWidth) {
-      if (userY < newWallButton.getHeight()) {
-        newWallButton.hover();
-      } else {
+      if (!newWallButtonClicked) {
         newWallButton.display();
       }
+    } else if (userX > boardWidth) {
+      if (userY < newWallButton.getHeight()) {
+        if (!newWallButtonClicked) {
+          newWallButton.hover();
+        }
+      } else {
+        if (!newWallButtonClicked) {
+          newWallButton.display();
+        }
+      }
+    }
+    if (newWallButtonClicked) {
+      newWallButton.clicked();
     }
   }
 }
 
 void mouseClicked() {
-  /*
-  int userX = mouseX / Constants.PIXEL_TO_BOARD_INDEX_RATIO;
-   int userY = mouseY / Constants.PIXEL_TO_BOARD_INDEX_RATIO;
-   println(tiles[userY][userX].getColor());
-   */
+  if (mouseX > newWallButton.getX() && mouseY < newWallButton.getHeight()) {
+    newWallButtonClicked = !newWallButtonClicked;
+    if (newWallButtonClicked) {
+      tileHoverColor = color(222, 22, 0, 100);
+    } else {
+      tileHoverColor = defaultTileHoverColor;
+    }
+  } else if (mouseX < boardWidth && mouseY < boardHeight) {
+    if (newWallButtonClicked) {
+      int tileHereX = mouseX / Constants.PIXEL_TO_BOARD_INDEX_RATIO;
+      int tileHereY = mouseY / Constants.PIXEL_TO_BOARD_INDEX_RATIO;
+      tiles[tileHereY][tileHereX].getTile().addAgent(Constants.WALL); // TODO: Does not do any validation yet
+      newWallButtonClicked = false;
+      tileHoverColor = defaultTileHoverColor;
+    }
+  }
 }
