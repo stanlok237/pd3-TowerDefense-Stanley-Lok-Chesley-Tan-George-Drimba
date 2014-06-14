@@ -1,15 +1,15 @@
 public class Board {
   Tile[][] board;
   int numRows, numCols;
-  int defaultSize = 5;
+  int defaultSize = 20;
 
   public Board() {
     numRows = defaultSize;
     numCols = defaultSize;
     board = new Tile[numRows][numCols];
-    for(int i = 0; i < numRows; i++){
-      for(int j = 0; j < numCols; j++){
-        board[i][j] = new Tile(i,j);
+    for (int i = 0; i < numRows; i++) {
+      for (int j = 0; j < numCols; j++) {
+        board[i][j] = new Tile(i, j);
       }
     }
   }
@@ -17,9 +17,9 @@ public class Board {
   public Board(int s) {
     numRows = numCols = s;
     board = new Tile[numRows][numCols];
-    for(int i = 0; i < numRows; i++){
-      for(int j = 0; j < numCols; j++){
-        board[i][j] = new Tile(i,j);
+    for (int i = 0; i < numRows; i++) {
+      for (int j = 0; j < numCols; j++) {
+        board[i][j] = new Tile(i, j);
       }
     }
   }
@@ -28,9 +28,9 @@ public class Board {
     numRows = r;
     numCols = c;
     board = new Tile[numRows][numCols];
-    for(int i = 0; i < numRows; i++){
-      for(int j = 0; j < numCols; j++){
-        board[i][j] = new Tile(i,j);
+    for (int i = 0; i < numRows; i++) {
+      for (int j = 0; j < numCols; j++) {
+        board[i][j] = new Tile(i, j);
       }
     }
   }

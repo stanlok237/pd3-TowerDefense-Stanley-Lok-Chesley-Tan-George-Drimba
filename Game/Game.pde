@@ -7,17 +7,15 @@ PFrame f;
 Board board = new Board();
 int state = 0;
 Base base = new Base();
-AStarSearch god = new AStarSearch(board.getRows(), base);
+AStarSearch god = new AStarSearch(board.getRows(), base, board);
 PApplet self = this;
-Tile tmpTile = new Tile(0,0);
+//Spawning location
+Tile tmpTile = new Tile(0, 0);
 //board.set(0,0,tmpTile)
 
 //Node tmp = god.search(tmpTile);
 
 void setup() {
-  board.set(0, 0, tmpTile);
-  Node tmp = god.search(tmpTile);
-  System.out.println(tmp);
   if (state == 0) {
     f = new PFrame();
     f.setTitle("Menu");
@@ -25,6 +23,9 @@ void setup() {
   }
   if (state == 1) {
     board.loadMap("../resources/maps/Example.MAP");
+    board.set(0, 0, tmpTile);
+    Node tmp = god.search(tmpTile);
+    System.out.println(tmp);
     frame.setResizable(true);
     frame.setSize(board.getCols() * 25 + frame.getInsets().left + frame.getInsets().right, board.getRows() * 25 + frame.getInsets().top + frame.getInsets().bottom);
     // Window size is inconsistent when frame resizeable is set to false immediately, so it is delayed
@@ -36,9 +37,9 @@ void setup() {
     tiles = new GraphicsTile[board.getRows()][board.getCols()];
     background(255);
     fill(0);
-    while(tmp.hasParent()){
+    while (tmp.hasParent ()) {
       Tile travelPath = tmp.getTile();
-      tiles[travelPath.getX()][travelPath.getY()] = new GraphicsTile(travelPath.getX() * 25, travelPath.getY() * 25, 25 , 25, travelPath);
+      tiles[travelPath.getX()][travelPath.getY()] = new GraphicsTile(travelPath.getX() * 25, travelPath.getY() * 25, 25, 25, travelPath);
       tiles[travelPath.getX()][travelPath.getY()].setColor(90);
       tmp = tmp.getParent();
     }
@@ -52,7 +53,7 @@ void setup() {
     music = new Minim(this).loadFile("../resources/Thor.mp3");
     music.play();
     music.loop();
-    
+
     // Works with Oracle's JDK
     frame.setResizable(false);
   }
@@ -60,8 +61,7 @@ void setup() {
 
 void draw() {
   if (state == 0) {
-  } 
-  else if (state == 1) {
+  } else if (state == 1) {
   }
 }
 
@@ -101,7 +101,7 @@ class GraphicsTile {
     this.height = height;
     rect(x, y, width, height);
   }
-  
+
   GraphicsTile(int x, int y, int width, int height, Tile t) {
     this.x = x;
     this.y = y;
@@ -109,12 +109,11 @@ class GraphicsTile {
     this.height = height;
     myTile = t;
     myTileName = t.getAgentName();
-    //if (myTileName.equals("p")){
-      //fill(50, 200, 0);
-    //}
-    //else {
+    if (myTileName.equals("p")) {
+      fill(50, 200, 0);
+    } else {
       fill(0, 100);
-    //}
+    }
     rect(x, y, width, height);
   }
 
@@ -131,14 +130,13 @@ class GraphicsTile {
   Tile getTile() {
     return myTile;
   }
-  
+
   void display() {
-    //if (myTileName.equals("p")) {
-      //fill(50, 200, 0, 100);
-    //}
-    //else {
+    if (myTileName.equals("p")) {
+      fill(50, 200, 0, 100);
+    } else {
       fill(0, 100);
-    //}
+    }
     rect(x, y, width, height);
   }
 }

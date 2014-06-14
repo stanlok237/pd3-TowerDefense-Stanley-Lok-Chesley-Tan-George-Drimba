@@ -2,8 +2,9 @@ public class Base extends Agent {
 
   private int maxHealth, currentHealth, level, price;
 
-  public Base(int health, int x, int y) {
+  public Base(int health, int x, int y, Board b) {
     super(x,y);
+    setBoard(b);
     maxHealth = health;
     currentHealth = health;
     level = 1;
@@ -12,7 +13,7 @@ public class Base extends Agent {
   }
 
   public Base() {
-    super(4,4);
+    super(0, 10);
     maxHealth = 500;
     level = 1;
   }
