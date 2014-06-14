@@ -1,16 +1,18 @@
 import ddf.minim.*;
 import java.awt.Frame;
+PApplet self = this;
 AudioPlayer music;
+Board board = new Board();
 GraphicsTile[][] tiles;
+GuiButton newWallButton;
 IntroState is;
 PFrame f;
-Board board = new Board();
 int state = 1;
 int boardHeight, boardWidth;
-Base base = new Base();
-AStarSearch god = new AStarSearch(board.getRows(), base, board);
-PApplet self = this;
 boolean preload = false;
+boolean displayGlitchCorrected = false;
+//Base base = new Base();
+//AStarSearch god = new AStarSearch(board.getRows(), base, board);
 //Spawning location
 //Tile tmpTile = new Tile(0, 0);
 
@@ -26,6 +28,23 @@ void setup() {
     if (!preload) {
       setupBoard();
     }
+
+    background(0);
+
+    newWallButton = new GuiButton();
+    newWallButton.setColor(color(100, 100, 200, 100));
+    newWallButton.setHoverColor(color(150, 150, 250, 100));
+    newWallButton.setX(boardWidth);
+    newWallButton.setY(0);
+    newWallButton.setWidth(Constants.SIDEBAR_WIDTH);
+    newWallButton.setHeight(100);
+    newWallButton.setTextColor(color(240));
+    newWallButton.setHoverTextColor(color(240));
+    newWallButton.setText("Place New Wall");
+    newWallButton.setTextSize(20);
+
+    drawAll();
+    
     //music = new Minim(this).loadFile("../resources/Thor.mp3");
     //music.play();
     //music.loop();
@@ -59,7 +78,7 @@ void draw() {
 }
 
 void setupBoard() {
-  board.loadMap("../resources/maps/Example.MAP");
+  board.loadMap("data/resources/maps/Example.MAP");
   frame.setResizable(true);
   boardHeight = board.getRows() * Constants.PIXEL_TO_BOARD_INDEX_RATIO;
   boardWidth = board.getCols() * Constants.PIXEL_TO_BOARD_INDEX_RATIO;
@@ -71,15 +90,23 @@ void setupBoard() {
     System.exit(1);
   }
   tiles = new GraphicsTile[board.getRows()][board.getCols()];
-  background(255);
-  fill(0);
-  rect(boardWidth, 0, Constants.SIDEBAR_WIDTH, boardHeight);
   stroke(255);
   for (int i = 0; i < board.getRows (); i++) {
     for (int u = 0; u < board.getCols (); u++) {
       tiles[i][u] = new GraphicsTile(u * Constants.PIXEL_TO_BOARD_INDEX_RATIO, i * Constants.PIXEL_TO_BOARD_INDEX_RATIO, board.get(i, u));
     }
   }
+}
+
+public void drawAll() {
+  for (int i = 0; i < tiles.length; i++) {
+    for (int u = 0; u < tiles[0].length; u++) {
+      tiles[i][u].forceDisplay();
+    }
+  }
+  fill(10);
+  rect(boardWidth, 0, Constants.SIDEBAR_WIDTH, boardHeight);
+  newWallButton.forceDisplay();
 }
 
 public void setState(int n) {
@@ -108,34 +135,29 @@ public class PFrame extends Frame {
 
 class GraphicsTile {
   int x, y;
-  int defaultColor = 0;
-  int myColor = defaultColor;
+  int defaultColor = 10;
+  int myColor;
   Tile myTile;
 
   GraphicsTile(int x, int y) {
     this.x = x;
     this.y = y;
-    fill(defaultColor);
-    rect(x, y, Constants.PIXEL_TO_BOARD_INDEX_RATIO, Constants.PIXEL_TO_BOARD_INDEX_RATIO);
   }
 
   GraphicsTile(int x, int y, Tile t) {
     this.x = x;
     this.y = y;
     myTile = t;
-    fill(defaultColor);
-    rect(x, y, Constants.PIXEL_TO_BOARD_INDEX_RATIO, Constants.PIXEL_TO_BOARD_INDEX_RATIO);
-    display();
   }
 
   void setColor(int c) { 
     if (myColor != c) {
+      myColor = c;
       if (c == defaultColor) {
         fill(c);
       } else {
         fill(c, 200);
       }
-      myColor = c;
       rect(x, y, Constants.PIXEL_TO_BOARD_INDEX_RATIO, Constants.PIXEL_TO_BOARD_INDEX_RATIO);
     }
   }
@@ -145,11 +167,17 @@ class GraphicsTile {
   }
 
   void restoreColor() {
-    //if (myColor != defaultColor) { // Causes a blank screen 20% of the time
+    if (myColor != defaultColor) { 
+      fill(defaultColor);
+      myColor = defaultColor;
+      rect(x, y, Constants.PIXEL_TO_BOARD_INDEX_RATIO, Constants.PIXEL_TO_BOARD_INDEX_RATIO);
+    }
+  }
+
+  void forceRestoreColor() {
     fill(defaultColor);
     myColor = defaultColor;
     rect(x, y, Constants.PIXEL_TO_BOARD_INDEX_RATIO, Constants.PIXEL_TO_BOARD_INDEX_RATIO);
-    //}
   }
 
   void setTile(Tile t) {
@@ -162,25 +190,65 @@ class GraphicsTile {
 
   void display() {
     if (myTile.getAgent() != null) {
-      restoreColor();
+      forceRestoreColor();
       myTile.getAgent().display(); // Currently only displays one Agent per Tile
     } else {
       restoreColor();
     }
   }
+
+  void forceDisplay() {
+    if (myTile.getAgent() != null) {
+      forceRestoreColor();
+      myTile.getAgent().display(); // Currently only displays one Agent per Tile
+    } else {
+      forceRestoreColor();
+    }
+  }
+
+  void hover() {
+    if (myTile.getAgent() != null) {
+      setColor(100);
+    } else {
+      setColor(100);
+    }
+  }
+
+  void clear() {
+    fill(0);
+    rect(x, y, Constants.PIXEL_TO_BOARD_INDEX_RATIO, Constants.PIXEL_TO_BOARD_INDEX_RATIO);
+  }
 }
 
 void mouseMoved() {
+  if (!displayGlitchCorrected) {
+    if (get(0, 0) == g.backgroundColor) {
+      System.err.println("Something's wrong with display; Redrawing all..." + frameCount);
+      drawAll();
+    }
+    displayGlitchCorrected = true;
+  }
   if (state == 1) {
-    int userX = mouseX / Constants.PIXEL_TO_BOARD_INDEX_RATIO;
-    int userY = mouseY / Constants.PIXEL_TO_BOARD_INDEX_RATIO;
-    if (userY < tiles.length && userX < tiles[0].length) {
+    int userX = mouseX;
+    int userY = mouseY;
+    if (userY < boardHeight && userX < boardWidth) {
+      int tileHoveredX = userX / Constants.PIXEL_TO_BOARD_INDEX_RATIO;
+      int tileHoveredY = userY / Constants.PIXEL_TO_BOARD_INDEX_RATIO;
       for (int i = 0; i < tiles.length; i++) {
         for (int u = 0; u < tiles[0].length; u++) {
-          tiles[i][u].display();
+          if (i != tileHoveredY || u != tileHoveredX) {
+            tiles[i][u].display();
+          }
         }
       }
-      tiles[userY][userX].setColor(100);
+      tiles[tileHoveredY][tileHoveredX].hover();
+      newWallButton.display();
+    } else if (userX > boardWidth) {
+      if (userY < newWallButton.getHeight()) {
+        newWallButton.hover();
+      } else {
+        newWallButton.display();
+      }
     }
   }
 }
