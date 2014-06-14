@@ -5,66 +5,80 @@ GraphicsTile[][] tiles;
 IntroState is;
 PFrame f;
 Board board = new Board();
-int state = 0;
+int state = 1;
+int boardHeight, boardWidth;
 Base base = new Base();
 AStarSearch god = new AStarSearch(board.getRows(), base, board);
 PApplet self = this;
+boolean preload = false;
 //Spawning location
-Tile tmpTile = new Tile(0, 0);
-//board.set(0,0,tmpTile)
-
-//Node tmp = god.search(tmpTile);
+//Tile tmpTile = new Tile(0, 0);
 
 void setup() {
   if (state == 0) {
     f = new PFrame();
     f.setTitle("Menu");
-    frame.setTitle("Game");
+    if (preload) {
+      setupBoard();
+    }
   }
   if (state == 1) {
-    board.loadMap("../resources/maps/Example.MAP");
-    board.set(0, 0, tmpTile);
-    Node tmp = god.search(tmpTile);
-    System.out.println(tmp);
-    frame.setResizable(true);
-    frame.setSize(board.getCols() * Constants.PIXEL_TO_BOARD_INDEX_RATIO + frame.getInsets().left + frame.getInsets().right, board.getRows() * Constants.PIXEL_TO_BOARD_INDEX_RATIO + frame.getInsets().top + frame.getInsets().bottom);
-    // Window size is inconsistent when frame resizeable is set to false immediately, so it is delayed
-    size(board.getCols() * Constants.PIXEL_TO_BOARD_INDEX_RATIO, board.getRows() * Constants.PIXEL_TO_BOARD_INDEX_RATIO);
-    if (height != board.getRows() * Constants.PIXEL_TO_BOARD_INDEX_RATIO) {
-      System.err.println("Sanity check failed: Resize consistency error. Exiting...");
-      System.exit(1);
-    }
-    tiles = new GraphicsTile[board.getRows()][board.getCols()];
-    background(255);
-    fill(0);
-    while (tmp.hasParent ()) {
-      Tile travelPath = tmp.getTile();
-      tiles[travelPath.getX()][travelPath.getY()] = new GraphicsTile(travelPath.getX() * Constants.PIXEL_TO_BOARD_INDEX_RATIO, travelPath.getY() * Constants.PIXEL_TO_BOARD_INDEX_RATIO, travelPath);
-      tiles[travelPath.getX()][travelPath.getY()].setColor(90);
-      tmp = tmp.getParent();
-    }
-    //god.search(new Tile(0,0));
-    stroke(255);
-    for (int i = 0; i < board.getRows(); i++) {
-      for (int u = 0; u < board.getCols(); u++) {
-        tiles[i][u] = new GraphicsTile(u * Constants.PIXEL_TO_BOARD_INDEX_RATIO, i * Constants.PIXEL_TO_BOARD_INDEX_RATIO, board.get(i, u));
-      }
+    if (!preload) {
+      setupBoard();
     }
     //music = new Minim(this).loadFile("../resources/Thor.mp3");
     //music.play();
     //music.loop();
-    
+
+    //board.set(0, 0, tmpTile);
+    //Node tmp = god.search(tmpTile);
+    //System.out.println(tmp);
+    /*
+    while (tmp.hasParent ()) {
+     Tile travelPath = tmp.getTile();
+     tiles[travelPath.getX()][travelPath.getY()] = new GraphicsTile(travelPath.getX() * Constants.PIXEL_TO_BOARD_INDEX_RATIO, travelPath.getY() * Constants.PIXEL_TO_BOARD_INDEX_RATIO, travelPath);
+     tiles[travelPath.getX()][travelPath.getY()].setColor(90);
+     tmp = tmp.getParent();
+     }
+     */
+    //god.search(new Tile(0,0));
+
     // Works with Oracle's JDK
-    //frame.setResizable(false);  
+    //frame.setResizable(false);
   }
 }
 
 void draw() {
   if (state == 0) {
-    frame.setState(Frame.ICONIFIED);
+    if (frame.getState() != Frame.ICONIFIED)
+      frame.setState(Frame.ICONIFIED);
+  } else if (state == 1) {
+    if (frame.getState() != Frame.NORMAL)
+      frame.setState(Frame.NORMAL);
   }
-  else if (state == 1) {
-    frame.setState(Frame.NORMAL);
+}
+
+void setupBoard() {
+  board.loadMap("../resources/maps/Example.MAP");
+  frame.setResizable(true);
+  boardHeight = board.getRows() * Constants.PIXEL_TO_BOARD_INDEX_RATIO;
+  boardWidth = board.getCols() * Constants.PIXEL_TO_BOARD_INDEX_RATIO;
+  frame.setSize(boardWidth + frame.getInsets().left + frame.getInsets().right + Constants.SIDEBAR_WIDTH, boardHeight + frame.getInsets().top + frame.getInsets().bottom);
+  // Window size is inconsistent when frame resizeable is set to false immediately, so it is delayed
+  size(boardWidth + Constants.SIDEBAR_WIDTH, boardHeight);
+  if (height != boardHeight) {
+    System.err.println("Sanity check failed: Resize consistency error. Exiting...");
+    System.exit(1);
+  }
+  tiles = new GraphicsTile[board.getRows()][board.getCols()];
+  background(255);
+  fill(0);
+  rect(boardWidth, 0, Constants.SIDEBAR_WIDTH, boardHeight);
+  stroke(255);
+  for (int i = 0; i < board.getRows (); i++) {
+    for (int u = 0; u < board.getCols (); u++) {
+      tiles[i][u] = new GraphicsTile(u * Constants.PIXEL_TO_BOARD_INDEX_RATIO, i * Constants.PIXEL_TO_BOARD_INDEX_RATIO, board.get(i, u));
+    }
   }
 }
 
@@ -79,7 +93,7 @@ public int getState() {
 public void startGame() {
   state = 1;
   setup();
-  f.setVisible(false);
+  f.dispose();
 }
 
 public class PFrame extends Frame {
@@ -104,7 +118,7 @@ class GraphicsTile {
     fill(defaultColor);
     rect(x, y, Constants.PIXEL_TO_BOARD_INDEX_RATIO, Constants.PIXEL_TO_BOARD_INDEX_RATIO);
   }
-  
+
   GraphicsTile(int x, int y, Tile t) {
     this.x = x;
     this.y = y;
@@ -118,27 +132,26 @@ class GraphicsTile {
     if (myColor != c) {
       if (c == defaultColor) {
         fill(c);
-      }
-      else {
+      } else {
         fill(c, 200);
       }
       myColor = c;
       rect(x, y, Constants.PIXEL_TO_BOARD_INDEX_RATIO, Constants.PIXEL_TO_BOARD_INDEX_RATIO);
     }
   }
-  
+
   int getColor() {
     return myColor;
   }
 
   void restoreColor() {
     //if (myColor != defaultColor) { // Causes a blank screen 20% of the time
-      fill(defaultColor);
-      myColor = defaultColor;
-      rect(x, y, Constants.PIXEL_TO_BOARD_INDEX_RATIO, Constants.PIXEL_TO_BOARD_INDEX_RATIO);
+    fill(defaultColor);
+    myColor = defaultColor;
+    rect(x, y, Constants.PIXEL_TO_BOARD_INDEX_RATIO, Constants.PIXEL_TO_BOARD_INDEX_RATIO);
     //}
   }
-  
+
   void setTile(Tile t) {
     myTile = t;
   }
@@ -148,11 +161,10 @@ class GraphicsTile {
   }
 
   void display() {
-    if (myTile.getAgent() != null){
+    if (myTile.getAgent() != null) {
       restoreColor();
       myTile.getAgent().display(); // Currently only displays one Agent per Tile
-    }
-    else {
+    } else {
       restoreColor();
     }
   }
@@ -174,7 +186,9 @@ void mouseMoved() {
 }
 
 void mouseClicked() {
+  /*
   int userX = mouseX / Constants.PIXEL_TO_BOARD_INDEX_RATIO;
-  int userY = mouseY / Constants.PIXEL_TO_BOARD_INDEX_RATIO;
-  println(tiles[userY][userX].getColor());
+   int userY = mouseY / Constants.PIXEL_TO_BOARD_INDEX_RATIO;
+   println(tiles[userY][userX].getColor());
+   */
 }
