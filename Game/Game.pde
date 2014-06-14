@@ -60,6 +60,12 @@ void setup() {
 }
 
 void draw() {
+  if (state == 0) {
+    frame.setState(Frame.ICONIFIED);
+  }
+  else if (state == 1) {
+    frame.setState(Frame.NORMAL);
+  }
 }
 
 public void setState(int n) {
