@@ -37,25 +37,33 @@ void setup() {
     tiles = new GraphicsTile[board.getRows()][board.getCols()];
     background(255);
     fill(0);
+    /*
     while (tmp.hasParent ()) {
-      Tile travelPath = tmp.getTile();
-      tiles[travelPath.getX()][travelPath.getY()] = new GraphicsTile(travelPath.getX() * Constants.PIXEL_TO_BOARD_INDEX_RATIO, travelPath.getY() * Constants.PIXEL_TO_BOARD_INDEX_RATIO, travelPath);
-      tiles[travelPath.getX()][travelPath.getY()].setColor(90);
-      tmp = tmp.getParent();
-    }
+       Tile travelPath = tmp.getTile();
+       tiles[travelPath.getX()][travelPath.getY()] = new GraphicsTile(travelPath.getX() * Constants.PIXEL_TO_BOARD_INDEX_RATIO, travelPath.getY() * Constants.PIXEL_TO_BOARD_INDEX_RATIO, travelPath);
+       tiles[travelPath.getX()][travelPath.getY()].setColor(90);
+       tmp = tmp.getParent();
+     }
+     */
     //god.search(new Tile(0,0));
     stroke(255);
-    for (int i = 0; i < board.getRows(); i++) {
-      for (int u = 0; u < board.getCols(); u++) {
+    for (int i = 0; i < board.getRows (); i++) {
+      for (int u = 0; u < board.getCols (); u++) {
         tiles[i][u] = new GraphicsTile(u * Constants.PIXEL_TO_BOARD_INDEX_RATIO, i * Constants.PIXEL_TO_BOARD_INDEX_RATIO, board.get(i, u));
       }
     }
     //music = new Minim(this).loadFile("../resources/Thor.mp3");
     //music.play();
     //music.loop();
-    
+
     // Works with Oracle's JDK
-    //frame.setResizable(false);  
+    //frame.setResizable(false);
+    try {
+      size(width, height, P2D);
+    } 
+    catch (RendererChangeException e) {
+      println(e.getMessage());
+    }
   }
 }
 
@@ -98,7 +106,7 @@ class GraphicsTile {
     fill(defaultColor);
     rect(x, y, Constants.PIXEL_TO_BOARD_INDEX_RATIO, Constants.PIXEL_TO_BOARD_INDEX_RATIO);
   }
-  
+
   GraphicsTile(int x, int y, Tile t) {
     this.x = x;
     this.y = y;
@@ -112,27 +120,26 @@ class GraphicsTile {
     if (myColor != c) {
       if (c == defaultColor) {
         fill(c);
-      }
-      else {
+      } else {
         fill(c, 200);
       }
       myColor = c;
       rect(x, y, Constants.PIXEL_TO_BOARD_INDEX_RATIO, Constants.PIXEL_TO_BOARD_INDEX_RATIO);
     }
   }
-  
+
   int getColor() {
     return myColor;
   }
 
   void restoreColor() {
     //if (myColor != defaultColor) { // Causes a blank screen 20% of the time
-      fill(defaultColor);
-      myColor = defaultColor;
-      rect(x, y, Constants.PIXEL_TO_BOARD_INDEX_RATIO, Constants.PIXEL_TO_BOARD_INDEX_RATIO);
+    fill(defaultColor);
+    myColor = defaultColor;
+    rect(x, y, Constants.PIXEL_TO_BOARD_INDEX_RATIO, Constants.PIXEL_TO_BOARD_INDEX_RATIO);
     //}
   }
-  
+
   void setTile(Tile t) {
     myTile = t;
   }
@@ -142,11 +149,11 @@ class GraphicsTile {
   }
 
   void display() {
-    if (myTile.getAgent() != null){
+    stroke(255); // Stroke becomes black when renderer changes
+    if (myTile.getAgent() != null) {
       restoreColor();
       myTile.getAgent().display(); // Currently only displays one Agent per Tile
-    }
-    else {
+    } else {
       restoreColor();
     }
   }
