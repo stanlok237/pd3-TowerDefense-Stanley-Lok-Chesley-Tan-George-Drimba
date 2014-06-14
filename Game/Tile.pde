@@ -30,7 +30,7 @@ public class Tile {
           myAgentName = myAgent.getName();
         }
         else if (s.equals(Constants.BASE)) {
-          myAgent = new Base(500, xCoor, yCoor);
+          myAgent = new Base(500);
           myAgent.setBoard(board);
           myAgent.setTile(this);
           myAgentName = myAgent.getName();

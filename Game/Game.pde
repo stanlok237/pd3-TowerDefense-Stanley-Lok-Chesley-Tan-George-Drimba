@@ -3,6 +3,7 @@ import java.awt.Frame;
 PApplet self = this;
 AudioPlayer music;
 Board board = new Board();
+Base base;
 GraphicsTile[][] tiles;
 GuiButton newWallButton;
 IntroState is;
@@ -84,6 +85,7 @@ void draw() {
 
 void setupBoard() {
   board.loadMap("data/resources/maps/Example.MAP");
+  base = board.getBase();
   frame.setResizable(true);
   boardHeight = board.getRows() * Constants.PIXEL_TO_BOARD_INDEX_RATIO;
   boardWidth = board.getCols() * Constants.PIXEL_TO_BOARD_INDEX_RATIO;

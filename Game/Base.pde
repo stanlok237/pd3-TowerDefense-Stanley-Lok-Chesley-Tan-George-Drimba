@@ -2,20 +2,19 @@ public class Base extends Agent {
 
   private int maxHealth, currentHealth, level, price;
 
-  public Base(int health, int x, int y) {
-    super(x,y);
+  public Base(int health) {
     myName = Constants.BASE;
     maxHealth = health;
     currentHealth = health;
     level = 1;
     price = 200;
-    //myTile = new Tile(10,10);
   }
 
   public Base() {
     super(0, 10);
     myName = Constants.BASE;
     maxHealth = 500;
+    currentHealth = maxHealth;
     level = 1;
   }
 
@@ -55,8 +54,16 @@ public class Base extends Agent {
   public void act() {
   }
   
+  public void generateHealthBar() {
+    float perc = 1.0 * currentHealth / maxHealth;
+    int length = round(perc * Constants.PIXEL_TO_BOARD_INDEX_RATIO);
+    fill(50, 200, 0, 100);
+    rect(xcor, ycor, length, round(Constants.PIXEL_TO_BOARD_INDEX_RATIO * Constants.HEALTH_BAR_HEIGHT_PERCENTAGE));
+  }
+  
   public void display() {
     fill(0, 0, 200, 100);
     rect(xcor, ycor, Constants.PIXEL_TO_BOARD_INDEX_RATIO, Constants.PIXEL_TO_BOARD_INDEX_RATIO);
+    generateHealthBar();
   }
 }

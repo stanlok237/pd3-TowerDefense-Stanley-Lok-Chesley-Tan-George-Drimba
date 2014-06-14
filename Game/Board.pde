@@ -2,6 +2,7 @@ public class Board {
   Tile[][] board;
   int numRows, numCols;
   int defaultSize = 20;
+  Base base;
 
   public Board() {
     numRows = defaultSize;
@@ -42,6 +43,10 @@ public class Board {
   public void set(int r, int c, Tile t) {
     board[r][c] = t;
   }
+  
+  public Base getBase() {
+    return base;
+  }
 
   public int getRows() {
     return numRows;
@@ -62,6 +67,9 @@ public class Board {
       for (int u = 0; u < objects.length; u++) {
         board[row][u] = new Tile(u, row);
         board[row][u].addAgent(objects[u]);
+        if (objects[u].equals(Constants.BASE)) {
+          base = (Base)(board[row][u].getAgent());
+        }
       }
       row++;
     }
