@@ -6,6 +6,7 @@ Board board = new Board();
 Base base;
 GraphicsTile[][] tiles;
 GuiButton newWallButton;
+InfoDisplay infoDisplay;
 IntroState is;
 PFrame f;
 int state = 1;
@@ -42,12 +43,14 @@ void setup() {
     newWallButton.setX(boardWidth);
     newWallButton.setY(0);
     newWallButton.setWidth(Constants.SIDEBAR_WIDTH);
-    newWallButton.setHeight(100);
+    newWallButton.setHeight(Constants.NEW_WALL_BUTTON_HEIGHT);
     newWallButton.setTextColor(color(240));
     newWallButton.setHoverTextColor(color(240));
     newWallButton.setClickedTextColor(color(255, 153, 0));
     newWallButton.setText("Place New Wall");
     newWallButton.setTextSize(20);
+
+    infoDisplay = new InfoDisplay(this);
 
     drawAll();
 
@@ -97,7 +100,6 @@ void setupBoard() {
     System.exit(1);
   }
   tiles = new GraphicsTile[board.getRows()][board.getCols()];
-  stroke(255);
   for (int i = 0; i < board.getRows (); i++) {
     for (int u = 0; u < board.getCols (); u++) {
       tiles[i][u] = new GraphicsTile(u * Constants.PIXEL_TO_BOARD_INDEX_RATIO, i * Constants.PIXEL_TO_BOARD_INDEX_RATIO, board.get(i, u));
@@ -106,12 +108,13 @@ void setupBoard() {
 }
 
 public void drawAll() {
+  stroke(Constants.GAME_STROKE_COLOR);
   for (int i = 0; i < tiles.length; i++) {
     for (int u = 0; u < tiles[0].length; u++) {
       tiles[i][u].forceDisplay();
     }
   }
-  fill(10);
+  fill(Constants.GAME_BACKGROUND_COLOR);
   rect(boardWidth, 0, Constants.SIDEBAR_WIDTH, boardHeight);
   newWallButton.forceDisplay();
 }
@@ -249,7 +252,7 @@ void mouseMoved() {
         newWallButton.display();
       }
     } else if (userX > boardWidth) {
-      if (userY < newWallButton.getHeight()) {
+      if (userY < Constants.NEW_WALL_BUTTON_HEIGHT) {
         if (!newWallButtonClicked) {
           newWallButton.hover();
         }
@@ -266,7 +269,7 @@ void mouseMoved() {
 }
 
 void mouseClicked() {
-  if (mouseX > newWallButton.getX() && mouseY < newWallButton.getHeight()) {
+  if (mouseX > newWallButton.getX() && mouseY < Constants.NEW_WALL_BUTTON_HEIGHT) {
     newWallButtonClicked = !newWallButtonClicked;
     if (newWallButtonClicked) {
       tileHoverColor = color(222, 22, 0, 100);
@@ -280,6 +283,12 @@ void mouseClicked() {
       tiles[tileHereY][tileHereX].getTile().addAgent(Constants.WALL); // TODO: Does not do any validation yet
       newWallButtonClicked = false;
       tileHoverColor = defaultTileHoverColor;
+    }
+    else {
+      int tileHereX = mouseX / Constants.PIXEL_TO_BOARD_INDEX_RATIO;
+      int tileHereY = mouseY / Constants.PIXEL_TO_BOARD_INDEX_RATIO;
+      Agent a = tiles[tileHereY][tileHereX].getTile().getAgent();
+      infoDisplay.showInfo(a);
     }
   }
 }

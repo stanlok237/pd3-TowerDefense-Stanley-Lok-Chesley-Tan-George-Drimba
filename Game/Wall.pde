@@ -2,10 +2,12 @@ public class Wall extends Agent {
   private Agent myAgent;
   
   public Wall() {
+    myName = Constants.WALL;
   }
   
   public Wall(Agent a) {
     myAgent = a;
+    myName = Constants.WALL;
   }
   
   public Agent getAgent() {
