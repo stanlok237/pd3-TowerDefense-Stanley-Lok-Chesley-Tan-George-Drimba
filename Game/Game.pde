@@ -256,6 +256,11 @@ void mouseMoved() {
         if (!newWallButtonClicked) {
           newWallButton.hover();
         }
+      } else if (userY < Constants.NEW_WALL_BUTTON_HEIGHT + Constants.INFO_DISPLAY_HEIGHT) {
+        infoDisplay.hoverAction(userX, userY);
+        if (!newWallButtonClicked) {
+          newWallButton.display();
+        }
       } else {
         if (!newWallButtonClicked) {
           newWallButton.display();
@@ -269,26 +274,32 @@ void mouseMoved() {
 }
 
 void mouseClicked() {
-  if (mouseX > newWallButton.getX() && mouseY < Constants.NEW_WALL_BUTTON_HEIGHT) {
-    newWallButtonClicked = !newWallButtonClicked;
-    if (newWallButtonClicked) {
-      tileHoverColor = color(222, 22, 0, 100);
-    } else {
-      tileHoverColor = defaultTileHoverColor;
-    }
-  } else if (mouseX < boardWidth && mouseY < boardHeight) {
+  if (mouseX < boardWidth && mouseY < boardHeight) {
     if (newWallButtonClicked) {
       int tileHereX = mouseX / Constants.PIXEL_TO_BOARD_INDEX_RATIO;
       int tileHereY = mouseY / Constants.PIXEL_TO_BOARD_INDEX_RATIO;
       tiles[tileHereY][tileHereX].getTile().addAgent(Constants.WALL); // TODO: Does not do any validation yet
       newWallButtonClicked = false;
+      newWallButton.display();
       tileHoverColor = defaultTileHoverColor;
-    }
-    else {
+    } else {
       int tileHereX = mouseX / Constants.PIXEL_TO_BOARD_INDEX_RATIO;
       int tileHereY = mouseY / Constants.PIXEL_TO_BOARD_INDEX_RATIO;
       Agent a = tiles[tileHereY][tileHereX].getTile().getAgent();
       infoDisplay.showInfo(a);
     }
+  }
+  else if (mouseY < Constants.NEW_WALL_BUTTON_HEIGHT) {
+    newWallButtonClicked = !newWallButtonClicked;
+    if (newWallButtonClicked) {
+      tileHoverColor = color(222, 22, 0, 100);
+      newWallButton.clicked();
+    } else {
+      tileHoverColor = defaultTileHoverColor;
+      newWallButton.display();
+    }
+  }
+  else if (mouseY < Constants.NEW_WALL_BUTTON_HEIGHT + Constants.INFO_DISPLAY_HEIGHT) {
+    infoDisplay.clickAction(mouseX, mouseY);
   }
 }
