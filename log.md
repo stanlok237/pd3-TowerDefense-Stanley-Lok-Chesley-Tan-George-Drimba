@@ -25,4 +25,5 @@
 <tr><td>6/9</td><td>Work on loading map from file and dynamically displaying the window size</td></tr>
 <tr><td>6/10</td><td>Work on loading multiple sketch windows; Complete basic Agent loading from map file and primitive representations of Agents on the graphical board for search testing</td></tr>
 <tr><td>6/11</td><td>Finish implementation of multiple sketch windows and basic user-controlled game initialization</td></tr>
+<tr><td>6/13</td><td>Add Wall and Constants; Add movement framework to Agents; Modify Agent initialization from file; Make graphics more efficient</td></tr>
 </table>

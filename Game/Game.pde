@@ -126,11 +126,11 @@ class GraphicsTile {
   }
 
   void restoreColor() {
-    if (myColor != defaultColor) {
+    //if (myColor != defaultColor) { // Causes a blank screen 20% of the time
       fill(defaultColor);
       myColor = defaultColor;
       rect(x, y, Constants.PIXEL_TO_BOARD_INDEX_RATIO, Constants.PIXEL_TO_BOARD_INDEX_RATIO);
-    }
+    //}
   }
   
   void setTile(Tile t) {
