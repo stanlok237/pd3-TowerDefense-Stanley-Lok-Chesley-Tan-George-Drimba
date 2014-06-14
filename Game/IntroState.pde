@@ -2,6 +2,7 @@ public class IntroState extends PApplet {
   color introBgColor = #EEEEEE;
   color introHoverColor = #FF8300;
   boolean introHovered = false;
+  boolean isLoaded = false;
   PApplet parent;
   Game parentGame;
 
@@ -13,6 +14,7 @@ public class IntroState extends PApplet {
   public void setup() {
     size(500, 400);
     drawBackground();
+    isLoaded = true;
   }
 
   public void drawBackground() {
@@ -33,6 +35,9 @@ public class IntroState extends PApplet {
   }
 
   public void draw() {
+    if (!isLoaded) {
+      return;
+    }
     if (get(mouseX, mouseY) != introBgColor) {
       if (abs(mouseY - 170) < 20) {
         redraw1();
@@ -90,4 +95,3 @@ public class IntroState extends PApplet {
     }
   }
 }
-

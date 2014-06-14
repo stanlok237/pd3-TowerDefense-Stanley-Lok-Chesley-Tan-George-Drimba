@@ -9,11 +9,11 @@ GuiButton newWallButton;
 InfoDisplay infoDisplay;
 IntroState is;
 PFrame f;
-int state = 1;
+int state = 0;
 int boardHeight, boardWidth;
 final color defaultTileHoverColor = color(100, 100);
 color tileHoverColor = defaultTileHoverColor;
-final boolean preload = false;
+final boolean preload = true;
 boolean newWallButtonClicked = false;
 boolean displayGlitchCorrected = false;
 //Base base = new Base();
@@ -46,7 +46,7 @@ void setup() {
     newWallButton.setHeight(Constants.NEW_WALL_BUTTON_HEIGHT);
     newWallButton.setTextColor(color(240));
     newWallButton.setHoverTextColor(color(240));
-    newWallButton.setClickedTextColor(color(255, 153, 0));
+    newWallButton.setClickedTextColor(color(180, 180, 180));
     newWallButton.setText("Place New Wall");
     newWallButton.setTextSize(20);
 
@@ -145,7 +145,7 @@ public class PFrame extends Frame {
 
 class GraphicsTile {
   int x, y;
-  color defaultColor = color(10);
+  color defaultColor = Constants.GAME_BACKGROUND_COLOR;
   color myColor;
   Tile myTile;
 

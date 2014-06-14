@@ -1,5 +1,6 @@
 public class InfoDisplay {
   Game parent;
+  color INFO_TEXT_COLOR = color(50, 200, 0, 250);
   public InfoDisplay(Game p) {
     parent = p;
   }
@@ -11,13 +12,15 @@ public class InfoDisplay {
       String name = a.getClass().getName();
       name = name.substring(name.indexOf("$") + 1);
       clear();
-      fill(Constants.INFO_TEXT_COLOR);
+      fill(INFO_TEXT_COLOR);
       textSize(Constants.INFO_TEXT_SIZE);
       textAlign(CENTER, CENTER);
       text(name, parent.boardWidth + Constants.SIDEBAR_WIDTH / 2, Constants.NEW_WALL_BUTTON_HEIGHT + Constants.INFO_DISPLAY_HEIGHT / 6);
       name = a.getName();
       if (name.equals(Constants.BASE)) {
-        text("Current Health: " + ((Base)a).getHealth(), parent.boardWidth + Constants.SIDEBAR_WIDTH / 2, Constants.NEW_WALL_BUTTON_HEIGHT + 2 * Constants.INFO_DISPLAY_HEIGHT / 6);
+        Base b = (Base)a;
+        text("Health: " + b.getHealth(), parent.boardWidth + Constants.SIDEBAR_WIDTH / 2, Constants.NEW_WALL_BUTTON_HEIGHT + 2 * Constants.INFO_DISPLAY_HEIGHT / 6);
+        text("Level: " + b.getLevel(), parent.boardWidth + Constants.SIDEBAR_WIDTH / 2, Constants.NEW_WALL_BUTTON_HEIGHT + 3 * Constants.INFO_DISPLAY_HEIGHT / 6);
       }
       else if (name.equals(Constants.WALL)) {
         Agent wallAgent = ((Wall)a).getAgent();

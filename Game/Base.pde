@@ -1,13 +1,12 @@
 public class Base extends Agent {
 
-  private int maxHealth, currentHealth, level, price;
+  private int maxHealth, currentHealth, level;
 
   public Base(int health) {
     myName = Constants.BASE;
     maxHealth = health;
     currentHealth = health;
     level = 1;
-    price = 200;
   }
 
   public Base() {
@@ -20,6 +19,14 @@ public class Base extends Agent {
 
   public int getHealth() {
     return currentHealth;
+  }
+  
+  public int getMaximumHealth() {
+    return maxHealth;
+  }
+  
+  public int getLevel() {
+    return level;
   }
 
   public int takeDamage(int change) {
