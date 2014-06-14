@@ -60,9 +60,8 @@ public class Board {
     for (int i = 1; i < d.length; i++) {
       String[] objects = d[i].split(" ");
       for (int u = 0; u < objects.length; u++) {
-        board[row][u] = new Tile();
+        board[row][u] = new Tile(u, row);
         board[row][u].addAgent(objects[u]);
-        // Add recognition for each different type of Agent here
       }
       row++;
     }

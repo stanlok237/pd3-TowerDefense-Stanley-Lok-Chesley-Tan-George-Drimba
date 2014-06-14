@@ -1,5 +1,7 @@
+import java.util.ArrayList;
 public class Tile {
     private Agent myAgent;
+    private ArrayList<Agent> agents = new ArrayList<Agent>();
     private Board myBoard;
     private String myAgentName;
     private int xCoor, yCoor;
@@ -17,29 +19,22 @@ public class Tile {
         myBoard = null;
     }
 
-    public Tile(Agent a) {
-        myAgent = a;
-        myAgentName = a.getName();
-        myBoard = null;
-    }
-
-    public Tile(Agent a, int x, int y) {
-        myAgent = a;
-        myAgentName = a.getName();
-        myBoard = null;
-        xCoor = x;
-        yCoor = y;
-    }
-
-    public void addAgent(Agent a) {
-        myAgent = a;
-        myAgentName = a.getName();
-    }
-
     public void addAgent(String s) {
         myAgent = null;
         myBoard = null;
-        myAgentName = s;
+        // Add recognition for different types here
+        if (s.equals(Constants.WALL)) {
+          myAgent = new Wall();
+          myAgent.setBoard(board);
+          myAgent.setTile(this);
+          myAgentName = myAgent.getName();
+        }
+        else if (s.equals(Constants.BASE)) {
+          myAgent = new Base(500, xCoor, yCoor);
+          myAgent.setBoard(board);
+          myAgent.setTile(this);
+          myAgentName = myAgent.getName();
+        }
     }
 
     public Agent getAgent() {
@@ -51,6 +46,22 @@ public class Tile {
         myAgent = null;
         myAgentName = "";
         return tmp;
+    }
+    
+    public ArrayList<Agent> getAgentsOn() {
+      return agents;
+    }
+    
+    public void addAgentOn(Agent a) {
+      agents.add(a);
+    }
+    
+    public void removeAgentOn(Agent agent) {
+      for (int i = 0;i < agents.size();i++) {
+        if (agents.get(i) == agent) {
+          agents.remove(i);
+        }
+      }
     }
 
     public void setBoard(Board b) {

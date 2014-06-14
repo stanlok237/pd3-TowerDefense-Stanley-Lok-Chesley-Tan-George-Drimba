@@ -2,9 +2,9 @@ public class Base extends Agent {
 
   private int maxHealth, currentHealth, level, price;
 
-  public Base(int health, int x, int y, Board b) {
+  public Base(int health, int x, int y) {
     super(x,y);
-    setBoard(b);
+    myName = Constants.BASE;
     maxHealth = health;
     currentHealth = health;
     level = 1;
@@ -14,6 +14,7 @@ public class Base extends Agent {
 
   public Base() {
     super(0, 10);
+    myName = Constants.BASE;
     maxHealth = 500;
     level = 1;
   }
@@ -52,5 +53,10 @@ public class Base extends Agent {
   }
 
   public void act() {
+  }
+  
+  public void display() {
+    fill(0, 0, 200, 100);
+    rect(xcor, ycor, Constants.PIXEL_TO_BOARD_INDEX_RATIO, Constants.PIXEL_TO_BOARD_INDEX_RATIO);
   }
 }
