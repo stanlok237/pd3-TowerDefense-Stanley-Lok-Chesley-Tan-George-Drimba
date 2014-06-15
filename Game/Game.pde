@@ -82,6 +82,7 @@ void setup() {
       //Add the tiles in the pat into an ArrayList
       Tile travelPath = path.getTile();
       tiles[travelPath.getY()][travelPath.getX()].setDefaultColor(Constants.GAME_PATH_COLOR);
+      tiles[travelPath.getY()][travelPath.getX()].forceDisplay();
       //path = path.getParent();
 
       pathTiles.add(path.getTile());
@@ -212,18 +213,12 @@ class GraphicsTile {
     }
   }
 
+  color getDefaultColor() {
+    return defaultColor;
+  }
+
   void setDefaultColor(color c) {
-    if (myColor != c) {
-      if (!Constants.GAME_NO_STROKE) {
-        stroke(Constants.GAME_STROKE_COLOR);
-      } else {
-        noStroke();
-      }
       defaultColor = c;
-      myColor = c;
-      fill(c);
-      rect(x, y, Constants.PIXEL_TO_BOARD_INDEX_RATIO, Constants.PIXEL_TO_BOARD_INDEX_RATIO);
-    }
   }
 
   int getColor() {
@@ -290,7 +285,10 @@ class GraphicsTile {
 void placeWall(int x, int y) {
   for (int i = 0; i < tiles.length; i++) {
     for (int u = 0; u < tiles[0].length; u++) {
-      tiles[i][u].setDefaultColor(Constants.GAME_BACKGROUND_COLOR);
+      if (tiles[i][u].defaultColor != Constants.GAME_BACKGROUND_COLOR) {
+        tiles[i][u].setDefaultColor(Constants.GAME_BACKGROUND_COLOR);
+        tiles[i][u].forceDisplay();
+      }
     }
   }
   if (tiles[y][x].getTile().getAgent() == null) {
@@ -307,6 +305,7 @@ void placeWall(int x, int y) {
         //Add the tiles in the pat into an ArrayList
         Tile travelPath = path.getTile();
         tiles[travelPath.getY()][travelPath.getX()].setDefaultColor(Constants.GAME_PATH_COLOR);
+        tiles[travelPath.getY()][travelPath.getX()].forceDisplay();
         //path = path.getParent();
 
         pathTiles.add(path.getTile());
