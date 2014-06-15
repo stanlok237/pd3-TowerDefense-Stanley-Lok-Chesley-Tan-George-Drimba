@@ -35,7 +35,7 @@ void setup() {
     if (!preload) {
       setupBoard();
     }
-    
+
     background(0); // Should be different from all other colors used so that the blank display glitch can be caught
     strokeWeight(1);
 
@@ -47,12 +47,15 @@ void setup() {
     newWallButton.setY(0);
     newWallButton.setWidth(Constants.SIDEBAR_WIDTH);
     newWallButton.setHeight(Constants.NEW_WALL_BUTTON_HEIGHT);
-    newWallButton.setBorders(0,0,0,0);
+    newWallButton.setBorders(0, 0, 0, 0);
     newWallButton.setTextColor(color(200));
     newWallButton.setHoverTextColor(color(240));
     newWallButton.setClickedTextColor(color(255, 3, 32, 150));
     newWallButton.setText("Place New Wall");
     newWallButton.setTextSize(20);
+    if (Constants.GAME_NO_STROKE) {
+      newWallButton.setStroke(false);
+    }
 
     infoDisplay = new InfoDisplay(this);
 
@@ -77,7 +80,7 @@ void setup() {
 
     // Works with Oracle's JDK
     //frame.setResizable(false);
-    
+
     frame.addComponentListener(new ResizeAdapter(this));
   }
 }
@@ -114,7 +117,11 @@ void setupBoard() {
 }
 
 public void drawAll() {
-  stroke(Constants.GAME_STROKE_COLOR);
+  if (!Constants.GAME_NO_STROKE) {
+    stroke(Constants.GAME_STROKE_COLOR);
+  } else {
+    noStroke();
+  }
   for (int i = 0; i < tiles.length; i++) {
     for (int u = 0; u < tiles[0].length; u++) {
       tiles[i][u].forceDisplay();
@@ -157,7 +164,7 @@ public class ResizeAdapter extends ComponentAdapter {
     parent = p;
   }
   @Override
-  public void componentResized(ComponentEvent e) {
+    public void componentResized(ComponentEvent e) {
     parent.displayGlitchCorrected = false;
   }
 }
@@ -179,8 +186,13 @@ class GraphicsTile {
     myTile = t;
   }
 
-  void setColor(color c) { 
+  void setColor(color c) {
     if (myColor != c) {
+      if (!Constants.GAME_NO_STROKE) {
+        stroke(Constants.GAME_STROKE_COLOR);
+      } else {
+        noStroke();
+      }
       myColor = c;
       fill(c);
       rect(x, y, Constants.PIXEL_TO_BOARD_INDEX_RATIO, Constants.PIXEL_TO_BOARD_INDEX_RATIO);
@@ -193,13 +205,16 @@ class GraphicsTile {
 
   void restoreColor() {
     if (myColor != defaultColor) { 
-      fill(defaultColor);
-      myColor = defaultColor;
-      rect(x, y, Constants.PIXEL_TO_BOARD_INDEX_RATIO, Constants.PIXEL_TO_BOARD_INDEX_RATIO);
+      forceRestoreColor();
     }
   }
 
   void forceRestoreColor() {
+    if (!Constants.GAME_NO_STROKE) {
+      stroke(Constants.GAME_STROKE_COLOR);
+    } else {
+      noStroke();
+    }
     fill(defaultColor);
     myColor = defaultColor;
     rect(x, y, Constants.PIXEL_TO_BOARD_INDEX_RATIO, Constants.PIXEL_TO_BOARD_INDEX_RATIO);
@@ -247,7 +262,7 @@ class GraphicsTile {
 
 void mouseMoved() {
   if (!displayGlitchCorrected) {
-    if (get(0,0) == g.backgroundColor || get(width, 0) == g.backgroundColor || get(0, height) == g.backgroundColor || get(width, height) == g.backgroundColor) {
+    if (get(0, 0) == g.backgroundColor || get(width, 0) == g.backgroundColor || get(0, height) == g.backgroundColor || get(width, height) == g.backgroundColor) {
       System.err.println("Something's wrong with display; Redrawing all..." + frameCount);
       drawAll();
     }
@@ -285,11 +300,10 @@ void mouseMoved() {
           newWallButton.display();
         }
       }
-    }
-    else if (userX > boardWidth + Constants.SIDEBAR_WIDTH) { // User outside first sidebar
-        if (!newWallButtonClicked) {
-          newWallButton.display();
-        }
+    } else if (userX > boardWidth + Constants.SIDEBAR_WIDTH) { // User outside first sidebar
+      if (!newWallButtonClicked) {
+        newWallButton.display();
+      }
     }
     if (newWallButtonClicked) {
       newWallButton.clicked();
@@ -322,7 +336,7 @@ void mouseClicked() {
     } else {
       tileHoverColor = defaultTileHoverColor;
       newWallButton.display();
-      cursor(ARROW);  
+      cursor(ARROW);
     }
   } else if (mouseY < Constants.NEW_WALL_BUTTON_HEIGHT + Constants.INFO_DISPLAY_HEIGHT) {
     infoDisplay.clickAction(mouseX, mouseY);

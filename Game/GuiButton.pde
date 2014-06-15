@@ -135,6 +135,9 @@ public class GuiButton {
       if (noStroke) {
         noStroke();
       }
+      else {
+        stroke(Constants.GAME_STROKE_COLOR);
+      }
       clear();
       fill(myHoverColor);
       currentColor = myHoverColor;
@@ -144,7 +147,6 @@ public class GuiButton {
       currentTextColor = myHoverTextColor;
       textSize(myTextSize);
       text(myText, x + myWidth / 2, y + myHeight / 2 - textAscent() * 0.1); //hacky fix for inaccurate default centering
-      stroke(Constants.GAME_STROKE_COLOR);
     }
     cursor(HAND);
   }
@@ -153,6 +155,9 @@ public class GuiButton {
     if (currentColor != myClickedColor || currentTextColor != myClickedTextColor) {
       if (noStroke) {
         noStroke();
+      }
+      else {
+        stroke(Constants.GAME_STROKE_COLOR);
       }
       clear();
       fill(myClickedColor);
@@ -163,7 +168,6 @@ public class GuiButton {
       currentTextColor = myClickedTextColor;
       textSize(myTextSize);
       text(myText, x + myWidth / 2, y + myHeight / 2 - textAscent() * 0.1);
-      stroke(Constants.GAME_STROKE_COLOR);
     }
   }
 
@@ -177,6 +181,9 @@ public class GuiButton {
     if (noStroke) {
       noStroke();
     }
+    else {
+        stroke(Constants.GAME_STROKE_COLOR);
+      }
     clear();
     fill(myColor);
     currentColor = myColor;
@@ -186,7 +193,6 @@ public class GuiButton {
     currentTextColor = myTextColor;
     textSize(myTextSize);
     text(myText, x + myWidth / 2, y + myHeight / 2 - textAscent() * 0.1);
-    stroke(Constants.GAME_STROKE_COLOR);
     cursor(ARROW);
   }
 
