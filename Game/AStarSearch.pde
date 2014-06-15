@@ -47,15 +47,17 @@ public class AStarSearch {
   }
 
 
-  public AStarSearch(Base b, Board board) {
+  public AStarSearch(Board board) {
     this.board = board;
-    base = b;
+    base = board.getBase();
     comparator = new Distance(base);
     frontier = new PriorityQueue<Node>(10, comparator);
     checkedNodes = new ArrayList<Tile>();
   }
 
   public Node search(Tile start) {
+    frontier = new PriorityQueue<Node>(10, comparator);
+    checkedNodes = new ArrayList<Tile>();
     Node s = new Node(start);
     frontier.add(s);//Initial Frontier
     while (frontier.size () > 0) {
@@ -63,7 +65,7 @@ public class AStarSearch {
       //System.out.println(base.getTileX());
       //System.out.println(current + " " + board.getBase().getTile());
       //System.out.println("remove");
-      if (current.getTile().equals(board.getBase().getTile())) {
+      if (current.getTile() == board.getBase().getTile()) {
         return current;
       }
       checkedNodes.add(current.getTile());
@@ -77,31 +79,19 @@ public class AStarSearch {
 
 
       //Possible bug here considering each node could possibly contain different parent pointers
-      if (up.getTile() != null && up.getTile().getAgent() != null && up.getTile().getAgentName().equals("p")) {
-        println("hello");
-      }
-      if (down.getTile() != null && down.getTile().getAgent() != null && down.getTile().getAgentName().equals("p")) {
-        println("hello");
-      }
-      if (left.getTile() != null && left.getTile().getAgent()!= null && left.getTile().getAgentName().equals("p")) {
-        println("hello");
-      }
-      if (right.getTile() != null && right.getTile().getAgent()!= null && right.getTile().getAgentName().equals("p")) {
-        println("hello");
-      }
       
-      if (up.getTile() != null && !checkedNodes.contains(up.getTile()) && (up.getTile().getAgent() == null || (up.getTile().getAgent().getName() == Constants.BASE && up.getTile().getAgent().getName() != Constants.WALL)))  {
+      if (up.getTile() != null && !checkedNodes.contains(up.getTile()) && (up.getTile().getAgent() == null || (up.getTile().getAgent().getName() == Constants.BASE)))  {
         //System.out.println("up");
         println(up.getTile().getAgentName());
         frontier.add(up);
       }
-      if (down.getTile() != null && !checkedNodes.contains(down.getTile()) && (down.getTile().getAgent() == null || (down.getTile().getAgent().getName() == Constants.BASE && down.getTile().getAgent().getName() != Constants.WALL))) {
+      if (down.getTile() != null && !checkedNodes.contains(down.getTile()) && (down.getTile().getAgent() == null || (down.getTile().getAgent().getName() == Constants.BASE))) {
         frontier.add(down);
       }
-      if (left.getTile() != null && !checkedNodes.contains(left.getTile()) && (left.getTile().getAgent() == null || (left.getTile().getAgent().getName() == Constants.BASE && left.getTile().getAgent().getName() != Constants.WALL))) {
+      if (left.getTile() != null && !checkedNodes.contains(left.getTile()) && (left.getTile().getAgent() == null || (left.getTile().getAgent().getName() == Constants.BASE))) {
         frontier.add(left);
       }
-      if (right.getTile() != null && !checkedNodes.contains(right.getTile()) && (right.getTile().getAgent() == null || (right.getTile().getAgent().getName() == Constants.BASE && right.getTile().getAgent().getName() != Constants.WALL))) {
+      if (right.getTile() != null && !checkedNodes.contains(right.getTile()) && (right.getTile().getAgent() == null || (right.getTile().getAgent().getName() == Constants.BASE))) {
         frontier.add(right);
       }
     }

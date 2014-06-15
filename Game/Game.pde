@@ -5,7 +5,6 @@ import java.awt.event.ComponentEvent;
 PApplet self = this;
 AudioPlayer music;
 Board board = new Board();
-Base base; 
 GraphicsTile[][] tiles;
 GuiButton newWallButton;
 InfoDisplay infoDisplay;
@@ -108,9 +107,8 @@ void draw() {
 
 void setupBoard() {
   board.loadMap("data/resources/maps/Example.MAP");
-  base = board.getBase();
   pathTiles = new ArrayList<Tile>();
-  god = new AStarSearch(base, board);
+  god = new AStarSearch(board);
   frame.setResizable(true);
   boardHeight = board.getRows() * Constants.PIXEL_TO_BOARD_INDEX_RATIO;
   boardWidth = board.getCols() * Constants.PIXEL_TO_BOARD_INDEX_RATIO;
