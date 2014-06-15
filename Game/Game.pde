@@ -116,7 +116,9 @@ public void drawAll() {
   }
   fill(Constants.GAME_BACKGROUND_COLOR);
   rect(boardWidth, 0, Constants.SIDEBAR_WIDTH, boardHeight);
-  newWallButton.forceDisplay();
+  if (newWallButton != null) {
+    newWallButton.forceDisplay();
+  }
 }
 
 public void setState(int n) {
@@ -288,8 +290,7 @@ void mouseClicked() {
       Agent a = tiles[tileHereY][tileHereX].getTile().getAgent();
       infoDisplay.showInfo(a);
     }
-  }
-  else if (mouseY < Constants.NEW_WALL_BUTTON_HEIGHT) {
+  } else if (mouseY < Constants.NEW_WALL_BUTTON_HEIGHT) {
     newWallButtonClicked = !newWallButtonClicked;
     if (newWallButtonClicked) {
       tileHoverColor = color(222, 22, 0, 100);
@@ -298,8 +299,7 @@ void mouseClicked() {
       tileHoverColor = defaultTileHoverColor;
       newWallButton.display();
     }
-  }
-  else if (mouseY < Constants.NEW_WALL_BUTTON_HEIGHT + Constants.INFO_DISPLAY_HEIGHT) {
+  } else if (mouseY < Constants.NEW_WALL_BUTTON_HEIGHT + Constants.INFO_DISPLAY_HEIGHT) {
     infoDisplay.clickAction(mouseX, mouseY);
   }
 }
