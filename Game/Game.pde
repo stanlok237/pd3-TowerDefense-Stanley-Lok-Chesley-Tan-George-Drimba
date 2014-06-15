@@ -71,19 +71,17 @@ void setup() {
     //music.play();
     //music.loop();
 
-    //println(board.getBase());
     //Needs To Be Fixed For Spawning Later on
-    Tile tmpTile = board.get(0,0);
+    Tile tmpTile = board.get(0, 0);
     path = god.search(tmpTile);
-    //System.out.println(path);
 
     while (path.hasParent ()) {
       //Add the tiles in the pat into an ArrayList
       Tile travelPath = path.getTile();
-      tiles[travelPath.getY()][travelPath.getX()].setDefaultColor(Constants.GAME_PATH_COLOR);
-      tiles[travelPath.getY()][travelPath.getX()].forceDisplay();
-      //path = path.getParent();
-
+      if (Constants.SHOW_PATH) {
+        tiles[travelPath.getY()][travelPath.getX()].setDefaultColor(Constants.GAME_PATH_COLOR);
+        tiles[travelPath.getY()][travelPath.getX()].forceDisplay();
+      }
       pathTiles.add(path.getTile());
       path = path.getParent();
     }
@@ -216,7 +214,7 @@ class GraphicsTile {
   }
 
   void setDefaultColor(color c) {
-      defaultColor = c;
+    defaultColor = c;
   }
 
   int getColor() {
@@ -283,29 +281,30 @@ class GraphicsTile {
 void placeWall(int x, int y) {
   for (int i = 0; i < tiles.length; i++) {
     for (int u = 0; u < tiles[0].length; u++) {
-      if (tiles[i][u].defaultColor != Constants.GAME_BACKGROUND_COLOR) {
-        tiles[i][u].setDefaultColor(Constants.GAME_BACKGROUND_COLOR);
-        tiles[i][u].forceDisplay();
+      if (Constants.SHOW_PATH) {
+        if (tiles[i][u].defaultColor != Constants.GAME_BACKGROUND_COLOR) {
+          tiles[i][u].setDefaultColor(Constants.GAME_BACKGROUND_COLOR);
+          tiles[i][u].forceDisplay();
+        }
       }
     }
   }
   if (tiles[y][x].getTile().getAgent() == null) {
     tiles[y][x].getTile().addAgent(Constants.WALL);
-    Tile tmpTile = board.get(0,0);
+    Tile tmpTile = board.get(0, 0);
     path = god.search(tmpTile);
     println(path);
     if (path == null) {
-      //println(tiles[tileHereY][tileHereX].getTile().removeAgent());
       tiles[y][x].getTile().removeAgent();
     } else {
       pathTiles.clear();
       while (path.hasParent ()) {
         //Add the tiles in the pat into an ArrayList
         Tile travelPath = path.getTile();
-        tiles[travelPath.getY()][travelPath.getX()].setDefaultColor(Constants.GAME_PATH_COLOR);
-        tiles[travelPath.getY()][travelPath.getX()].forceDisplay();
-        //path = path.getParent();
-
+        if (Constants.SHOW_PATH) {
+          tiles[travelPath.getY()][travelPath.getX()].setDefaultColor(Constants.GAME_PATH_COLOR);
+          tiles[travelPath.getY()][travelPath.getX()].forceDisplay();
+        }
         pathTiles.add(path.getTile());
         path = path.getParent();
       }
@@ -374,6 +373,7 @@ void mouseClicked() {
       cursor(ARROW);
       newWallButton.display();
       tileHoverColor = defaultTileHoverColor;
+      tiles[tileHereY][tileHereX].display();
     } else {
       int tileHereX = mouseX / Constants.PIXEL_TO_BOARD_INDEX_RATIO;
       int tileHereY = mouseY / Constants.PIXEL_TO_BOARD_INDEX_RATIO;
