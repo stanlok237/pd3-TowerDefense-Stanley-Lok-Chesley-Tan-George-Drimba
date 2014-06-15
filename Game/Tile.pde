@@ -104,6 +104,15 @@ public class Tile {
     return (xCoor == t.getX() && yCoor == t.getY());
   }
 
+  public void display() {
+    if (myAgent != null) {
+      myAgent.display();
+    }
+    for (Agent a:agents) {
+      a.display();
+    }
+  }
+
   public void clickAction(int x, int y, InfoDisplay infoDisplay) {
     for (int i = agents.size () - 1; i > -1; i--) {
       if (agents.get(i).inBody(x, y)) {
