@@ -377,8 +377,7 @@ void mouseClicked() {
     } else {
       int tileHereX = mouseX / Constants.PIXEL_TO_BOARD_INDEX_RATIO;
       int tileHereY = mouseY / Constants.PIXEL_TO_BOARD_INDEX_RATIO;
-      Agent a = tiles[tileHereY][tileHereX].getTile().getAgent();
-      infoDisplay.showInfo(a);
+      tiles[tileHereY][tileHereX].getTile().clickAction(mouseX, mouseY, infoDisplay);
     }
   } else if (mouseY < Constants.NEW_WALL_BUTTON_HEIGHT) {
     newWallButtonClicked = !newWallButtonClicked;

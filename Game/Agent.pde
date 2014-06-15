@@ -78,6 +78,8 @@ public abstract class Agent{
       angle = angle % 360;
       direction = angle;
     }
+    
+    public abstract boolean inBody(int x, int y);
 
     public abstract String toString();
     public abstract void display();
