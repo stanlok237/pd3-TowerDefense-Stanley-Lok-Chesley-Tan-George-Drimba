@@ -47,9 +47,9 @@ public class AStarSearch {
   }
 
 
-  public AStarSearch(Base b, Board board) {
+  public AStarSearch(Board board) {
     this.board = board;
-    base = b;
+    base = board.getBase();
     comparator = new Distance(base);
     frontier = new PriorityQueue<Node>(10, comparator);
     checkedNodes = new ArrayList<Tile>();
