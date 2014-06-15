@@ -1,5 +1,11 @@
 import ddf.minim.*;
 import java.awt.Frame;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JLayeredPane;
+import java.awt.Component;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 PApplet self = this;
 AudioPlayer music;
 Board board = new Board();
@@ -33,7 +39,8 @@ void setup() {
     if (!preload) {
       setupBoard();
     }
-
+    
+    frame.addComponentListener(new ResizeAdapter(this));
     background(0); // Should be different from all other colors used so that the blank display glitch can be caught
     strokeWeight(1);
 
@@ -144,6 +151,17 @@ public class PFrame extends Frame {
     add(is);
     is.init();
     setVisible(true);
+  }
+}
+
+public class ResizeAdapter extends ComponentAdapter {
+  Game parent;
+  public ResizeAdapter(Game p) {
+    parent = p;
+  }
+  @Override
+  public void componentResized(ComponentEvent e) {
+    parent.drawAll();
   }
 }
 
