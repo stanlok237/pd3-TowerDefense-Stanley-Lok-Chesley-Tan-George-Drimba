@@ -19,6 +19,7 @@ final boolean preload = true;
 boolean newWallButtonClicked = false;
 boolean displayGlitchCorrected = false;
 Node path;
+ArrayList<Tile> pathTiles;
 
 //Base base = new Base();
 //AStarSearch god = new AStarSearch(board.getRows(), base, board);
@@ -76,14 +77,18 @@ void setup() {
     Tile tmpTile = new Tile(0, 0);
     board.set(0, 0, tmpTile);
     path = god.search(tmpTile);
-    System.out.println(path);
+    //System.out.println(path);
 
     while (path.hasParent ()) {
+      /*  Add the tiles in the pat into an ArrayList
       Tile travelPath = path.getTile();
       tiles[travelPath.getX()][travelPath.getY()] = new GraphicsTile(travelPath.getX() * Constants.PIXEL_TO_BOARD_INDEX_RATIO, travelPath.getY() * Constants.PIXEL_TO_BOARD_INDEX_RATIO, travelPath);
-      tiles[travelPath.getX()][travelPath.getY()].setColor(90);
+      tiles[travelPath.getX()][travelPath.getY()].setColor(Constants.GAME_PATH_COLOR);
       path = path.getParent();
-    }
+    */  
+    pathTiles.add(path.getTile());
+    path = path.getParent();
+  }
 
     //god.search(new Tile(0,0));
 
@@ -107,6 +112,7 @@ void draw() {
 void setupBoard() {
   board.loadMap("data/resources/maps/Example.MAP");
   base = board.getBase();
+ pathTiles = new ArrayList<Tile>();
   frame.setResizable(true);
   boardHeight = board.getRows() * Constants.PIXEL_TO_BOARD_INDEX_RATIO;
   boardWidth = board.getCols() * Constants.PIXEL_TO_BOARD_INDEX_RATIO;
@@ -133,6 +139,9 @@ public void drawAll() {
   }
   for (int i = 0; i < tiles.length; i++) {
     for (int u = 0; u < tiles[0].length; u++) {
+      if(pathTiles.contain(tiles[i][u].getTile())){
+        tiles[i][u].setColor(Constants.GAME_PATH_COLOR);
+      }
       tiles[i][u].forceDisplay();
     }
   }
@@ -203,7 +212,7 @@ class GraphicsTile {
       } else {
         noStroke();
       }
-      myColor = c;
+      defaultColor = c;
       fill(c);
       rect(x, y, Constants.PIXEL_TO_BOARD_INDEX_RATIO, Constants.PIXEL_TO_BOARD_INDEX_RATIO);
     }
@@ -257,12 +266,6 @@ class GraphicsTile {
   }
 
   void hover() {
-    while (path.hasParent ()) {
-      Tile travelPath = path.getTile();
-      tiles[travelPath.getX()][travelPath.getY()] = new GraphicsTile(travelPath.getX() * Constants.PIXEL_TO_BOARD_INDEX_RATIO, travelPath.getY() * Constants.PIXEL_TO_BOARD_INDEX_RATIO, travelPath);
-      tiles[travelPath.getX()][travelPath.getY()].setColor(90);
-      path = path.getParent();
-    }
     if (myTile.getAgent() != null) {
       setColor(tileHoverColor);
     } else {
