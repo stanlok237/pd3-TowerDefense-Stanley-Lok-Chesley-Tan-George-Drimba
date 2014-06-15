@@ -1,4 +1,4 @@
-/*public class Zombies extends Enemy {
+/*public class EnTriangle extends Enemy {
  PImage zombie;
  PVector pos;
  public Zombies (int level) {
