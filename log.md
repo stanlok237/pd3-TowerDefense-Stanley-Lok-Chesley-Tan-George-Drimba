@@ -6,8 +6,10 @@
 <tr><td>6/3</td><td>Moved Java Files into Processing and Fixed minor compiling issues</td></tr>
 <tr><td>6/6</td><td>Worked on A* Search for Path Finding</td></tr>
 <tr><td>6/6</td><td>Modified A* Search to be Node Based</td></tr>
-<tr><td>6/7</td><td>A* Star Search - Priority Queue Implemented along with general debugging</td></tr>
+<tr><td>6/7</td><td>A* Search - Priority Queue Implemented along with general debugging</td></tr>
 <tr><td>6/7</td><td>General Debugging - Game can start</td></tr>
+<tr><td>6/8 - 6/12</td><td>A* Search - Finished </td></tr>
+<tr><td>6/15</td><td>A* Search - Debugged with Board and Gui, Prevent Path Blocking, Fix Path Coloring</td></tr>
 </table>
 <hr>
 <table>
