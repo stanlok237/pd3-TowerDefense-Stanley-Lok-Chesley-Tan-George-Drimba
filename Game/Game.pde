@@ -18,6 +18,7 @@ color tileHoverColor = defaultTileHoverColor;
 final boolean preload = true;
 boolean newWallButtonClicked = false;
 boolean displayGlitchCorrected = false;
+Node path;
 
 //Base base = new Base();
 //AStarSearch god = new AStarSearch(board.getRows(), base, board);
@@ -38,7 +39,7 @@ void setup() {
     }
 
     background(0); // Should be different from all other colors used so that the blank display glitch can be caught
-    strokeWeight(Constants.GAME_STROKE_WEIGHT);
+    strokeWeight(1);
 
     newWallButton = new GuiButton();
     newWallButton.setColor(color(25, 25, 200, 180));
@@ -64,7 +65,7 @@ void setup() {
 
 
     //ASTARSEARCH TEST AREA
-    
+
     //music = new Minim(this).loadFile("../resources/Thor.mp3");
     //music.play();
     //music.loop();
@@ -74,16 +75,16 @@ void setup() {
     AStarSearch god = new AStarSearch(base, board);
     Tile tmpTile = new Tile(0, 0);
     board.set(0, 0, tmpTile);
-    Node tmp = god.search(tmpTile);
-    System.out.println(tmp);
-    
-    while (tmp.hasParent ()) {
-     Tile travelPath = tmp.getTile();
-     tiles[travelPath.getX()][travelPath.getY()] = new GraphicsTile(travelPath.getX() * Constants.PIXEL_TO_BOARD_INDEX_RATIO, travelPath.getY() * Constants.PIXEL_TO_BOARD_INDEX_RATIO, travelPath);
-     tiles[travelPath.getX()][travelPath.getY()].setColor(90);
-     tmp = tmp.getParent();
-     }
-     
+    path = god.search(tmpTile);
+    System.out.println(path);
+
+    while (path.hasParent ()) {
+      Tile travelPath = path.getTile();
+      tiles[travelPath.getX()][travelPath.getY()] = new GraphicsTile(travelPath.getX() * Constants.PIXEL_TO_BOARD_INDEX_RATIO, travelPath.getY() * Constants.PIXEL_TO_BOARD_INDEX_RATIO, travelPath);
+      tiles[travelPath.getX()][travelPath.getY()].setColor(90);
+      path = path.getParent();
+    }
+
     //god.search(new Tile(0,0));
 
     // Works with Oracle's JDK
@@ -159,7 +160,6 @@ public void startGame() {
 public class PFrame extends Frame {
   public PFrame() {
     setBounds(0, 0, 500, 400);
-    setResizable(false);
     is = new IntroState(self);
     add(is);
     is.init();
@@ -256,6 +256,12 @@ class GraphicsTile {
   }
 
   void hover() {
+    while (path.hasParent ()) {
+      Tile travelPath = path.getTile();
+      tiles[travelPath.getX()][travelPath.getY()] = new GraphicsTile(travelPath.getX() * Constants.PIXEL_TO_BOARD_INDEX_RATIO, travelPath.getY() * Constants.PIXEL_TO_BOARD_INDEX_RATIO, travelPath);
+      tiles[travelPath.getX()][travelPath.getY()].setColor(90);
+      path = path.getParent();
+    }
     if (myTile.getAgent() != null) {
       setColor(tileHoverColor);
     } else {
@@ -325,7 +331,9 @@ void mouseClicked() {
     if (newWallButtonClicked) {
       int tileHereX = mouseX / Constants.PIXEL_TO_BOARD_INDEX_RATIO;
       int tileHereY = mouseY / Constants.PIXEL_TO_BOARD_INDEX_RATIO;
-      tiles[tileHereY][tileHereX].getTile().addAgent(Constants.WALL); // TODO: Does not do any validation yet
+      if (tiles[tileHereY][tileHereX].getTile().getAgent() == null) {
+        tiles[tileHereY][tileHereX].getTile().addAgent(Constants.WALL);
+      } // TODO: Does not do any validation yet
       newWallButtonClicked = false;
       cursor(ARROW);
       newWallButton.display();
