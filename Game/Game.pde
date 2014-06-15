@@ -74,8 +74,7 @@ void setup() {
 
     //println(board.getBase());
     //Needs To Be Fixed For Spawning Later on
-    Tile tmpTile = new Tile(0, 0);
-    board.set(0, 0, tmpTile);
+    Tile tmpTile = board.get(0,0);
     path = god.search(tmpTile);
     //System.out.println(path);
 
@@ -288,6 +287,35 @@ class GraphicsTile {
   }
 }
 
+void placeWall(int x, int y) {
+  for (int i = 0; i < tiles.length; i++) {
+    for (int u = 0; u < tiles[0].length; u++) {
+      tiles[i][u].setDefaultColor(Constants.GAME_BACKGROUND_COLOR);
+    }
+  }
+  if (tiles[y][x].getTile().getAgent() == null) {
+    tiles[y][x].getTile().addAgent(Constants.WALL);
+    Tile tmpTile = board.get(0,0);
+    path = god.search(tmpTile);
+    println(path);
+    if (path == null) {
+      //println(tiles[tileHereY][tileHereX].getTile().removeAgent());
+      tiles[y][x].getTile().removeAgent();
+    } else {
+      pathTiles.clear();
+      while (path.hasParent ()) {
+        //Add the tiles in the pat into an ArrayList
+        Tile travelPath = path.getTile();
+        tiles[travelPath.getY()][travelPath.getX()].setDefaultColor(Constants.GAME_PATH_COLOR);
+        //path = path.getParent();
+
+        pathTiles.add(path.getTile());
+        path = path.getParent();
+      }
+    }
+  } // TODO: Does not do any validation yet
+}
+
 void mouseMoved() {
   if (!displayGlitchCorrected) {
     if (get(0, 0) == g.backgroundColor || get(width, 0) == g.backgroundColor || get(0, height) == g.backgroundColor || get(width, height) == g.backgroundColor) {
@@ -344,28 +372,7 @@ void mouseClicked() {
     if (newWallButtonClicked) {
       int tileHereX = mouseX / Constants.PIXEL_TO_BOARD_INDEX_RATIO;
       int tileHereY = mouseY / Constants.PIXEL_TO_BOARD_INDEX_RATIO;
-      if (tiles[tileHereY][tileHereX].getTile().getAgent() == null) {
-        tiles[tileHereY][tileHereX].getTile().addAgent(Constants.WALL);
-        Tile tmpTile = new Tile(0, 0);
-        board.set(0, 0, tmpTile);
-        path = god.search(tmpTile);
-        println(path);
-        if (path == null) {
-          //println(tiles[tileHereY][tileHereX].getTile().removeAgent());
-          tiles[tileHereY][tileHereX].getTile().removeAgent();
-        } else {
-          pathTiles.clear();
-          while (path.hasParent ()) {
-            //Add the tiles in the pat into an ArrayList
-            Tile travelPath = path.getTile();
-            tiles[travelPath.getY()][travelPath.getX()].setDefaultColor(Constants.GAME_PATH_COLOR);
-            //path = path.getParent();
-
-            pathTiles.add(path.getTile());
-            path = path.getParent();
-          }
-        }
-      } // TODO: Does not do any validation yet
+      placeWall(tileHereX, tileHereY);
       newWallButtonClicked = false;
       cursor(ARROW);
       newWallButton.display();
