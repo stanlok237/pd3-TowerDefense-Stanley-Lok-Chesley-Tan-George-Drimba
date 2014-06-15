@@ -82,15 +82,12 @@ void setup() {
     while (path.hasParent ()) {
       //Add the tiles in the pat into an ArrayList
       Tile travelPath = path.getTile();
-      tiles[travelPath.getX()][travelPath.getY()] = new GraphicsTile(travelPath.getX() * Constants.PIXEL_TO_BOARD_INDEX_RATIO, travelPath.getY() * Constants.PIXEL_TO_BOARD_INDEX_RATIO, travelPath);
-      tiles[travelPath.getX()][travelPath.getY()].setDefaultColor(Constants.GAME_PATH_COLOR);
+      tiles[travelPath.getY()][travelPath.getX()].setDefaultColor(Constants.GAME_PATH_COLOR);
       //path = path.getParent();
 
       pathTiles.add(path.getTile());
       path = path.getParent();
     }
-
-    //god.search(new Tile(0,0));
 
     // Works with Oracle's JDK
     //frame.setResizable(false);
