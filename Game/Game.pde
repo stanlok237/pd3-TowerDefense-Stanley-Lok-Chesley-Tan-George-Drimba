@@ -20,6 +20,7 @@ boolean newWallButtonClicked = false;
 boolean displayGlitchCorrected = false;
 Node path;
 ArrayList<Tile> pathTiles;
+AStarSearch god;
 
 //Base base = new Base();
 //AStarSearch god = new AStarSearch(board.getRows(), base, board);
@@ -72,8 +73,7 @@ void setup() {
     //music.loop();
 
     //println(board.getBase());
-
-    AStarSearch god = new AStarSearch(base, board);
+    //Needs To Be Fixed For Spawning Later on
     Tile tmpTile = new Tile(0, 0);
     board.set(0, 0, tmpTile);
     path = god.search(tmpTile);
@@ -110,6 +110,7 @@ void setupBoard() {
   board.loadMap("data/resources/maps/Example.MAP");
   base = board.getBase();
   pathTiles = new ArrayList<Tile>();
+  god = new AStarSearch(base, board);
   frame.setResizable(true);
   boardHeight = board.getRows() * Constants.PIXEL_TO_BOARD_INDEX_RATIO;
   boardWidth = board.getCols() * Constants.PIXEL_TO_BOARD_INDEX_RATIO;
@@ -276,8 +277,7 @@ class GraphicsTile {
   void hover() {
     if (myTile.getAgent() != null) {
       setColor(tileHoverColor);
-    } 
-    else {
+    } else {
       setColor(tileHoverColor);
     }
   }
@@ -346,6 +346,25 @@ void mouseClicked() {
       int tileHereY = mouseY / Constants.PIXEL_TO_BOARD_INDEX_RATIO;
       if (tiles[tileHereY][tileHereX].getTile().getAgent() == null) {
         tiles[tileHereY][tileHereX].getTile().addAgent(Constants.WALL);
+        Tile tmpTile = new Tile(0, 0);
+        board.set(0, 0, tmpTile);
+        path = god.search(tmpTile);
+        println(path);
+        if (path == null) {
+          //println(tiles[tileHereY][tileHereX].getTile().removeAgent());
+          tiles[tileHereY][tileHereX].getTile().removeAgent();
+        } else {
+          pathTiles.clear();
+          while (path.hasParent ()) {
+            //Add the tiles in the pat into an ArrayList
+            Tile travelPath = path.getTile();
+            tiles[travelPath.getY()][travelPath.getX()].setDefaultColor(Constants.GAME_PATH_COLOR);
+            //path = path.getParent();
+
+            pathTiles.add(path.getTile());
+            path = path.getParent();
+          }
+        }
       } // TODO: Does not do any validation yet
       newWallButtonClicked = false;
       cursor(ARROW);

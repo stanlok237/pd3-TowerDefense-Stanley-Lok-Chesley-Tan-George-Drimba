@@ -90,18 +90,18 @@ public class AStarSearch {
         println("hello");
       }
       
-      if (up.getTile() != null && !checkedNodes.contains(up.getTile()) && (up.getTile().getAgent() == null || up.getTile().getAgent().getName() == Constants.BASE ))  {
+      if (up.getTile() != null && !checkedNodes.contains(up.getTile()) && (up.getTile().getAgent() == null || (up.getTile().getAgent().getName() == Constants.BASE && up.getTile().getAgent().getName() != Constants.WALL)))  {
         //System.out.println("up");
         println(up.getTile().getAgentName());
         frontier.add(up);
       }
-      if (down.getTile() != null && !checkedNodes.contains(down.getTile()) && (down.getTile().getAgent() == null || down.getTile().getAgent().getName() == Constants.BASE)) {
+      if (down.getTile() != null && !checkedNodes.contains(down.getTile()) && (down.getTile().getAgent() == null || (down.getTile().getAgent().getName() == Constants.BASE && down.getTile().getAgent().getName() != Constants.WALL))) {
         frontier.add(down);
       }
-      if (left.getTile() != null && !checkedNodes.contains(left.getTile()) && (left.getTile().getAgent() == null || left.getTile().getAgent().getName() == Constants.BASE)) {
+      if (left.getTile() != null && !checkedNodes.contains(left.getTile()) && (left.getTile().getAgent() == null || (left.getTile().getAgent().getName() == Constants.BASE && left.getTile().getAgent().getName() != Constants.WALL))) {
         frontier.add(left);
       }
-      if (right.getTile() != null && !checkedNodes.contains(right.getTile()) && (right.getTile().getAgent() == null || right.getTile().getAgent().getName() == Constants.BASE)) {
+      if (right.getTile() != null && !checkedNodes.contains(right.getTile()) && (right.getTile().getAgent() == null || (right.getTile().getAgent().getName() == Constants.BASE && right.getTile().getAgent().getName() != Constants.WALL))) {
         frontier.add(right);
       }
     }
