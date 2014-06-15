@@ -1,9 +1,5 @@
 import ddf.minim.*;
 import java.awt.Frame;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JLayeredPane;
-import java.awt.Component;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 PApplet self = this;
@@ -260,7 +256,7 @@ void mouseMoved() {
   if (state == 1) {
     int userX = mouseX;
     int userY = mouseY;
-    if (userY < boardHeight && userX < boardWidth) {
+    if (userY < boardHeight && userX < boardWidth) { // User within board
       int tileHoveredX = userX / Constants.PIXEL_TO_BOARD_INDEX_RATIO;
       int tileHoveredY = userY / Constants.PIXEL_TO_BOARD_INDEX_RATIO;
       for (int i = 0; i < tiles.length; i++) {
@@ -274,12 +270,12 @@ void mouseMoved() {
       if (!newWallButtonClicked) {
         newWallButton.display();
       }
-    } else if (userX > boardWidth) {
-      if (userY < Constants.NEW_WALL_BUTTON_HEIGHT) {
+    } else if (userX > boardWidth && userX < boardWidth + Constants.SIDEBAR_WIDTH) { // User within first sidebar
+      if (userY < Constants.NEW_WALL_BUTTON_HEIGHT) { // User within new wall button
         if (!newWallButtonClicked) {
           newWallButton.hover();
         }
-      } else if (userY < Constants.NEW_WALL_BUTTON_HEIGHT + Constants.INFO_DISPLAY_HEIGHT) {
+      } else if (userY < Constants.NEW_WALL_BUTTON_HEIGHT + Constants.INFO_DISPLAY_HEIGHT) { // User within info display
         infoDisplay.hoverAction(userX, userY);
         if (!newWallButtonClicked) {
           newWallButton.display();
@@ -289,6 +285,11 @@ void mouseMoved() {
           newWallButton.display();
         }
       }
+    }
+    else if (userX > boardWidth + Constants.SIDEBAR_WIDTH) { // User outside first sidebar
+        if (!newWallButtonClicked) {
+          newWallButton.display();
+        }
     }
     if (newWallButtonClicked) {
       newWallButton.clicked();
