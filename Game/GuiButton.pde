@@ -1,6 +1,6 @@
 public class GuiButton {
   String myText;
-  int x, y, myHeight, myWidth;
+  int x, y, myHeight, myWidth, borderTopLeft, borderTopRight, borderBottomRight, borderBottomLeft;
   color myColor, myTextColor, myHoverColor, myHoverTextColor, myClickedColor, myClickedTextColor, currentColor, currentTextColor;
   int myTextSize;
   boolean noStroke = false;
@@ -102,6 +102,13 @@ public class GuiButton {
   int getWidth() {
     return myWidth;
   }
+  
+  void setBorders(int tl, int tr, int br, int bl) {
+    borderTopLeft = tl;
+    borderTopRight = tr;
+    borderBottomRight = br;
+    borderBottomLeft = bl;
+  }
 
   void setTextSize(int n) {
     myTextSize = n;
@@ -131,7 +138,7 @@ public class GuiButton {
       clear();
       fill(myHoverColor);
       currentColor = myHoverColor;
-      rect(x, y, myWidth, myHeight);
+      rect(x, y, myWidth, myHeight, borderTopLeft, borderTopRight, borderBottomRight, borderBottomLeft);
       textAlign(CENTER, CENTER);
       fill(myHoverTextColor);
       currentTextColor = myHoverTextColor;
@@ -139,6 +146,7 @@ public class GuiButton {
       text(myText, x + myWidth / 2, y + myHeight / 2 - textAscent() * 0.1); //hacky fix for inaccurate default centering
       stroke(Constants.GAME_STROKE_COLOR);
     }
+    cursor(HAND);
   }
 
   void clicked() {
@@ -149,7 +157,7 @@ public class GuiButton {
       clear();
       fill(myClickedColor);
       currentColor = myClickedColor;
-      rect(x, y, myWidth, myHeight);
+      rect(x, y, myWidth, myHeight, borderTopLeft, borderTopRight, borderBottomRight, borderBottomLeft);
       textAlign(CENTER, CENTER);
       fill(myClickedTextColor);
       currentTextColor = myClickedTextColor;
@@ -172,18 +180,19 @@ public class GuiButton {
     clear();
     fill(myColor);
     currentColor = myColor;
-    rect(x, y, myWidth, myHeight);
+    rect(x, y, myWidth, myHeight, borderTopLeft, borderTopRight, borderBottomRight, borderBottomLeft);
     textAlign(CENTER, CENTER);
     fill(myTextColor);
     currentTextColor = myTextColor;
     textSize(myTextSize);
     text(myText, x + myWidth / 2, y + myHeight / 2 - textAscent() * 0.1);
     stroke(Constants.GAME_STROKE_COLOR);
+    cursor(ARROW);
   }
 
   void clear() {
     fill(0);
-    rect(x, y, myWidth, myHeight);
+    rect(x, y, myWidth, myHeight, borderTopLeft, borderTopRight, borderBottomRight, borderBottomLeft);
   }
 
   void clickAction() {

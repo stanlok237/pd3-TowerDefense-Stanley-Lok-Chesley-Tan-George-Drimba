@@ -35,18 +35,20 @@ void setup() {
     }
 
     background(0); // Should be different from all other colors used so that the blank display glitch can be caught
+    strokeWeight(1);
 
     newWallButton = new GuiButton();
-    newWallButton.setColor(color(100, 100, 200, 100));
-    newWallButton.setHoverColor(color(150, 150, 250, 100));
-    newWallButton.setClickedColor(color(255, 3, 16, 100));
+    newWallButton.setColor(color(25, 25, 200, 180));
+    newWallButton.setHoverColor(color(50, 50, 225, 100));
+    newWallButton.setClickedColor(color(50, 50, 225, 100));
     newWallButton.setX(boardWidth);
     newWallButton.setY(0);
     newWallButton.setWidth(Constants.SIDEBAR_WIDTH);
     newWallButton.setHeight(Constants.NEW_WALL_BUTTON_HEIGHT);
-    newWallButton.setTextColor(color(240));
+    newWallButton.setBorders(0,0,0,0);
+    newWallButton.setTextColor(color(200));
     newWallButton.setHoverTextColor(color(240));
-    newWallButton.setClickedTextColor(color(180, 180, 180));
+    newWallButton.setClickedTextColor(color(255, 3, 32, 150));
     newWallButton.setText("Place New Wall");
     newWallButton.setTextSize(20);
 
@@ -282,6 +284,7 @@ void mouseClicked() {
       int tileHereY = mouseY / Constants.PIXEL_TO_BOARD_INDEX_RATIO;
       tiles[tileHereY][tileHereX].getTile().addAgent(Constants.WALL); // TODO: Does not do any validation yet
       newWallButtonClicked = false;
+      cursor(ARROW);
       newWallButton.display();
       tileHoverColor = defaultTileHoverColor;
     } else {
@@ -295,9 +298,11 @@ void mouseClicked() {
     if (newWallButtonClicked) {
       tileHoverColor = color(222, 22, 0, 100);
       newWallButton.clicked();
+      cursor(MOVE);
     } else {
       tileHoverColor = defaultTileHoverColor;
       newWallButton.display();
+      cursor(ARROW);  
     }
   } else if (mouseY < Constants.NEW_WALL_BUTTON_HEIGHT + Constants.INFO_DISPLAY_HEIGHT) {
     infoDisplay.clickAction(mouseX, mouseY);

@@ -1,7 +1,6 @@
 public class IntroState extends PApplet {
   color introBgColor = #EEEEEE;
   boolean introHovered = false;
-  boolean isLoaded = false;
   String screen = "menu";
   int howTo_buttonSize = 30;
   int about_buttonSize = 30;
@@ -16,9 +15,10 @@ public class IntroState extends PApplet {
   }
 
   public void setup() {
+    cursor(WAIT);
     size(500, 400);
     drawMenu();
-    isLoaded = true;
+    cursor(ARROW);
   }
 
   public void drawMenu() {
@@ -69,43 +69,48 @@ public class IntroState extends PApplet {
   }
 
   public void draw() {
-    if (!isLoaded) {
-      return;
-    }
     if (screen.equals("menu")) {
       if (!introHovered && get(mouseX, mouseY) != introBgColor) {
         if (abs(mouseY - 170) < howTo_buttonSize) {
           redrawHowTo();
+          cursor(HAND);
           introHovered = true;
         } else if (abs(mouseY - 220) < about_buttonSize) {
           redrawAbout();
+          cursor(HAND);
           introHovered = true;
         } else if (abs(mouseY - 270) < play_buttonSize) {
           redrawPlay();
+          cursor(HAND);
           introHovered = true;
         }
       } else if (introHovered && get(mouseX, mouseY) == introBgColor) {
         drawMenu();
+        cursor(ARROW);
         introHovered = false;
       }
     } else if (screen.equals("howto")) {
       if (!introHovered && get(mouseX, mouseY) != introBgColor) {
         if (abs(mouseY - 340) < back_buttonSize) {
           redrawHowToBack();
+          cursor(HAND);
           introHovered = true;
         }
       } else if (introHovered && get(mouseX, mouseY) == introBgColor) {
         drawBack();
+        cursor(ARROW);
         introHovered = false;
       }
     } else if (screen.equals("about")) {
       if (!introHovered && get(mouseX, mouseY) != introBgColor) {
         if (abs(mouseY - 340) < back_buttonSize) {
           redrawAboutBack();
+          cursor(HAND);
           introHovered = true;
         }
       } else if (introHovered && get(mouseX, mouseY) == introBgColor) {
         drawBack();
+        cursor(ARROW);
         introHovered = false;
       }
     }
