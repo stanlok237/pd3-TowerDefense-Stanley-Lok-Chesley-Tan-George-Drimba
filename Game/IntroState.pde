@@ -6,6 +6,7 @@ public class IntroState extends PApplet {
   int about_buttonSize = 30;
   int play_buttonSize = 48;
   int back_buttonSize = 30;
+  boolean blankMenuGlitchCorrected = false;
   PApplet parent;
   Game parentGame;
 
@@ -70,6 +71,13 @@ public class IntroState extends PApplet {
 
   public void draw() {
     if (screen.equals("menu")) {
+      if (!blankMenuGlitchCorrected && get(87, 78) == introBgColor) { // hard-coded blank menu fix
+        drawMenu();
+        blankMenuGlitchCorrected = true;
+      }
+      else if (!blankMenuGlitchCorrected) {
+        blankMenuGlitchCorrected = true;
+      }
       if (!introHovered && get(mouseX, mouseY) != introBgColor) {
         if (abs(mouseY - 170) < howTo_buttonSize) {
           redrawHowTo();
@@ -146,7 +154,6 @@ public class IntroState extends PApplet {
   public void drawBack() {
     fill(introBgColor);
     noStroke();
-    textSize(about_buttonSize);
     rect(0, 340, width, textAscent() + textDescent());
     fill(50);
     textSize(back_buttonSize);
@@ -156,7 +163,6 @@ public class IntroState extends PApplet {
   public void redrawHowToBack() {
     fill(introBgColor);
     noStroke();
-    textSize(about_buttonSize);
     rect(0, 340, width, textAscent() + textDescent());
     fill(#FF8300);
     textSize(back_buttonSize);
@@ -166,7 +172,6 @@ public class IntroState extends PApplet {
   public void redrawAboutBack() {
     fill(introBgColor);
     noStroke();
-    textSize(about_buttonSize);
     rect(0, 340, width, textAscent() + textDescent());
     fill(color(25, 25, 200, 200));
     textSize(back_buttonSize);
