@@ -40,7 +40,6 @@ void setup() {
       setupBoard();
     }
     
-    frame.addComponentListener(new ResizeAdapter(this));
     background(0); // Should be different from all other colors used so that the blank display glitch can be caught
     strokeWeight(1);
 
@@ -82,6 +81,8 @@ void setup() {
 
     // Works with Oracle's JDK
     //frame.setResizable(false);
+    
+    frame.addComponentListener(new ResizeAdapter(this));
   }
 }
 
@@ -161,7 +162,7 @@ public class ResizeAdapter extends ComponentAdapter {
   }
   @Override
   public void componentResized(ComponentEvent e) {
-    parent.drawAll();
+    parent.displayGlitchCorrected = false;
   }
 }
 
@@ -250,7 +251,7 @@ class GraphicsTile {
 
 void mouseMoved() {
   if (!displayGlitchCorrected) {
-    if (get(0, 0) == g.backgroundColor) {
+    if (get(0,0) == g.backgroundColor || get(width, 0) == g.backgroundColor || get(0, height) == g.backgroundColor || get(width, height) == g.backgroundColor) {
       System.err.println("Something's wrong with display; Redrawing all..." + frameCount);
       drawAll();
     }
