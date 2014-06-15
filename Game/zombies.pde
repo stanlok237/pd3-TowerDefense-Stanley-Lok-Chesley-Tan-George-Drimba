@@ -1,4 +1,6 @@
 /*public class Zombies extends Enemy {
+ PImage zombie;
+ PVector pos;
  public Zombies (int level) {
    name = Sloth;
    health = 15;
@@ -10,6 +12,8 @@
   public void Zombies (int xstart, int ystart){
    xcor = xstart;
    ycor = ystart;
+   pos = new PVector(xcor, ycor);
+   zombie = loadImage("imagename"); 
  }
    //public act here --------------------
    public String toString(){

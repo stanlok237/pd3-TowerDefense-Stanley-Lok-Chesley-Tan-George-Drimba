@@ -1,6 +1,9 @@
 /*
 public class Turret extends Tower {
   
+ PImage turret;
+ PVector pos;
+  
   public Turret (int level){
    name = Turret;
    range = 15;
@@ -19,6 +22,8 @@ public class Turret extends Tower {
  public void Turret (int xstart, int ystart){
    xcor = xstart;
    ycor = ystart;
+   pos = new PVector(xcor, ycor);
+   turret = loadImage("imagename"); 
  }
 public void level(int exp) {
   experience = experience + exp;
