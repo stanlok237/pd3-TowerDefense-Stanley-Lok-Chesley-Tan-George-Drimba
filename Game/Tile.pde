@@ -95,10 +95,7 @@ public class Tile {
     }
     
     public String toString() {
-      if(myAgent != null){
-        return myAgent.toString();
-      }
-      return null;
+      return xCoor + " " + yCoor;
     }
 
     public boolean equals(Tile t) {

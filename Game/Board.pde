@@ -87,28 +87,28 @@ public class Board {
 
   public Tile getLeft(Tile t) {
     if (tileInBounds(t.getX() - 1, t.getY())) {
-      return board[t.getX() - 1][t.getY()];
+      return board[t.getY()][t.getX() - 1];
     }
     return null;
   }
 
   public Tile getRight(Tile t) {
     if (tileInBounds(t.getX() + 1, t.getY())) {
-      return board[t.getX() + 1][t.getY()];
+      return board[t.getY()][t.getX() + 1];
     }
     return null;
   }
 
   public Tile getUpper(Tile t) {
     if (tileInBounds(t.getX(), t.getY() - 1)) {
-      return board[t.getX()][t.getY() - 1];
+      return board[t.getY() - 1][t.getX()];
     }
     return null;
   }
 
   public Tile getLower(Tile t) {
     if (tileInBounds(t.getX(), t.getY() + 1)) {
-      return board[t.getX()][t.getY() + 1];
+      return board[t.getY() + 1][t.getX()];
     }
     return null;
   }

@@ -5,7 +5,7 @@ import java.awt.event.ComponentEvent;
 PApplet self = this;
 AudioPlayer music;
 Board board = new Board();
-Base base;
+Base base; 
 GraphicsTile[][] tiles;
 GuiButton newWallButton;
 InfoDisplay infoDisplay;
@@ -18,9 +18,10 @@ color tileHoverColor = defaultTileHoverColor;
 final boolean preload = true;
 boolean newWallButtonClicked = false;
 boolean displayGlitchCorrected = false;
+
 //Base base = new Base();
 //AStarSearch god = new AStarSearch(board.getRows(), base, board);
-//Spawning location
+//Spawning location;
 //Tile tmpTile = new Tile(0, 0);
 
 void setup() {
@@ -61,21 +62,28 @@ void setup() {
 
     drawAll();
 
+
+    //ASTARSEARCH TEST AREA
+    
     //music = new Minim(this).loadFile("../resources/Thor.mp3");
     //music.play();
     //music.loop();
 
-    //board.set(0, 0, tmpTile);
-    //Node tmp = god.search(tmpTile);
-    //System.out.println(tmp);
-    /*
+    //println(board.getBase());
+
+    AStarSearch god = new AStarSearch(base, board);
+    Tile tmpTile = new Tile(0, 0);
+    board.set(0, 0, tmpTile);
+    Node tmp = god.search(tmpTile);
+    System.out.println(tmp);
+    
     while (tmp.hasParent ()) {
      Tile travelPath = tmp.getTile();
      tiles[travelPath.getX()][travelPath.getY()] = new GraphicsTile(travelPath.getX() * Constants.PIXEL_TO_BOARD_INDEX_RATIO, travelPath.getY() * Constants.PIXEL_TO_BOARD_INDEX_RATIO, travelPath);
      tiles[travelPath.getX()][travelPath.getY()].setColor(90);
      tmp = tmp.getParent();
      }
-     */
+     
     //god.search(new Tile(0,0));
 
     // Works with Oracle's JDK
