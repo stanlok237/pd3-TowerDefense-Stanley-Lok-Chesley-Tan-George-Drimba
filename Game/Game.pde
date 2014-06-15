@@ -38,7 +38,7 @@ void setup() {
     }
 
     background(0); // Should be different from all other colors used so that the blank display glitch can be caught
-    strokeWeight(1);
+    strokeWeight(Constants.GAME_STROKE_WEIGHT);
 
     newWallButton = new GuiButton();
     newWallButton.setColor(color(25, 25, 200, 180));
@@ -159,6 +159,7 @@ public void startGame() {
 public class PFrame extends Frame {
   public PFrame() {
     setBounds(0, 0, 500, 400);
+    setResizable(false);
     is = new IntroState(self);
     add(is);
     is.init();
