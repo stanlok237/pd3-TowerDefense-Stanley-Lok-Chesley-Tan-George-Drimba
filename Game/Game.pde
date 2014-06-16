@@ -2,6 +2,7 @@ import ddf.minim.*;
 import java.awt.Frame;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.text.NumberFormat;
 PApplet self = this;
 AudioPlayer music;
 Board board = new Board();
@@ -20,6 +21,7 @@ boolean displayGlitchCorrected = false;
 Node path;
 ArrayList<Tile> pathTiles;
 AStarSearch god;
+int currency;
 
 //Base base = new Base();
 //AStarSearch god = new AStarSearch(board.getRows(), base, board);
@@ -177,6 +179,41 @@ public void startGame() {
   state = 1;
   setup();
   f.dispose();
+}
+
+public void showCurrency() {
+  if (Constants.GAME_NO_STROKE) {
+    noStroke();
+  }
+  else {
+    stroke(Constants.GAME_STROKE_COLOR);
+  }
+  fill(Constants.GAME_BACKGROUND_COLOR);
+  rect(boardWidth, boardHeight - Constants.CURRENCY_HEIGHT_FROM_BOTTOM, Constants.SIDEBAR_WIDTH, Constants.CURRENCY_HEIGHT_FROM_BOTTOM);
+  fill(#EEEEEE);
+  textSize(Constants.CURRENCY_TEXT_SIZE);
+  textAlign(CENTER, CENTER);
+  String s = "$" + NumberFormat.getInstance().format(currency);
+  text(s, boardWidth + Constants.SIDEBAR_WIDTH / 2, boardHeight - Constants.CURRENCY_HEIGHT_FROM_BOTTOM / 2 - textAscent() * 0.1);
+}
+
+public void addCurrency(int n) {
+  currency += n;
+  showCurrency();
+}
+
+public void removeCurrency(int n) {
+  currency -= n;
+  showCurrency();
+}
+
+public void setCurrency(int n) {
+  currency = n;
+  showCurrency();
+}
+
+public int getCurrency() {
+  return currency;
 }
 
 public class PFrame extends Frame {
@@ -386,6 +423,8 @@ void mouseMoved() {
 }
 
 void mouseClicked() {
+  showCurrency();
+  addCurrency(100000);
   if (mouseX < boardWidth && mouseY < boardHeight) {
     if (newWallButtonClicked) {
       int tileHereX = mouseX / Constants.PIXEL_TO_BOARD_INDEX_RATIO;
