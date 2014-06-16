@@ -1,10 +1,11 @@
+private Game parent;
 public class Board {
   Tile[][] board;
   int numRows, numCols;
   int defaultSize = 20;
   Base base;
 
-  public Board() {
+  public Board(Game p) {
     numRows = defaultSize;
     numCols = defaultSize;
     board = new Tile[numRows][numCols];
@@ -13,9 +14,10 @@ public class Board {
         board[i][j] = new Tile(i, j);
       }
     }
+    parent = p;
   }
 
-  public Board(int s) {
+  public Board(int s, Game p) {
     numRows = numCols = s;
     board = new Tile[numRows][numCols];
     for (int i = 0; i < numRows; i++) {
@@ -23,9 +25,10 @@ public class Board {
         board[i][j] = new Tile(i, j);
       }
     }
+    parent = p;
   }
 
-  public Board(int r, int c) {
+  public Board(int r, int c, Game p) {
     numRows = r;
     numCols = c;
     board = new Tile[numRows][numCols];
@@ -34,6 +37,7 @@ public class Board {
         board[i][j] = new Tile(i, j);
       }
     }
+    parent = p;
   }
 
   public Tile get(int r, int c) {
@@ -54,6 +58,10 @@ public class Board {
 
   public int getCols() {
     return numCols;
+  }
+  
+  public Game getParent() {
+    return parent;
   }
 
   public void loadMap(String file) {

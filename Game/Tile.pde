@@ -21,8 +21,6 @@ public class Tile {
 
   public void addAgent(String s) {
     Agent a = null;
-    myAgent = null;
-    myBoard = null;
     // Add recognition for different types here
     if (s.equals(Constants.WALL)) {
       myAgent = new Wall();
@@ -36,6 +34,16 @@ public class Tile {
       myAgent.setTile(this);
       myAgentName = myAgent.getName();
       a = myAgent;
+    } else if (s.equals(Constants.TURRET)) {
+      if (myAgent instanceof Wall) {
+        a = new Turret(this);
+        Turret t = (Turret)a;
+        Wall w = (Wall)myAgent;
+        t.setWall(w);
+        w.setTower(t);
+        a.setBoard(board);
+        a.setTile(this);
+      }
     }
     if (a != null) {
       agents.add(a);

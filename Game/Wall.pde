@@ -1,21 +1,29 @@
 public class Wall extends Agent {
-  private Agent myAgent;
+  private Tower myTower;
   
   public Wall() {
     myName = Constants.WALL;
   }
   
-  public Wall(Agent a) {
-    myAgent = a;
+  public Wall(Tower t) {
+    myTower = t;
     myName = Constants.WALL;
   }
   
-  public Agent getAgent() {
-    return myAgent;
+  public Tower getTower() {
+    return myTower;
   }
   
-  public String getAgentName() {
-    return myAgent.getName();
+  public String getTowerName() {
+    return myTower.getName();
+  }
+  
+  public void setTower(Tower t) {
+    myTower = t;
+  }
+  
+  public void removeTower() {
+    myTower = null;
   }
   
   public void display() {
@@ -26,7 +34,7 @@ public class Wall extends Agent {
   }
   
   public String toString() {
-    return "Wall: " + myAgent;
+    return "Wall: " + myTower;
   }
   
   public boolean inBody(int x, int y) {

@@ -5,7 +5,7 @@ import java.awt.event.ComponentEvent;
 import java.text.NumberFormat;
 PApplet self = this;
 AudioPlayer music;
-Board board = new Board();
+Board board = new Board(this);
 GraphicsTile[][] tiles;
 GuiButton newWallButton;
 InfoDisplay infoDisplay;
@@ -22,6 +22,7 @@ Node path;
 ArrayList<Tile> pathTiles;
 AStarSearch god;
 int currency;
+int shownCurrency;
 
 //Base base = new Base();
 //AStarSearch god = new AStarSearch(board.getRows(), base, board);
@@ -65,7 +66,7 @@ void setup() {
     infoDisplay = new InfoDisplay(this);
 
     drawAll();
-
+    forceShowCurrency();
 
     //ASTARSEARCH TEST AREA
 
@@ -102,6 +103,7 @@ void draw() {
   } else if (state == 1) {
     if (frame.getState() != Frame.NORMAL)
       frame.setState(Frame.NORMAL);
+    showCurrency();
   }
 }
 
@@ -127,26 +129,34 @@ void setupBoard() {
   }
   //Spawning to be done here
   //Temporary Testing - Grunt
-  
+
   Tile tmp = tiles[0][0].getTile();
   /*
   Enemy test = new Grunt(1,tmp);
-  tiles[0][0].getTile().addAgentOn(test);
-  println(tiles[0][0].getTile().getAgentsOn().get(0));
-  */
+   tiles[0][0].getTile().addAgentOn(test);
+   println(tiles[0][0].getTile().getAgentsOn().get(0));
+   */
   //Temporary Testing - Zombie
   /*
   Enemy test = new Zombie(1,tmp);
-  tiles[0][0].getTile().addAgentOn(test);
-  */
+   tiles[0][0].getTile().addAgentOn(test);
+   */
   //Bat
   /*
   Enemy test = new Bat(1,tmp);
-  tiles[0][0].getTile().addAgentOn(test);
-  */
+   tiles[0][0].getTile().addAgentOn(test);
+   */
   //Giant
-  Enemy test = new Giant(1,tmp);
+  Enemy test = new Giant(1, tmp);
   tiles[0][0].getTile().addAgentOn(test);
+
+  for (int i = 0; i < board.getRows (); i++) {
+    for (int u = 0; u < board.getCols (); u++) {
+      if (tiles[i][u].getTile().getAgent() instanceof Wall) {
+        tiles[i][u].getTile().addAgent(Constants.TURRET);
+      }
+    }
+  }
 }
 
 public void drawAll() {
@@ -182,10 +192,15 @@ public void startGame() {
 }
 
 public void showCurrency() {
+  if (currency != shownCurrency) {
+    forceShowCurrency();
+  }
+}
+
+public void forceShowCurrency() {
   if (Constants.GAME_NO_STROKE) {
     noStroke();
-  }
-  else {
+  } else {
     stroke(Constants.GAME_STROKE_COLOR);
   }
   fill(Constants.GAME_BACKGROUND_COLOR);
@@ -195,6 +210,7 @@ public void showCurrency() {
   textAlign(CENTER, CENTER);
   String s = "$" + NumberFormat.getInstance().format(currency);
   text(s, boardWidth + Constants.SIDEBAR_WIDTH / 2, boardHeight - Constants.CURRENCY_HEIGHT_FROM_BOTTOM / 2 - textAscent() * 0.1);
+  shownCurrency = currency;
 }
 
 public void addCurrency(int n) {
@@ -308,7 +324,7 @@ class GraphicsTile {
   void display() {
     if (myTile.getAgent() != null || myTile.getAgentsOn().size() > 0) {
       forceRestoreColor();
-      myTile.display(); 
+      myTile.display();
     } else {
       restoreColor();
     }
@@ -376,7 +392,7 @@ void placeWall(int x, int y) {
         path = path.getParent();
       }
     }
-  } 
+  }
 }
 
 void mouseMoved() {
@@ -431,8 +447,6 @@ void mouseMoved() {
 }
 
 void mouseClicked() {
-  showCurrency();
-  addCurrency(100000);
   if (mouseX < boardWidth && mouseY < boardHeight) {
     if (newWallButtonClicked) {
       int tileHereX = mouseX / Constants.PIXEL_TO_BOARD_INDEX_RATIO;

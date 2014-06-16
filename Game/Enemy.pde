@@ -3,8 +3,8 @@ import java.io.*;
 
 public abstract class Enemy extends Agent {
 
-  private int currentHealth, maxHealth, currentSpeed, maxSpeed, currentArmor, maxArmor, damage;
-  private AStarSearch search;
+  protected int currentHealth, maxHealth, currentSpeed, maxSpeed, currentArmor, maxArmor, damage;
+  protected AStarSearch search;
 
   public Enemy(Tile t, int health, int speed, int armor, int damage, String name) {
     setTile(t);

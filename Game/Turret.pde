@@ -29,14 +29,16 @@ public class Turret extends Tower {
   }
 
   public void upgrade() {
-    //Subtract Gold Cost Here
-    int lev = getLevel();
-    upRange(4 + 1 * lev);
-    upDamage(13 + 2 * lev);
-    upSpeed(2 + 1*lev);
-    upUpgradePrice(50 + 25 * lev);
-    upSellPrice();
-    upLevel();
+    if (upgradePrice < myBoard.getParent().getCurrency()) {
+      myBoard.getParent().removeCurrency(upgradePrice);
+      int lev = getLevel();
+      upRange(4 + 1 * lev);
+      upDamage(13 + 2 * lev);
+      upSpeed(2 + 1*lev);
+      upUpgradePrice(50 + 25 * lev);
+      upSellPrice();
+      upLevel();
+    }
   }
 
   /* Old Code

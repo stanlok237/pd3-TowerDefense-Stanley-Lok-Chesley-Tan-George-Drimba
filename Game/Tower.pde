@@ -1,7 +1,8 @@
 public abstract class Tower extends Agent {
 
-  private int range, damage, speed, upgradePrice, sellPrice, level;
-  private String name, effect;
+  protected Wall myWall;
+  protected int range, damage, speed, upgradePrice, sellPrice, level;
+  protected String name, effect;
 
   public Tower(Tile t, int damage, int speed, int range, int upPrice, int sellPrice, String name, String effect) {
     setTile(t);
@@ -65,6 +66,14 @@ public abstract class Tower extends Agent {
   public void upLevel(){
     level++;
   }
+  
+  public Wall getWall() {
+    return myWall;
+  }
+  
+  public void setWall(Wall w) {
+    myWall = w;
+  }
 
   //Should we make it like GridWorld type of getting monsters and modifying them
   //Abstract Functions to be implemented in subclasses
@@ -76,8 +85,8 @@ public abstract class Tower extends Agent {
   //Upgrades Stats at a cost
 
   public void sell() {
-    //Removes the tower
-    getTile().removeAgentOn(this);
-    //Add Gold to Player Here
+    myWall.removeTower();
+    myTile.removeAgentOn(this);
+    myBoard.getParent().addCurrency(sellPrice);
   }
 }

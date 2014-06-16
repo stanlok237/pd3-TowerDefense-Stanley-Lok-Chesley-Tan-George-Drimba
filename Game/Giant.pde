@@ -35,4 +35,5 @@ public class Giant extends Enemy {
     fill(50, 200, 0, 100);
     rect(xcor, ycor, length, round(Constants.PIXEL_TO_BOARD_INDEX_RATIO * Constants.HEALTH_BAR_HEIGHT_PERCENTAGE));
   }
+  
 }
