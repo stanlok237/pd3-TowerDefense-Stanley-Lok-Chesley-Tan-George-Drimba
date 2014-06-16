@@ -14,11 +14,15 @@ public class EnSquare extends Enemy {
   }
   
   public void act(){
-    
+    //If within range of turret, take damage
   }
   
   public void display(){
     
+  }
+  
+  public boolean inBody(int x, int y){
+    return (x > xcor && x < xcor + Constants.PIXEL_TO_BOARD_INDEX_RATIO && y > ycor && y < ycor + Constants.PIXEL_TO_BOARD_INDEX_RATIO);
   }
   
 }
