@@ -54,14 +54,6 @@ public abstract class Enemy extends Agent {
     }
   }
 
-  public void slow(int s) {
-    if (currentSpeed - s < 5) {
-      currentSpeed = 5;
-    } else {
-      currentSpeed = currentSpeed - s;
-    }
-  }
-
   public void die() {
     getTile().removeAgentOn(this);
     //Add Gold Value Here
@@ -80,5 +72,24 @@ public abstract class Enemy extends Agent {
     int length = round(perc * Constants.PIXEL_TO_BOARD_INDEX_RATIO / 2);
     fill(50, 200, 0, 100);
     rect(xcor, ycor, length, round(Constants.PIXEL_TO_BOARD_INDEX_RATIO * Constants.HEALTH_BAR_HEIGHT_PERCENTAGE));
+  }
+  /* public void move() {
+    --- need some way to store the path in a class 
+    if (nextStepinPath.equals("completed")) {
+      return;
+    }
+    else if (nextStepinPath.equals("step")) {
+    }
+    if (.angleBetween(v1, v2)) {getTile().getRight(this);}
+    else if (.angleBetween(v1, v2)) {getTile().getRight(this);} --- insert radian args -- use pvector for simple dimension
+    else if (.angleBetween(v1, v2) ) {getTile().getLower(this);}
+    else {getTile().getUpper(this);} 
+    fill(250,0,0);
+    stroke(0);
+    ellipse(xcor,ycor,tileSize/2,tileSize/2);
+    fill(0);
+  }
+    */
+   
   }
 }
