@@ -10,7 +10,8 @@ public static class Constants {
   public static int NEW_WALL_BUTTON_HEIGHT = 100;
   public static int INFO_DISPLAY_HEIGHT = 300;
   public static int INFO_TEXT_SIZE = 16;
-  public static float HEALTH_BAR_HEIGHT_PERCENTAGE = 0.3;
+  public static float BASE_HEALTH_BAR_HEIGHT_PERCENTAGE = 0.3;
+  public static float HEALTH_BAR_HEIGHT_PERCENTAGE = 0.1;
   public static String WALL = "w";
   public static String PATH = "p";
   public static String BASE = "b";
