@@ -6,8 +6,8 @@ public abstract class Enemy extends Agent {
   private int currentHealth, maxHealth, currentSpeed, maxSpeed, currentArmor, maxArmor, damage;
   private AStarSearch search;
 
-  public Enemy(int x, int y, int health, int speed, int armor, int damage, String name) {
-    super(x, y);
+  public Enemy(Tile t, int health, int speed, int armor, int damage, String name) {
+    setTile(t);
     maxHealth = health;
     currentHealth = maxHealth;
     maxSpeed = speed;

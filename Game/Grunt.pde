@@ -1,7 +1,7 @@
-public class EnSquare extends Enemy {
+public class Grunt extends Enemy {
 
-  public EnSquare (int level, int x, int y) {
-    super(x, y, 25 * level, 10, 0, 1 * level,"Grunt" );
+  public Grunt (int level, Tile t) {
+    super(t, 25 * level, 10, 0, 1 * level,"Grunt" );
   }
 
   //public act here -----------------------
