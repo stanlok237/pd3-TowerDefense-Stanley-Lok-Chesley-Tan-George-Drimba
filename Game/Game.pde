@@ -66,7 +66,6 @@ void setup() {
     infoDisplay = new InfoDisplay(this);
 
     drawAll();
-    forceShowCurrency();
 
     //ASTARSEARCH TEST AREA
 
@@ -175,6 +174,7 @@ public void drawAll() {
   if (newWallButton != null) {
     newWallButton.forceDisplay();
   }
+  forceShowCurrency();
 }
 
 public void setState(int n) {
@@ -365,20 +365,12 @@ void placeWall(int x, int y) {
     }
   }
   if (tiles[y][x].getTile().getAgent() == null) {
-    //println("test");
     tiles[y][x].getTile().addAgent(Constants.WALL);
     Tile tmpTile = board.get(0, 0);
     path = god.search(tmpTile);
     //println(path);
     if (path == null) {
-      //println("test");
-      tiles[y][x].getTile().removeAgent(); //removes the wall correctly but it still adds it to the wall
-      println(tiles[y][x].getTile().agents.size());
-      for(int i = 0; i < tiles[y][x].getTile().agents.size(); i++){
-        println(tiles[y][x].getTile().agents.get(i));
-      }
-      //println(tiles[y][x].getTile().getAgent());
-      //println(tiles[y][x].getTile().removeAgent()); 
+      tiles[y][x].getTile().removeAgent();
     } else {
       pathTiles.clear();
       while (path.hasParent ()) {

@@ -1,6 +1,3 @@
-import java.util.*;
-import java.io.*;
-
 public abstract class Enemy extends Agent {
 
   protected int currentHealth, maxHealth, currentSpeed, maxSpeed, currentArmor, maxArmor, damage;
