@@ -253,7 +253,7 @@ class GraphicsTile {
   }
 
   void display() {
-    if (myTile.getAgent() != null) {
+    if (myTile.getAgent() != null || myTile.getAgentsOn().size() > 0) {
       forceRestoreColor();
       myTile.display(); 
     } else {
@@ -262,9 +262,9 @@ class GraphicsTile {
   }
 
   void forceDisplay() {
-    if (myTile.getAgent() != null) {
+    if (myTile.getAgent() != null || myTile.getAgentsOn().size() > 0) {
       forceRestoreColor();
-      myTile.getAgent().display(); // Currently only displays one Agent per Tile
+      myTile.display();
     } else {
       forceRestoreColor();
     }
