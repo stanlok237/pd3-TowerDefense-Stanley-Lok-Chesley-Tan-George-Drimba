@@ -123,6 +123,11 @@ void setupBoard() {
       tiles[i][u] = new GraphicsTile(u * Constants.PIXEL_TO_BOARD_INDEX_RATIO, i * Constants.PIXEL_TO_BOARD_INDEX_RATIO, board.get(i, u));
     }
   }
+  //Temporary Testing
+  Enemy test = new Grunt(0,0,1);
+  tiles[0][0].getTile().addAgent(Constants.ENEMY);
+  tiles[0][0].getTile().addAgentOn(test);
+  println(tiles[0][0].getTile().getAgent());
 }
 
 public void drawAll() {
@@ -249,7 +254,7 @@ class GraphicsTile {
   void display() {
     if (myTile.getAgent() != null) {
       forceRestoreColor();
-      myTile.display();
+      myTile.getAgent().display(); // Currently only displays one Agent per Tile
     } else {
       restoreColor();
     }
@@ -258,7 +263,7 @@ class GraphicsTile {
   void forceDisplay() {
     if (myTile.getAgent() != null) {
       forceRestoreColor();
-      myTile.display();
+      myTile.getAgent().display(); // Currently only displays one Agent per Tile
     } else {
       forceRestoreColor();
     }
@@ -293,7 +298,7 @@ void placeWall(int x, int y) {
     tiles[y][x].getTile().addAgent(Constants.WALL);
     Tile tmpTile = board.get(0, 0);
     path = god.search(tmpTile);
-    println(path);
+    //println(path);
     if (path == null) {
       tiles[y][x].getTile().removeAgent();
     } else {
@@ -309,7 +314,7 @@ void placeWall(int x, int y) {
         path = path.getParent();
       }
     }
-  } // TODO: Does not do any validation yet
+  } 
 }
 
 void mouseMoved() {

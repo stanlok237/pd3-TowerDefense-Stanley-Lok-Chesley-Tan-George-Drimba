@@ -1,24 +1,28 @@
-/*public class EnTriangle extends Enemy {
- PImage zombie;
- PVector pos;
- public Zombies (int level) {
-   name = Sloth;
-   health = 15;
-   speed = 10;
-   armor = 20;
-   damage = 92;
-   this.level = level;
- }
-  public void Zombies (int xstart, int ystart){
-   xcor = xstart;
-   ycor = ystart;
-   pos = new PVector(xcor, ycor);
-   zombie = loadImage("imagename"); 
- }
-   //public act here --------------------
-   public String toString(){
-     String stat = "";
-     return stat + name + " h =" + health + "s = "+ speed + "a= " + armor + "d=" + damage;
-   }
- }
-     */
+public class Zombie extends Enemy {
+
+  public Zombie (int x, int y, int level) {
+    super(x, y, 100 + 10 * level, 5, 0, 5 * level, "Zombie" );
+  }
+
+  public void act() {
+    //To be Implemented when Turrets are done
+  }
+
+  public boolean inBody(int x, int y) {
+    return (x > xcor && x < xcor + Constants.PIXEL_TO_BOARD_INDEX_RATIO && y > ycor && y < ycor + Constants.PIXEL_TO_BOARD_INDEX_RATIO);
+  }
+
+  public void display() {
+    
+  }
+  
+  public String toString() {
+    //String stat = "";
+    String n = super.getName();
+    int h = super.getHealth();
+    int mh = super.getMaxHealth();
+    int s = super.getSpeed();
+    int a = super.getArmor();
+    return n + ": " + h + " / " + mh + "\nSpeed: "  + s + "\nArmor: " + a;
+  }
+}

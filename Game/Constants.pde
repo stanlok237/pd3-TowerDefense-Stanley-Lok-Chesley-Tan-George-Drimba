@@ -14,4 +14,5 @@ public static class Constants {
   public static String WALL = "w";
   public static String PATH = "p";
   public static String BASE = "b";
+  public static String ENEMY = "e";
 }
