@@ -1,9 +1,9 @@
-public class Giant extends Enemy{
-  
-  public Giant(int level, Tile t){
+public class Giant extends Enemy {
+
+  public Giant(int level, Tile t) {
     super(t, 400 + 100 * level, 2, 10 + 1 * level, 50 * level, "Giant" );
   }
-  
+
   public void act() {
     //To be Implemented when Turrets are done
   }
@@ -13,11 +13,12 @@ public class Giant extends Enemy{
   }
 
   public void display() {
-    fill(0,7,77);
-    quad(xcor + .5 * Constants.PIXEL_TO_BOARD_INDEX_RATIO, ycor, xcor, ycor + .5 * Constants.PIXEL_TO_BOARD_INDEX_RATIO,xcor + .5 * Constants.PIXEL_TO_BOARD_INDEX_RATIO, ycor + Constants.PIXEL_TO_BOARD_INDEX_RATIO, xcor + Constants.PIXEL_TO_BOARD_INDEX_RATIO, ycor + .5 * Constants.PIXEL_TO_BOARD_INDEX_RATIO);
+    fill(0, 7, 77);
+    quad(xcor + .5 * Constants.PIXEL_TO_BOARD_INDEX_RATIO, ycor, xcor, ycor + .5 * Constants.PIXEL_TO_BOARD_INDEX_RATIO, xcor + .5 * Constants.PIXEL_TO_BOARD_INDEX_RATIO, ycor + Constants.PIXEL_TO_BOARD_INDEX_RATIO, xcor + Constants.PIXEL_TO_BOARD_INDEX_RATIO, ycor + .5 * Constants.PIXEL_TO_BOARD_INDEX_RATIO);
+    generateBigHealthBar();
   }
-  
-  public String toString(){
+
+  public String toString() {
     String n = super.getName();
     int h = super.getHealth();
     int mh = super.getMaxHealth();

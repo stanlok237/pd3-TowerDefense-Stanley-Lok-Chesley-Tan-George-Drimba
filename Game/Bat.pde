@@ -1,9 +1,9 @@
-public class Bat extends Enemy{
-  
-  public Bat(int level, Tile t){
+public class Bat extends Enemy {
+
+  public Bat(int level, Tile t) {
     super(t, 60 + 10 * level, 20, 0, 3 * level, "Bat" );
   }
-  
+
   public void act() {
     //To be Implemented when Turrets are done
   }
@@ -13,11 +13,12 @@ public class Bat extends Enemy{
   }
 
   public void display() {
-    fill(139,69,19);
+    fill(139, 69, 19);
     quad(xcor + .25 * Constants.PIXEL_TO_BOARD_INDEX_RATIO, ycor, xcor, ycor + .25 * Constants.PIXEL_TO_BOARD_INDEX_RATIO, xcor + .5 * Constants.PIXEL_TO_BOARD_INDEX_RATIO, ycor + .25 * Constants.PIXEL_TO_BOARD_INDEX_RATIO, xcor + .25 * Constants.PIXEL_TO_BOARD_INDEX_RATIO, ycor + 0.5 * Constants.PIXEL_TO_BOARD_INDEX_RATIO);
+    generateHealthBar();
   }
-  
-  public String toString(){
+
+  public String toString() {
     String n = super.getName();
     int h = super.getHealth();
     int mh = super.getMaxHealth();

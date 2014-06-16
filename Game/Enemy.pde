@@ -73,6 +73,13 @@ public abstract class Enemy extends Agent {
     fill(50, 200, 0, 100);
     rect(xcor, ycor, length, round(Constants.PIXEL_TO_BOARD_INDEX_RATIO * Constants.HEALTH_BAR_HEIGHT_PERCENTAGE));
   }
+  
+  public void generateBigHealthBar(){
+    float perc = 1.0 * currentHealth / maxHealth;
+    int length = round(perc * Constants.PIXEL_TO_BOARD_INDEX_RATIO);
+    fill(50, 200, 0, 100);
+    rect(xcor, ycor, length, round(Constants.PIXEL_TO_BOARD_INDEX_RATIO * Constants.HEALTH_BAR_HEIGHT_PERCENTAGE));
+  }
   /* public void move() {
    --- need some way to store the path in a class 
    if (nextStepinPath.equals("completed")) {

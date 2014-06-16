@@ -1,52 +1,60 @@
 /*
 public class Turret extends Tower {
+
+  public Turret (Tile t) {
+    super(t, 25, 10, 100, 65, "Turret", "none");
+  }
+  //public act here --------------------
+  public String toString() {
+    String n = getName();
+    String e = getEffect();
+    int d = getDamage();
+    int s = getSpeed();
+    int r = getRange();
+    return n + "\nDamage: " + d + "\nSpeed: " + s + "\nRange: " + r + "\nEffect: " + e;
+  }
   
- PImage turret;
- PVector pos;
+  public void act(){
+    //shoot
+  }
+
+public boolean inBody(int x, int y){
   
-  public Turret (int level){
-   name = Turret;
-   range = 15;
-   speed = 10;
-   expneed = 10;
-   upgradePrice = 20;
-   sellPrice = 92;
-   this.level = level;
- }
-   //public act here --------------------
-   public String toString(){
-     String stat = "";
-     return stat + name + " r =" + range + "s = "+ speed + "u= " + upgradePrice + "s= "+ sellPrice + "d=" + damage;
-   }
- }
- public void Turret (int xstart, int ystart){
+}
+  
+  public void display(){
+    fill(25,25,25);
+    triangle(,,,,,);
+  }
+  
+  /* Old Code
+  public void Turret (int xstart, int ystart) {
    xcor = xstart;
    ycor = ystart;
    pos = new PVector(xcor, ycor);
-   turret = loadImage("imagename"); 
- }
-public void level(int exp) {
-  experience = experience + exp;
-  if (exp > expneed) {
-    level = level + 1;
-
-  Random r = new Random();
-  int i = r.nextInt(2); 
-  if (i == 1) {
-    range = range + 5;
-    expneed= expneed + 5 * (level - 1);
-  }
-  if (i == 2) {
-    damage = damage + 5;
-    expneed = expneed + 5 * (level - 1);
-  }
-  else {
-    speed = speed + 5;
-    expneed = expneed + 5 * (level - 1); 
-  }
-  maxhealth = strength;
-  health = maxhealth; //health regeneration
-  }
+   turret = loadImage("imagename");
+   }
+   public void level(int exp) {
+   experience = experience + exp;
+   if (exp > expneed) {
+   level = level + 1;
+   
+   Random r = new Random();
+   int i = r.nextInt(2); 
+   if (i == 1) {
+   range = range + 5;
+   expneed= expneed + 5 * (level - 1);
+   }
+   if (i == 2) {
+   damage = damage + 5;
+   expneed = expneed + 5 * (level - 1);
+   } else {
+   speed = speed + 5;
+   expneed = expneed + 5 * (level - 1);
+   }
+   maxhealth = strength;
+   health = maxhealth; //health regeneration
+   }
+   
+}
 */
-  
-  

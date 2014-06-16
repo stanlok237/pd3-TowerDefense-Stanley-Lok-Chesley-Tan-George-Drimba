@@ -16,8 +16,9 @@ public class Zombie extends Enemy {
     fill(65, 185, 120);
     // COOL LOOKING SHAPE TO BE USED LATER
     //quad(xcor + .25 * Constants.PIXEL_TO_BOARD_INDEX_RATIO, ycor, xcor, ycor + .25 * Constants.PIXEL_TO_BOARD_INDEX_RATIO, xcor + .5 * Constants.PIXEL_TO_BOARD_INDEX_RATIO, ycor + .25 * Constants.PIXEL_TO_BOARD_INDEX_RATIO, xcor + .25 * Constants.PIXEL_TO_BOARD_INDEX_RATIO, ycor + 0.5 * Constants.PIXEL_TO_BOARD_INDEX_RATIO);
-    quad(xcor + .25 * Constants.PIXEL_TO_BOARD_INDEX_RATIO, ycor, xcor, ycor + .25 * Constants.PIXEL_TO_BOARD_INDEX_RATIO,xcor + .25 * Constants.PIXEL_TO_BOARD_INDEX_RATIO, ycor + 0.5 * Constants.PIXEL_TO_BOARD_INDEX_RATIO, xcor + .5 * Constants.PIXEL_TO_BOARD_INDEX_RATIO, ycor + .25 * Constants.PIXEL_TO_BOARD_INDEX_RATIO);
-}
+    quad(xcor + .25 * Constants.PIXEL_TO_BOARD_INDEX_RATIO, ycor, xcor, ycor + .25 * Constants.PIXEL_TO_BOARD_INDEX_RATIO, xcor + .25 * Constants.PIXEL_TO_BOARD_INDEX_RATIO, ycor + 0.5 * Constants.PIXEL_TO_BOARD_INDEX_RATIO, xcor + .5 * Constants.PIXEL_TO_BOARD_INDEX_RATIO, ycor + .25 * Constants.PIXEL_TO_BOARD_INDEX_RATIO);
+    generateHealthBar();
+  }
 
   public String toString() {
     //String stat = "";
