@@ -124,11 +124,27 @@ void setupBoard() {
     }
   }
   //Spawning to be done here
-  //Temporary Testing
+  //Temporary Testing - Grunt
+  
   Tile tmp = tiles[0][0].getTile();
+  /*
   Enemy test = new Grunt(1,tmp);
   tiles[0][0].getTile().addAgentOn(test);
   println(tiles[0][0].getTile().getAgentsOn().get(0));
+  */
+  //Temporary Testing - Zombie
+  /*
+  Enemy test = new Zombie(1,tmp);
+  tiles[0][0].getTile().addAgentOn(test);
+  */
+  //Bat
+  /*
+  Enemy test = new Bat(1,tmp);
+  tiles[0][0].getTile().addAgentOn(test);
+  */
+  //Giant
+  Enemy test = new Giant(1,tmp);
+  tiles[0][0].getTile().addAgentOn(test);
 }
 
 public void drawAll() {
