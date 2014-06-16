@@ -26,4 +26,13 @@ public class Giant extends Enemy {
     int a = super.getArmor();
     return n + ": " + h + " / " + mh + "\nSpeed: "  + s + "\nArmor: " + a;
   }
+
+  public void generateHealthBar() {
+    int current = super.getHealth();
+    int max = super.getMaxHealth();
+    float perc = 1.0 * current / max;
+    int length = round(perc * Constants.PIXEL_TO_BOARD_INDEX_RATIO);
+    fill(50, 200, 0, 100);
+    rect(xcor, ycor, length, round(Constants.PIXEL_TO_BOARD_INDEX_RATIO * Constants.HEALTH_BAR_HEIGHT_PERCENTAGE));
+  }
 }

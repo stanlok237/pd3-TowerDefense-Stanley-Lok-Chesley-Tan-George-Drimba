@@ -1,9 +1,9 @@
 public abstract class Tower extends Agent {
 
-  private int range, damage, speed, upgradePrice, sellPrice;
+  private int range, damage, speed, upgradePrice, sellPrice, level;
   private String name, effect;
 
-  public Tower(Tile t, int damage, int speed, int upPrice, int sellPrice, String name, String effect) {
+  public Tower(Tile t, int damage, int speed, int range, int upPrice, int sellPrice, String name, String effect) {
     setTile(t);
     this.damage = damage;
     this.speed = speed;
@@ -11,6 +11,11 @@ public abstract class Tower extends Agent {
     this.sellPrice = sellPrice;
     this.name = name;
     this.effect = effect;
+    level = 1;
+  }
+
+  public int getLevel(){
+    return level;
   }
 
   public String getEffect() {
@@ -53,13 +58,18 @@ public abstract class Tower extends Agent {
     upgradePrice += p;
   }
 
-  public void upSellPrice(int s) {
-    sellPrice += s;
+  public void upSellPrice() {
+    sellPrice = upgradePrice / 2;
+  }
+
+  public void upLevel(){
+    level++;
   }
 
   //Should we make it like GridWorld type of getting monsters and modifying them
   //Abstract Functions to be implemented in subclasses
-  public abstract void shoot();
+  //Replace shoot() with act() in Agent Class
+  //public abstract void shoot();
   //Generic Shooting
 
   public abstract void upgrade();

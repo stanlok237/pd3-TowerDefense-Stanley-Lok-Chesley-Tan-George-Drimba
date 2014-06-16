@@ -1,9 +1,9 @@
-/*
 public class Turret extends Tower {
 
   public Turret (Tile t) {
-    super(t, 25, 10, 100, 65, "Turret", "none");
+    super(t, 25, 10, 100, 100, 65, "Turret", Constants.TURRET_EFFECT);
   }
+
   //public act here --------------------
   public String toString() {
     String n = getName();
@@ -13,22 +13,34 @@ public class Turret extends Tower {
     int r = getRange();
     return n + "\nDamage: " + d + "\nSpeed: " + s + "\nRange: " + r + "\nEffect: " + e;
   }
-  
-  public void act(){
+
+  public void act() {
     //shoot
   }
 
-public boolean inBody(int x, int y){
-  
-}
-  
-  public void display(){
-    fill(25,25,25);
-    triangle(,,,,,);
+  public boolean inBody(int x, int y) {
+    return false; //Temporary
   }
-  
+
+  public void display() {
+    fill(25, 75, 125);
+    //Isoceles Triangle Shaped
+    triangle(xcor, ycor + Constants.PIXEL_TO_BOARD_INDEX_RATIO, xcor + Constants.PIXEL_TO_BOARD_INDEX_RATIO, ycor + Constants.PIXEL_TO_BOARD_INDEX_RATIO, xcor + .5 * Constants.PIXEL_TO_BOARD_INDEX_RATIO, ycor);
+  }
+
+  public void upgrade() {
+    //Subtract Gold Cost Here
+    int lev = getLevel();
+    upRange(4 + 1 * lev);
+    upDamage(13 + 2 * lev);
+    upSpeed(2 + 1*lev);
+    upUpgradePrice(50 + 25 * lev);
+    upSellPrice();
+    upLevel();
+  }
+
   /* Old Code
-  public void Turret (int xstart, int ystart) {
+   public void Turret (int xstart, int ystart) {
    xcor = xstart;
    ycor = ystart;
    pos = new PVector(xcor, ycor);
@@ -55,6 +67,5 @@ public boolean inBody(int x, int y){
    maxhealth = strength;
    health = maxhealth; //health regeneration
    }
-   
+   */
 }
-*/

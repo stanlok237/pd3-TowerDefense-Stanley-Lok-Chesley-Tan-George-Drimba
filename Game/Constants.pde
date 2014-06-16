@@ -17,4 +17,9 @@ public static class Constants {
   public static String WALL = "w";
   public static String PATH = "p";
   public static String BASE = "b";
+  public static String TURRET_EFFECT = "none";
+  public static String RAYGUN_EFFECT = "shred/slow";
+  public static String CANNON_EFFECT = "shred";
+  public static String ICE_EFFECT = "slow";
+  public static String POISON_EFFECT = "poison";
 }
