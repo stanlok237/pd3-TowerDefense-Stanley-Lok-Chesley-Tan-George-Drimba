@@ -9,7 +9,7 @@
 <tr><td>6/7</td><td>A* Search - Priority Queue Implemented along with general debugging</td></tr>
 <tr><td>6/7</td><td>General Debugging - Game can start</td></tr>
 <tr><td>6/8 - 6/12</td><td>A* Search - Finished </td></tr>
-<tr><td>6/15</td><td>A* Search - Debugged with Board and Gui, Prevent Path Blocking, Fix Path Coloring</td></tr>
+<tr><td>6/15</td><td>A* Search - Debugged with Board and Gui, Prevent Path Blocking, Fix Path Coloring, Enemy Display, Enemy methods, Worked on Abstract Classes Enemy and Towers</td></tr>
 </table>
 <hr>
 <table>
