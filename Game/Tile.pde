@@ -51,6 +51,7 @@ public class Tile {
     myAgent = null;
     myAgentName = "";
     agents.remove(myAgent);
+    removeAgentOn(tmp);
     return tmp;
   }
 
