@@ -1,6 +1,6 @@
 public static class Constants {
   public static int PIXEL_TO_BOARD_INDEX_RATIO = 40;
-  public static int GAME_BACKGROUND_COLOR = 20;
+  public static int GAME_BACKGROUND_COLOR = 40;
   public static int GAME_STROKE_COLOR = 1;
   public static int GAME_PATH_COLOR = 90;
   public static int GAME_STROKE_WEIGHT = 1;
