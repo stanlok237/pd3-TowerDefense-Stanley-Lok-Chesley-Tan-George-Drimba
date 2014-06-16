@@ -58,6 +58,42 @@ public class InfoDisplay {
         if (t != null) {
           showInfo(t);
         }
+        else{ //Brute Adding Turret Buttons That Do Nothing as of now
+          GuiButton turretButton = new GuiButton(this);
+          myButtons.add(turretButton);
+          turretButton.attachAgent(w);
+          turretButton.setStroke(false);
+          turretButton.setColor(color(25,25,200,180));
+          turretButton.setHoverColor(color(50,50,225,100));
+          turretButton.setY(Constants.NEW_WALL_BUTTON_HEIGHT + 2 * Constants.INFO_DISPLAY_HEIGHT / 6);
+          turretButton.setHeight(Constants.INFO_DISPLAY_HEIGHT / 8);
+          turretButton.setBorders(7,7,7,7);
+          turretButton.setTextColor(color(200));
+          turretButton.setHoverTextColor(color(240));
+          String turretString = "Turret ($100)";
+          turretButton.setText(turretString);
+          turretButton.setWidth(ceil(textWidth(turretString)) + 10);
+          turretButton.setX(parent.boardWidth + (Constants.SIDEBAR_WIDTH - turretButton.getWidth()) / 2);
+          turretButton.setTextSize(14);
+          turretButton.forceDisplay();
+                    GuiButton cannonButton = new GuiButton(this);
+          myButtons.add(cannonButton);
+          cannonButton.attachAgent(w);
+          cannonButton.setStroke(false);
+          cannonButton.setColor(color(25,25,200,180));
+          cannonButton.setHoverColor(color(50,50,225,100));
+          cannonButton.setY(Constants.NEW_WALL_BUTTON_HEIGHT + 3 * Constants.INFO_DISPLAY_HEIGHT / 6);
+          cannonButton.setHeight(Constants.INFO_DISPLAY_HEIGHT / 8);
+          cannonButton.setBorders(7,7,7,7);
+          cannonButton.setTextColor(color(200));
+          cannonButton.setHoverTextColor(color(240));
+          String cannonString = "Canon ($100)";
+          cannonButton.setText(cannonString);
+          cannonButton.setWidth(ceil(textWidth(turretString)) + 10);
+          cannonButton.setX(parent.boardWidth + (Constants.SIDEBAR_WIDTH - cannonButton.getWidth()) / 2);
+          cannonButton.setTextSize(14);
+          cannonButton.forceDisplay();
+        }
       }
       else if (a instanceof Enemy) {
         Enemy e = (Enemy)a;
