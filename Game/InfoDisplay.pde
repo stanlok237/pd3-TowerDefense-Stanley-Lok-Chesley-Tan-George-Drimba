@@ -3,7 +3,7 @@ public class InfoDisplay {
   Game parent;
   color INFO_TEXT_COLOR = color(50, 220, 0, 250);
   ArrayList<GuiButton> myButtons;
-  
+
   public InfoDisplay(Game p) {
     parent = p;
     myButtons = new ArrayList<GuiButton>();
@@ -29,7 +29,7 @@ public class InfoDisplay {
         text("Level: " + b.getLevel(), parent.boardWidth + Constants.SIDEBAR_WIDTH / 2, Constants.NEW_WALL_BUTTON_HEIGHT + 3 * Constants.INFO_DISPLAY_HEIGHT / 6);
         GuiButton upgradeButton = new GuiButton(this) {
           @Override
-          public void clickAction() {
+            public void clickAction() {
             ((Base)myAgent).upgrade("Health");
             idParent.showInfo(myAgent);
             idParent.getButtons().get(0).hover(); // hover effect on the new button created
@@ -51,58 +51,71 @@ public class InfoDisplay {
         upgradeButton.setX(parent.boardWidth + (Constants.SIDEBAR_WIDTH - upgradeButton.getWidth()) / 2);
         upgradeButton.setTextSize(14);
         upgradeButton.forceDisplay();
-      }
-      else if (name.equals(Constants.WALL)) {
+      } else if (name.equals(Constants.WALL)) {
         Wall w = (Wall)a;
         Tower t = w.getTower();
         if (t != null) {
           showInfo(t);
-        }
-        else{ //Brute Adding Turret Buttons That Do Nothing as of now
+        } else { //Brute Adding Turret Buttons That Do Nothing as of now
           GuiButton turretButton = new GuiButton(this);
           myButtons.add(turretButton);
           turretButton.attachAgent(w);
           turretButton.setStroke(false);
-          turretButton.setColor(color(25,25,200,180));
-          turretButton.setHoverColor(color(50,50,225,100));
+          turretButton.setColor(color(25, 25, 200, 180));
+          turretButton.setHoverColor(color(50, 50, 225, 100));
           turretButton.setY(Constants.NEW_WALL_BUTTON_HEIGHT + 2 * Constants.INFO_DISPLAY_HEIGHT / 6);
           turretButton.setHeight(Constants.INFO_DISPLAY_HEIGHT / 8);
-          turretButton.setBorders(7,7,7,7);
+          turretButton.setBorders(7, 7, 7, 7);
           turretButton.setTextColor(color(200));
           turretButton.setHoverTextColor(color(240));
-          String turretString = "Turret ($100)";
+          String turretString = "Turret ($25)";
           turretButton.setText(turretString);
           turretButton.setWidth(ceil(textWidth(turretString)) + 10);
           turretButton.setX(parent.boardWidth + (Constants.SIDEBAR_WIDTH - turretButton.getWidth()) / 2);
           turretButton.setTextSize(14);
           turretButton.forceDisplay();
-                    GuiButton cannonButton = new GuiButton(this);
+          GuiButton cannonButton = new GuiButton(this);
           myButtons.add(cannonButton);
           cannonButton.attachAgent(w);
           cannonButton.setStroke(false);
-          cannonButton.setColor(color(25,25,200,180));
-          cannonButton.setHoverColor(color(50,50,225,100));
+          cannonButton.setColor(color(25, 25, 200, 180));
+          cannonButton.setHoverColor(color(50, 50, 225, 100));
           cannonButton.setY(Constants.NEW_WALL_BUTTON_HEIGHT + 3 * Constants.INFO_DISPLAY_HEIGHT / 6);
           cannonButton.setHeight(Constants.INFO_DISPLAY_HEIGHT / 8);
-          cannonButton.setBorders(7,7,7,7);
+          cannonButton.setBorders(7, 7, 7, 7);
           cannonButton.setTextColor(color(200));
           cannonButton.setHoverTextColor(color(240));
           String cannonString = "Canon ($100)";
           cannonButton.setText(cannonString);
-          cannonButton.setWidth(ceil(textWidth(turretString)) + 10);
+          cannonButton.setWidth(ceil(textWidth(cannonString)) + 10);
           cannonButton.setX(parent.boardWidth + (Constants.SIDEBAR_WIDTH - cannonButton.getWidth()) / 2);
           cannonButton.setTextSize(14);
           cannonButton.forceDisplay();
+                    GuiButton rayButton = new GuiButton(this);
+          myButtons.add(rayButton);
+          rayButton.attachAgent(w);
+          rayButton.setStroke(false);
+          rayButton.setColor(color(25,25,200,180));
+          rayButton.setHoverColor(color(50,50,225,100));
+          rayButton.setY(Constants.NEW_WALL_BUTTON_HEIGHT + 4 * Constants.INFO_DISPLAY_HEIGHT / 6);
+          rayButton.setHeight(Constants.INFO_DISPLAY_HEIGHT / 8);
+          rayButton.setBorders(7,7,7,7);
+          rayButton.setTextColor(color(200));
+          rayButton.setHoverTextColor(color(240));
+          String rayString = "Ray Gun ($1000)";
+          rayButton.setText(rayString);
+          rayButton.setWidth(ceil(textWidth(rayString)) + 10);
+          rayButton.setX(parent.boardWidth + (Constants.SIDEBAR_WIDTH - rayButton.getWidth()) / 2);
+          rayButton.setTextSize(14);
+          rayButton.forceDisplay();
         }
-      }
-      else if (a instanceof Enemy) {
+      } else if (a instanceof Enemy) {
         Enemy e = (Enemy)a;
         text("Health: " + e.getHealth(), parent.boardWidth + Constants.SIDEBAR_WIDTH / 2, Constants.NEW_WALL_BUTTON_HEIGHT + 2 * Constants.INFO_DISPLAY_HEIGHT / 6);
         text("Speed: " + e.getSpeed(), parent.boardWidth + Constants.SIDEBAR_WIDTH / 2, Constants.NEW_WALL_BUTTON_HEIGHT + 3 * Constants.INFO_DISPLAY_HEIGHT / 6);
         text("Armor: " + e.getArmor(), parent.boardWidth + Constants.SIDEBAR_WIDTH / 2, Constants.NEW_WALL_BUTTON_HEIGHT + 4 * Constants.INFO_DISPLAY_HEIGHT / 6);
         text("Damage: " + e.getDamage(), parent.boardWidth + Constants.SIDEBAR_WIDTH / 2, Constants.NEW_WALL_BUTTON_HEIGHT + 5 * Constants.INFO_DISPLAY_HEIGHT / 6);
-      }
-      else if (a instanceof Tower) {
+      } else if (a instanceof Tower) {
         //range, damage, speed, upgradePrice, sellPrice, level;
         Tower t = (Tower)a;
         text("Range: " + t.getRange(), parent.boardWidth + Constants.SIDEBAR_WIDTH / 2, Constants.NEW_WALL_BUTTON_HEIGHT + 2 * Constants.INFO_DISPLAY_HEIGHT / 7);
@@ -110,7 +123,7 @@ public class InfoDisplay {
         text("Level: " + t.getLevel(), parent.boardWidth + Constants.SIDEBAR_WIDTH / 2, Constants.NEW_WALL_BUTTON_HEIGHT + 4 * Constants.INFO_DISPLAY_HEIGHT / 7);
         GuiButton upgradeButton = new GuiButton(this) {
           @Override
-          public void clickAction() {
+            public void clickAction() {
             ((Tower)myAgent).upgrade();
             idParent.showInfo(myAgent);
             idParent.getButtons().get(0).hover(); // hover effect on the new button created
@@ -133,10 +146,10 @@ public class InfoDisplay {
         upgradeButton.setX(parent.boardWidth + (Constants.SIDEBAR_WIDTH - upgradeButton.getWidth()) / 2);
         upgradeButton.setTextSize(14);
         upgradeButton.forceDisplay();
-        
+
         GuiButton sellButton = new GuiButton(this) {
           @Override
-          public void clickAction() {
+            public void clickAction() {
             ((Tower)myAgent).sell();
             int agentX = myAgent.getTile().getX();
             int agentY = myAgent.getTile().getY();
@@ -186,11 +199,9 @@ public class InfoDisplay {
     for (GuiButton gb : myButtons) {
       if (x > gb.getX() && y > gb.getY() && x < gb.getX() + gb.getWidth() && y < gb.getY() + gb.getHeight()) {
         gb.hover();
-      }
-      else {
+      } else {
         gb.display();
       }
     }
   }
-  
 }
