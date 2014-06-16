@@ -58,7 +58,13 @@ public abstract class Enemy extends Agent {
     getTile().removeAgentOn(this);
     //Add Gold Value Here
   }
-
+  public void slow(int s) {
+    if (currentSpeed - s < 5) {
+      currentSpeed = 5;
+    } else {
+      currentSpeed = currentSpeed - s;
+    }
+  }
   public void shredArmor(int a) {
     if (currentArmor - a < 0) {
       currentArmor = 0;
