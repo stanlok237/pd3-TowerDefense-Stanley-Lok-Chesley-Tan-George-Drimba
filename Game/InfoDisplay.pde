@@ -40,14 +40,15 @@ public class InfoDisplay {
         upgradeButton.setStroke(false);
         upgradeButton.setColor(color(25, 25, 200, 180));
         upgradeButton.setHoverColor(color(50, 50, 225, 100));
-        upgradeButton.setX(parent.boardWidth + Constants.SIDEBAR_WIDTH / 4);
         upgradeButton.setY(Constants.NEW_WALL_BUTTON_HEIGHT + 4 * Constants.INFO_DISPLAY_HEIGHT / 6);
-        upgradeButton.setWidth(Constants.SIDEBAR_WIDTH / 2);
         upgradeButton.setHeight(Constants.INFO_DISPLAY_HEIGHT / 8);
         upgradeButton.setBorders(7, 7, 7, 7);
         upgradeButton.setTextColor(color(200));
         upgradeButton.setHoverTextColor(color(240));
-        upgradeButton.setText("Upgrade");
+        String upgradeString = "Upgrade ($" + b.getUpgradePrice() + ")";
+        upgradeButton.setText(upgradeString);
+        upgradeButton.setWidth(ceil(textWidth(upgradeString)) + 10);
+        upgradeButton.setX(parent.boardWidth + (Constants.SIDEBAR_WIDTH - upgradeButton.getWidth()) / 2);
         upgradeButton.setTextSize(14);
         upgradeButton.forceDisplay();
       }

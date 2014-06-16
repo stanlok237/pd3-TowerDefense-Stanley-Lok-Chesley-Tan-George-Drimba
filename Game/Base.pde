@@ -20,11 +20,11 @@ public class Base extends Agent {
   public int getHealth() {
     return currentHealth;
   }
-  
+
   public int getMaximumHealth() {
     return maxHealth;
   }
-  
+
   public int getLevel() {
     return level;
   }
@@ -34,12 +34,19 @@ public class Base extends Agent {
     return -1;
   }
 
+  public int getUpgradePrice() {
+    return level * 1000;
+  }
+
   public void upgrade(String type) {
-    //going to add a check later on when theres a money class
     if (type.equals("Health")) {
-      maxHealth += 100 + level * 10;
-      level++;
-      currentHealth = maxHealth;
+      int upgradePrice = getUpgradePrice();
+      if (myBoard.getParent().getCurrency() > upgradePrice) {
+        myBoard.getParent().removeCurrency(upgradePrice);
+        maxHealth += 100 + level * 10;
+        level++;
+        currentHealth = maxHealth;
+      }
     }
   }
 
@@ -60,20 +67,20 @@ public class Base extends Agent {
 
   public void act() {
   }
-  
+
   public void generateHealthBar() {
     float perc = 1.0 * currentHealth / maxHealth;
     int length = round(perc * Constants.PIXEL_TO_BOARD_INDEX_RATIO);
     fill(50, 200, 0, 100);
     rect(xcor, ycor, length, round(Constants.PIXEL_TO_BOARD_INDEX_RATIO * Constants.BASE_HEALTH_BAR_HEIGHT_PERCENTAGE));
   }
-  
+
   public void display() {
     fill(0, 0, 200, 100);
     rect(xcor, ycor, Constants.PIXEL_TO_BOARD_INDEX_RATIO, Constants.PIXEL_TO_BOARD_INDEX_RATIO);
     generateHealthBar();
   }
-  
+
   public boolean inBody(int x, int y) {
     return (x > xcor && x < xcor + Constants.PIXEL_TO_BOARD_INDEX_RATIO && y > ycor && y < ycor + Constants.PIXEL_TO_BOARD_INDEX_RATIO);
   }
