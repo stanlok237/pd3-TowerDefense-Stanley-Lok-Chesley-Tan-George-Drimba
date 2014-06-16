@@ -4,7 +4,6 @@ import java.io.*;
 public abstract class Enemy extends Agent {
 
   private int currentHealth, maxHealth, currentSpeed, maxSpeed, currentArmor, maxArmor, damage;
-  private String name;
   private AStarSearch search;
 
   public Enemy(int x, int y, int health, int speed, int armor, int damage, String name) {
@@ -16,7 +15,7 @@ public abstract class Enemy extends Agent {
     maxArmor = armor;
     currentArmor = maxArmor;
     this.damage = damage;
-    this.name = name;
+    myName = name;
   }
 
   public int getHealth() {
@@ -74,5 +73,12 @@ public abstract class Enemy extends Agent {
     } else {
       currentArmor = currentArmor - a;
     }
+  }
+  
+  public void generateHealthBar() {
+    float perc = 1.0 * currentHealth / maxHealth;
+    int length = round(perc * Constants.PIXEL_TO_BOARD_INDEX_RATIO / 2);
+    fill(50, 200, 0, 100);
+    rect(xcor, ycor, length, round(Constants.PIXEL_TO_BOARD_INDEX_RATIO * Constants.HEALTH_BAR_HEIGHT_PERCENTAGE));
   }
 }
