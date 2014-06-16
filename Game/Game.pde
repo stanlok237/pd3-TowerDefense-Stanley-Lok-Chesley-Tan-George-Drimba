@@ -123,11 +123,12 @@ void setupBoard() {
       tiles[i][u] = new GraphicsTile(u * Constants.PIXEL_TO_BOARD_INDEX_RATIO, i * Constants.PIXEL_TO_BOARD_INDEX_RATIO, board.get(i, u));
     }
   }
+  //Spawning to be done here
   //Temporary Testing
-  Enemy test = new Grunt(0,0,1);
-  tiles[0][0].getTile().addAgent(Constants.ENEMY);
+  Tile tmp = tiles[0][0].getTile();
+  Enemy test = new Grunt(1,tmp);
   tiles[0][0].getTile().addAgentOn(test);
-  println(tiles[0][0].getTile().getAgent());
+  println(tiles[0][0].getTile().getAgentsOn().get(0));
 }
 
 public void drawAll() {
@@ -254,7 +255,7 @@ class GraphicsTile {
   void display() {
     if (myTile.getAgent() != null) {
       forceRestoreColor();
-      myTile.getAgent().display(); // Currently only displays one Agent per Tile
+      myTile.display(); 
     } else {
       restoreColor();
     }

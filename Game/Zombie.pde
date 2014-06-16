@@ -1,4 +1,4 @@
-public class Zombie extends Enemy {
+/*public class Zombie extends Enemy {
 
   public Zombie (int x, int y, int level) {
     super(x, y, 100 + 10 * level, 5, 0, 5 * level, "Zombie" );
@@ -25,4 +25,4 @@ public class Zombie extends Enemy {
     int a = super.getArmor();
     return n + ": " + h + " / " + mh + "\nSpeed: "  + s + "\nArmor: " + a;
   }
-}
+}*/

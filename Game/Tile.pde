@@ -36,13 +36,6 @@ public class Tile {
       myAgent.setTile(this);
       myAgentName = myAgent.getName();
       a = myAgent;
-    } //TESTING
-    else if (s.equals(Constants.ENEMY)) {
-      myAgent = new Grunt(0,0,1); //WILL BE CHANGED
-      myAgent.setBoard(board);
-      myAgent.setTile(this);
-      myAgentName = myAgent.getName();
-      a = myAgent;
     }
     if (a != null) {
       agents.add(a);
@@ -109,6 +102,15 @@ public class Tile {
 
   public boolean equals(Tile t) {
     return (xCoor == t.getX() && yCoor == t.getY());
+  }
+
+  public void display() { 
+    if (myAgent != null) { 
+      myAgent.display();
+    } 
+    for (Agent a : agents) { 
+      a.display();
+    }
   }
 
   public void clickAction(int x, int y, InfoDisplay infoDisplay) {
