@@ -41,7 +41,7 @@ public class Base extends Agent {
   public void upgrade(String type) {
     if (type.equals("Health")) {
       int upgradePrice = getUpgradePrice();
-      if (myBoard.getParent().getCurrency() > upgradePrice) {
+      if (myBoard.getParent().getCurrency() >= upgradePrice) {
         myBoard.getParent().removeCurrency(upgradePrice);
         maxHealth += 100 + level * 10;
         level++;
