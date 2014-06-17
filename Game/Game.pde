@@ -441,6 +441,22 @@ void mouseMoved() {
     }
   }
 }
+/*
+boolean counting=false; 
+int countstart, countend; 
+float record; 
+
+void setup(){}        
+ void draw (){} 
+void mousePressed(){     
+  if (!counting) { countstart=millis();} 
+             else { countend=millis(); 
+                      record=(countend-countstart)*.001; 
+                      println(record); 
+                    } 
+  counting=!counting; 
+} 
+*/
 
 void mouseClicked() {
   if (mouseX < boardWidth && mouseY < boardHeight) {
