@@ -1,4 +1,4 @@
-
+/* We probably don't have time to implement a fourth tower anyway
 public class Tesla extends Tower {
 //short range electric field thingy
   public Tesla (Tile t) {
@@ -40,3 +40,4 @@ public class Tesla extends Tower {
     upLevel();
   }
 }
+*/
