@@ -1,7 +1,7 @@
 public class Alien extends Enemy{
   //tank
   public Alien(int level, Tile t){
-    super(t, 400 + 100 * level, 2, 10 + 1 * level, 50 * level, "Alien" );
+    super(t, 400 + 100 * level, 2, 10 + 1 * level, 50 * level, 5, "Alien" );
   }
   
   public void act() {
