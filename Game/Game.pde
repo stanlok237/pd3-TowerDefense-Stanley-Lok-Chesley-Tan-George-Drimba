@@ -7,6 +7,7 @@ import java.util.ArrayList;
 PApplet self = this;
 AudioPlayer music;
 Board board = new Board(this);
+Spawn mySpawn;
 GraphicsTile[][] tiles;
 GuiButton newWallButton;
 InfoDisplay infoDisplay;
@@ -26,9 +27,8 @@ int currency;
 int shownCurrency;
 boolean currencyLocked = false;
 boolean roundInProgress = false;
+int round = 1;
 ArrayList<Enemy> enemiesSpawned; // Keeps track of how many enemies are still on the field
-//Spawning location;
-//Tile tmpTile = new Tile(0, 0);
 
 void setup() {
   if (state == 0) {
@@ -75,8 +75,7 @@ void setup() {
     //music.loop();
 
     //Needs To Be Fixed For Spawning Later on
-    Tile tmpTile = board.get(0, 0);
-    path = god.search(tmpTile);
+    path = god.search(mySpawn.getTile());
 
     while (path != null) {
       //Add the tiles in the pat into an ArrayList
@@ -114,10 +113,12 @@ void setup() {
      tiles[0][0].getTile().addAgentOn(test);
      */
     //Giant
+    /*
     Tile tmp = tiles[0][0].getTile();
-    Enemy test = new Giant(1, tmp, board);
-    tiles[0][0].getTile().addAgentOn(test);
-    enemiesSpawned.add(test);
+     Enemy test = new Giant(1, tmp, board);
+     tiles[0][0].getTile().addAgentOn(test);
+     enemiesSpawned.add(test);
+     */
     /*
   for (int i = 0; i < board.getRows (); i++) {
      for (int u = 0; u < board.getCols (); u++) {
@@ -138,8 +139,16 @@ void draw() {
     if (frame.getState() != Frame.NORMAL)
       frame.setState(Frame.NORMAL);
     showCurrency();
-    for (Enemy e : enemiesSpawned) {
-      e.act();
+    if (roundInProgress) {
+      mySpawn.act();
+      if (enemiesSpawned.size() == 0) { // Round over
+        roundInProgress = false;
+        round += 1;
+      } else {
+        for (Enemy e : enemiesSpawned) {
+          e.act();
+        }
+      }
     }
   }
 }
@@ -200,6 +209,10 @@ public void startGame() {
   f.dispose();
 }
 
+public int getRound() {
+  return round;
+}
+
 public void showCurrency() {
   if (currency != shownCurrency) {
     forceShowCurrency();
@@ -249,6 +262,18 @@ public void lockCurrency() {
 
 public void unlockCurrency() {
   currencyLocked = false;
+}
+
+public void setSpawn(Spawn s) {
+  mySpawn = s;
+}
+
+public Spawn getSpawn() {
+  return mySpawn;
+}
+
+public void addToAlive(Enemy e) {
+  enemiesSpawned.add(e);
 }
 
 public void removeFromAlive(Enemy e) {
@@ -384,8 +409,7 @@ void placeWall(int x, int y) {
   if (tiles[y][x].getTile().getAgent() == null && getCurrency() >= Constants.WALL_PRICE) {
     lockCurrency();
     tiles[y][x].getTile().addAgent(Constants.WALL);
-    Tile tmpTile = board.get(0, 0);
-    path = god.search(tmpTile);
+    path = god.search(mySpawn.getTile());
     //println(path);
     if (path == null) {
       tiles[y][x].getTile().removeAgent();

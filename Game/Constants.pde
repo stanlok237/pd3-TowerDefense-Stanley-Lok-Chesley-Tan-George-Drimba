@@ -18,6 +18,7 @@ public static class Constants {
   public static int RAY_GUN_PRICE = 1000;
   public static float BASE_HEALTH_BAR_HEIGHT_PERCENTAGE = 0.3;
   public static float HEALTH_BAR_HEIGHT_PERCENTAGE = 0.1;
+  public static String SPAWN = "s";
   public static String WALL = "w";
   public static String PATH = "p";
   public static String BASE = "b";

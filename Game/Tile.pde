@@ -64,6 +64,13 @@ public class Tile {
         a.setBoard(board);
         a.setTile(this);
       }
+    } else if (s.equals(Constants.SPAWN)) {
+      myAgent = new Spawn(myBoard.getParent());
+      myAgent.setBoard(board);
+      myAgent.setTile(this);
+      myAgentName = myAgent.getName();
+      a = myAgent;
+      myBoard.getParent().setSpawn((Spawn)myAgent);
     }
     if (a != null) {
       agents.add(a);

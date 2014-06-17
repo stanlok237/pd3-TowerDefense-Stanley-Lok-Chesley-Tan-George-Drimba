@@ -6,14 +6,17 @@ public class Board {
   Base base;
 
   public Board(Game p) {
+    /*
     numRows = defaultSize;
     numCols = defaultSize;
     board = new Tile[numRows][numCols];
     for (int i = 0; i < numRows; i++) {
       for (int j = 0; j < numCols; j++) {
         board[i][j] = new Tile(i, j);
+        board[i][j].setBoard(this);
       }
     }
+    */
     parent = p;
   }
 
@@ -23,6 +26,7 @@ public class Board {
     for (int i = 0; i < numRows; i++) {
       for (int j = 0; j < numCols; j++) {
         board[i][j] = new Tile(i, j);
+        board[i][j].setBoard(this);
       }
     }
     parent = p;
@@ -35,6 +39,7 @@ public class Board {
     for (int i = 0; i < numRows; i++) {
       for (int j = 0; j < numCols; j++) {
         board[i][j] = new Tile(i, j);
+        board[i][j].setBoard(this);
       }
     }
     parent = p;
@@ -74,6 +79,7 @@ public class Board {
       String[] objects = d[i].split(" ");
       for (int u = 0; u < objects.length; u++) {
         board[row][u] = new Tile(u, row);
+        board[row][u].setBoard(this);
         board[row][u].addAgent(objects[u]);
         if (objects[u].equals(Constants.BASE)) {
           base = (Base)(board[row][u].getAgent());

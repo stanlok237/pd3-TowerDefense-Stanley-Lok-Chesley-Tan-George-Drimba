@@ -9,14 +9,6 @@ public class Base extends Agent {
     level = 1;
   }
 
-  public Base() {
-    super(0, 10);
-    myName = Constants.BASE;
-    maxHealth = 500;
-    currentHealth = maxHealth;
-    level = 1;
-  }
-
   public int getHealth() {
     return currentHealth;
   }
