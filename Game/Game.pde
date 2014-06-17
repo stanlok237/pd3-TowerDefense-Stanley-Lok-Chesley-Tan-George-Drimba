@@ -114,6 +114,7 @@ void setupBoard() {
   pathTiles = new ArrayList<Tile>();
   god = new AStarSearch(board);
   frame.setResizable(true);
+  currency = 1000; //for testing
   boardHeight = board.getRows() * Constants.PIXEL_TO_BOARD_INDEX_RATIO;
   boardWidth = board.getCols() * Constants.PIXEL_TO_BOARD_INDEX_RATIO;
   frame.setSize(boardWidth + frame.getInsets().left + frame.getInsets().right + Constants.SIDEBAR_WIDTH, boardHeight + frame.getInsets().top + frame.getInsets().bottom);
