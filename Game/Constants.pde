@@ -4,6 +4,9 @@ public static class Constants {
   public static int GAME_STROKE_COLOR = 1;
   public static int GAME_PATH_COLOR = 90;
   public static int GAME_STROKE_WEIGHT = 1;
+  public static int TURRET_PRICE = 100;
+  public static int CANNON_PRICE = 200;
+  public static int RAY_GUN_PRICE = 1000;
   public static boolean GAME_NO_STROKE = true;
   public static boolean SHOW_PATH = true;
   public static int SIDEBAR_WIDTH = 200;
@@ -18,6 +21,8 @@ public static class Constants {
   public static String PATH = "p";
   public static String BASE = "b";
   public static String TURRET = "t";
+  public static String CANNON = "c";
+  public static String RAY_GUN = "r";
   public static String TURRET_EFFECT = "none";
   public static String RAYGUN_EFFECT = "shred/slow";
   public static String CANNON_EFFECT = "shred";

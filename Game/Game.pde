@@ -77,7 +77,7 @@ void setup() {
     Tile tmpTile = board.get(0, 0);
     path = god.search(tmpTile);
 
-    while (path.hasParent ()) {
+    while (path != null) {
       //Add the tiles in the pat into an ArrayList
       Tile travelPath = path.getTile();
       if (Constants.SHOW_PATH) {
@@ -90,6 +90,9 @@ void setup() {
 
     // Works with Oracle's JDK
     //frame.setResizable(false);
+    Tile tmp = tiles[0][0].getTile();
+    Enemy test = new Giant(1, tmp, board);
+    tiles[0][0].getTile().addAgentOn(test);
 
     frame.addComponentListener(new ResizeAdapter(this));
   }
@@ -129,7 +132,7 @@ void setupBoard() {
   //Spawning to be done here
   //Temporary Testing - Grunt
 
-  Tile tmp = tiles[0][0].getTile();
+
   /*
   Enemy test = new Grunt(1,tmp);
    tiles[0][0].getTile().addAgentOn(test);
@@ -146,14 +149,14 @@ void setupBoard() {
    tiles[0][0].getTile().addAgentOn(test);
    */
   //Giant
-  Enemy test = new Giant(1, tmp);
-  tiles[0][0].getTile().addAgentOn(test);
+  //Enemy test = new Giant(1, tmp, board);
+  //tiles[0][0].getTile().addAgentOn(test);
 
   for (int i = 0; i < board.getRows (); i++) {
     for (int u = 0; u < board.getCols (); u++) {
-      if (tiles[i][u].getTile().getAgent() instanceof Wall) {
-        tiles[i][u].getTile().addAgent(Constants.TURRET);
-      }
+      //if (tiles[i][u].getTile().getAgent() instanceof Wall) {
+      //tiles[i][u].getTile().addAgent(Constants.TURRET);
+      //}
     }
   }
 }

@@ -1,10 +1,12 @@
 public abstract class Enemy extends Agent {
 
-  protected int currentHealth, maxHealth, currentSpeed, maxSpeed, currentArmor, maxArmor, damage,reward;
+  protected int currentHealth, maxHealth, currentSpeed, maxSpeed, currentArmor, maxArmor, damage, reward;
   protected AStarSearch search;
+  protected Stack<Tile> path;
 
-  public Enemy(Tile t, int health, int speed, int armor, int damage, int value, String name) {
+  public Enemy(Tile t , Board b, int health, int speed, int armor, int damage, int value, String name) {
     setTile(t);
+    setBoard(b);
     maxHealth = health;
     currentHealth = maxHealth;
     maxSpeed = speed;
@@ -14,8 +16,15 @@ public abstract class Enemy extends Agent {
     this.damage = damage;
     reward = value;
     myName = name;
+    search = new AStarSearch(myBoard);
+    Node tmp =  search.search(myTile);
+    path = new Stack<Tile>();
+    while (tmp != null) {
+      //println(tmp);
+      path.add(tmp.getTile());
+      tmp = tmp.getParent();
+    }
   }
-
   public int getHealth() {
     return currentHealth;
   }
@@ -43,10 +52,10 @@ public abstract class Enemy extends Agent {
   public int getMaxArmor() {
     return maxArmor;
   }
-  
- public int getReward(){
-   return reward;
- }
+
+  public int getReward() {
+    return reward;
+  }
 
   public void takeDamage(int d) {
     if (currentHealth - d < 0) {
@@ -81,15 +90,14 @@ public abstract class Enemy extends Agent {
     fill(50, 200, 0, 100);
     rect(xcor, ycor, length, round(Constants.PIXEL_TO_BOARD_INDEX_RATIO * Constants.HEALTH_BAR_HEIGHT_PERCENTAGE));
   }
- 
-   public Node getPath(){
-     return search.search(myTile);
-   }
-  
-   public void act(){
-     
-   }
-  
+
+  public Stack<Tile> getPath() {
+    return path;
+  }
+
+  public void act() {
+  }
+
   /* public void move() {
    --- need some way to store the path in a class 
    if (nextStepinPath.equals("completed")) {

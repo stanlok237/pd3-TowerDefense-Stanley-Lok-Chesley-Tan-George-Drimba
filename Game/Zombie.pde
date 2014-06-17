@@ -1,7 +1,7 @@
 public class Zombie extends Enemy {
 
-  public Zombie (int level, Tile t) {
-    super(t, 100 + 10 * level, 5, 0, 5 * level,5 ,"Zombie" );
+  public Zombie (int level, Tile t, Board b) {
+    super(t,b, 100 + 10 * level, 5, 0, 5 * level,5 ,"Zombie" );
   }
 
   public void act() {
