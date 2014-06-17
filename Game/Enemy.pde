@@ -76,6 +76,14 @@ public abstract class Enemy extends Agent {
     fill(50, 200, 0, 100);
     rect(xcor, ycor, length, round(Constants.PIXEL_TO_BOARD_INDEX_RATIO * Constants.HEALTH_BAR_HEIGHT_PERCENTAGE));
   }
+ 
+   public Node getPath(){
+     return search.search(myTile);
+   }
+  
+   public void act(){
+     
+   }
   
   /* public void move() {
    --- need some way to store the path in a class 
