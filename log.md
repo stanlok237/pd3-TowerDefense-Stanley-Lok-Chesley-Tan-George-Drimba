@@ -8,9 +8,9 @@
 <tr><td>6/6</td><td>Modified A* Search to be Node Based</td></tr>
 <tr><td>6/7</td><td>A* Search - Priority Queue Implemented along with general debugging</td></tr>
 <tr><td>6/7</td><td>General Debugging - Game can start</td></tr>
-<tr><td>6/8 - 6/12</td><td>A* Search - Finished </td></tr>
+<tr><td>6/8 - 6/12</td><td>A* Search - Finished, Implement A* Search in side the GUI and worked on Blockage for the Path Finding.  Debugged Improper Pathing, Implement Colored Path, general debugging  </td></tr>
 <tr><td>6/15</td><td>A* Search - Debugged with Board and Gui, Prevent Path Blocking, Fix Path Coloring, Enemy Display, Enemy methods, Worked on Abstract Classes Enemy and Towers, Implement Different Enemies and Towers (Zombie, Raygun etc)</td></tr>
-<tr><td>6/16</td><td>Add Building options when clicked on tile, fix conflict between dynamic and static agents with astarsearch, fix improper painting for bad walls</td></tr>
+<tr><td>6/16</td><td>Add Building options when clicked on tile, fix conflict between dynamic and static agents with astarsearch, fix improper painting for bad walls, Add Path Finding to each enemy, Add Purchase Buttons when selecting a tile, Fix display methods for turrets to differentiate between them, general debugging done to simplify code</td></tr>
 </table>
 <hr>
 <table>
