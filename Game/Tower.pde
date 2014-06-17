@@ -81,12 +81,12 @@ public abstract class Tower extends Agent {
   
   //Generic Shooting
   public void shoot(){
+    /*
     float d = dist(myTile.getX() * Constants.PIXEL_TO_BOARD_INDEX_RATIO), myTile.getY() * Constants.PIXEL_TO_BOARD_INDEX_RATIO) , t.getX() * Constants.PIXEL_TO_BOARD_INDEX_RATIO), t.getY() * Constants.PIXEL_TO_BOARD_INDEX_RATIO));
   while d < range {
     delay(100 - speed);
     act(); // need to implement an act
-  }
-    
+    */
   }
 
   public abstract void upgrade();

@@ -23,6 +23,8 @@ ArrayList<Tile> pathTiles;
 AStarSearch god;
 int currency;
 int shownCurrency;
+boolean currencyLocked = false;
+boolean roundInProgress = false;
 
 //Base base = new Base();
 //AStarSearch god = new AStarSearch(board.getRows(), base, board);
@@ -57,7 +59,8 @@ void setup() {
     newWallButton.setTextColor(color(200));
     newWallButton.setHoverTextColor(color(240));
     newWallButton.setClickedTextColor(color(255, 3, 32, 150));
-    newWallButton.setText("Place New Wall");
+    String newWallString = "Place New Wall\n($" + Constants.WALL_PRICE + ")";
+    newWallButton.setText(newWallString);
     newWallButton.setTextSize(20);
     if (Constants.GAME_NO_STROKE) {
       newWallButton.setStroke(false);
@@ -218,22 +221,40 @@ public void forceShowCurrency() {
 }
 
 public void addCurrency(int n) {
-  currency += n;
-  showCurrency();
+  if (!currencyLocked) {
+    currency += n;
+    showCurrency();
+  }
 }
 
 public void removeCurrency(int n) {
-  currency -= n;
-  showCurrency();
+  if (!currencyLocked) {
+    currency -= n;
+    showCurrency();
+  }
 }
 
 public void setCurrency(int n) {
-  currency = n;
-  showCurrency();
+  if (!currencyLocked) {
+    currency = n;
+    showCurrency();
+  }
 }
 
 public int getCurrency() {
   return currency;
+}
+
+public void lockCurrency() {
+  currencyLocked = true;
+}
+
+public void unlockCurrency() {
+  currencyLocked = false;
+}
+
+public boolean isCurrencyLocked() {
+  return currencyLocked;
 }
 
 public class PFrame extends Frame {
@@ -358,17 +379,8 @@ class GraphicsTile {
 }
 
 void placeWall(int x, int y) {
-  for (int i = 0; i < tiles.length; i++) {
-    for (int u = 0; u < tiles[0].length; u++) {
-      if (Constants.SHOW_PATH) {
-        if (tiles[i][u].defaultColor != Constants.GAME_BACKGROUND_COLOR) {
-          tiles[i][u].setDefaultColor(Constants.GAME_BACKGROUND_COLOR);
-          tiles[i][u].forceDisplay();
-        }
-      }
-    }
-  }
-  if (tiles[y][x].getTile().getAgent() == null) {
+  if (tiles[y][x].getTile().getAgent() == null && getCurrency() >= Constants.WALL_PRICE) {
+    lockCurrency();
     tiles[y][x].getTile().addAgent(Constants.WALL);
     Tile tmpTile = board.get(0, 0);
     path = god.search(tmpTile);
@@ -376,6 +388,18 @@ void placeWall(int x, int y) {
     if (path == null) {
       tiles[y][x].getTile().removeAgent();
     } else {
+      unlockCurrency();
+      removeCurrency(Constants.WALL_PRICE);  
+      for (int i = 0; i < tiles.length; i++) {
+        for (int u = 0; u < tiles[0].length; u++) {
+          if (Constants.SHOW_PATH) {
+            if (tiles[i][u].defaultColor != Constants.GAME_BACKGROUND_COLOR) {
+              tiles[i][u].setDefaultColor(Constants.GAME_BACKGROUND_COLOR);
+              tiles[i][u].forceDisplay();
+            }
+          }
+        }
+      }
       pathTiles.clear();
       while (path.hasParent ()) {
         //Add the tiles in the pat into an ArrayList
@@ -443,24 +467,24 @@ void mouseMoved() {
 }
 /*
 boolean counting=false; 
-int countstart, countend; 
-float record; 
-
-void setup(){}        
+ int countstart, countend; 
+ float record; 
+ 
+ void setup(){}        
  void draw (){} 
-void mousePressed(){     
-  if (!counting) { countstart=millis();} 
-             else { countend=millis(); 
-                      record=(countend-countstart)*.001; 
-                      println(record); 
-                    } 
-  counting=!counting; 
-} 
-*/
+ void mousePressed(){     
+ if (!counting) { countstart=millis();} 
+ else { countend=millis(); 
+ record=(countend-countstart)*.001; 
+ println(record); 
+ } 
+ counting=!counting; 
+ } 
+ */
 
 void mouseClicked() {
   if (mouseX < boardWidth && mouseY < boardHeight) {
-    if (newWallButtonClicked) {
+    if (newWallButtonClicked && !roundInProgress) {
       int tileHereX = mouseX / Constants.PIXEL_TO_BOARD_INDEX_RATIO;
       int tileHereY = mouseY / Constants.PIXEL_TO_BOARD_INDEX_RATIO;
       placeWall(tileHereX, tileHereY);
@@ -474,7 +498,7 @@ void mouseClicked() {
       int tileHereY = mouseY / Constants.PIXEL_TO_BOARD_INDEX_RATIO;
       tiles[tileHereY][tileHereX].getTile().clickAction(mouseX, mouseY, infoDisplay);
     }
-  } else if (mouseY < Constants.NEW_WALL_BUTTON_HEIGHT) {
+  } else if (mouseY < Constants.NEW_WALL_BUTTON_HEIGHT && !roundInProgress) {
     newWallButtonClicked = !newWallButtonClicked;
     if (newWallButtonClicked) {
       tileHoverColor = color(222, 22, 0, 100);

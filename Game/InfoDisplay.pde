@@ -62,7 +62,8 @@ public class InfoDisplay {
           GuiButton turretButton = new GuiButton(this) {
             @Override
               public void clickAction() {
-              if (idParent.getParent().getCurrency() >= Constants.TURRET_PRICE) {
+              if (!idParent.getParent().isCurrencyLocked() && idParent.getParent().getCurrency() >= Constants.TURRET_PRICE) {
+                idParent.getParent().removeCurrency(Constants.TURRET_PRICE);
                 Wall w = (Wall)myAgent;
                 myAgent.getTile().addAgent(Constants.TURRET);
                 idParent.showInfo(w.getTower());
@@ -70,7 +71,6 @@ public class InfoDisplay {
                 int y= myAgent.getTile().getY();
                 idParent.getParent().tiles[y][x].forceDisplay();
                 idParent.getButtons().get(0).hover(); // hover effect on the new button created
-                idParent.getParent().removeCurrency(Constants.TURRET_PRICE);
               }
             }
           };
@@ -93,7 +93,8 @@ public class InfoDisplay {
           GuiButton cannonButton = new GuiButton(this) {
             @Override
               public void clickAction() {
-              if (idParent.getParent().getCurrency() >= Constants.CANNON_PRICE) {
+              if (!idParent.getParent().isCurrencyLocked() && idParent.getParent().getCurrency() >= Constants.CANNON_PRICE) {
+                idParent.getParent().removeCurrency(Constants.CANNON_PRICE);
                 Wall w = (Wall)myAgent;
                 myAgent.getTile().addAgent(Constants.CANNON);
                 idParent.showInfo(w.getTower());
@@ -101,7 +102,6 @@ public class InfoDisplay {
                 int y= myAgent.getTile().getY();
                 idParent.getParent().tiles[y][x].forceDisplay();
                 idParent.getButtons().get(0).hover(); // hover effect on the new button created
-                idParent.getParent().removeCurrency(Constants.CANNON_PRICE);
               }
             }
           };
@@ -124,7 +124,8 @@ public class InfoDisplay {
           GuiButton rayButton = new GuiButton(this) {
             @Override
               public void clickAction() {
-              if (idParent.getParent().getCurrency() >= Constants.RAY_GUN_PRICE) {
+              if (!idParent.getParent().isCurrencyLocked() && idParent.getParent().getCurrency() >= Constants.RAY_GUN_PRICE) {
+                idParent.getParent().removeCurrency(Constants.RAY_GUN_PRICE);
                 Wall w = (Wall)myAgent;
                 myAgent.getTile().addAgent(Constants.RAY_GUN);
                 idParent.showInfo(w.getTower());
@@ -132,7 +133,6 @@ public class InfoDisplay {
                 int y= myAgent.getTile().getY();
                 idParent.getParent().tiles[y][x].forceDisplay();
                 idParent.getButtons().get(0).hover(); // hover effect on the new button created
-                idParent.getParent().removeCurrency(Constants.RAY_GUN_PRICE);
               }
             }
           };
