@@ -9,7 +9,7 @@ AudioPlayer music;
 Board board = new Board(this);
 Spawn mySpawn;
 GraphicsTile[][] tiles;
-GuiButton newWallButton;
+GuiButton newWallButton, nextRoundButton;
 InfoDisplay infoDisplay;
 IntroState is;
 PFrame f;
@@ -47,9 +47,9 @@ void setup() {
     strokeWeight(Constants.GAME_STROKE_WEIGHT);
 
     newWallButton = new GuiButton();
-    newWallButton.setColor(color(25, 25, 200, 180));
+    newWallButton.setColor(color(25, 25, 200, 150));
     newWallButton.setHoverColor(color(50, 50, 225, 100));
-    newWallButton.setClickedColor(color(50, 50, 225, 100));
+    newWallButton.setClickedColor(color(150, 0, 0, 200));
     newWallButton.setX(boardWidth);
     newWallButton.setY(0);
     newWallButton.setWidth(Constants.SIDEBAR_WIDTH);
@@ -57,24 +57,42 @@ void setup() {
     newWallButton.setBorders(0, 0, 0, 0);
     newWallButton.setTextColor(color(200));
     newWallButton.setHoverTextColor(color(240));
-    newWallButton.setClickedTextColor(color(255, 3, 32, 150));
+    newWallButton.setClickedTextColor(color(240));
     String newWallString = "Place New Wall\n($" + Constants.WALL_PRICE + ")";
     newWallButton.setText(newWallString);
-    newWallButton.setTextSize(20);
+    newWallButton.setTextSize(Constants.NEW_WALL_BUTTON_TEXT_SIZE);
     if (Constants.GAME_NO_STROKE) {
       newWallButton.setStroke(false);
+    }
+
+    nextRoundButton = new GuiButton();
+    nextRoundButton.setColor(color(150, 0, 0, 200));
+    nextRoundButton.setHoverColor(color(150, 0, 0, 125));
+    nextRoundButton.setX(boardWidth);
+    nextRoundButton.setY(boardHeight - Constants.NEXT_ROUND_BUTTON_HEIGHT_FROM_BOTTOM);
+    nextRoundButton.setWidth(Constants.SIDEBAR_WIDTH);
+    nextRoundButton.setHeight(Constants.NEXT_ROUND_BUTTON_HEIGHT);
+    nextRoundButton.setBorders(0, 0, 0, 0);
+    nextRoundButton.setTextColor(color(200));
+    nextRoundButton.setHoverTextColor(color(240));
+    nextRoundButton.setText("Next Round");
+    nextRoundButton.setTextSize(Constants.NEXT_ROUND_BUTTON_TEXT_SIZE);
+    if (Constants.GAME_NO_STROKE) {
+      nextRoundButton.setStroke(false);
     }
 
     infoDisplay = new InfoDisplay(this);
     enemiesSpawned = new ArrayList<Enemy>();
 
-    drawAll();
-
     //music = new Minim(this).loadFile("../resources/Thor.mp3");
     //music.play();
     //music.loop();
 
-    //Needs To Be Fixed For Spawning Later on
+    // Works with Oracle's JDK
+    //frame.setResizable(false);
+
+    frame.addComponentListener(new ResizeAdapter(this));
+
     path = god.search(mySpawn.getTile());
 
     while (path != null) {
@@ -87,11 +105,6 @@ void setup() {
       pathTiles.add(path.getTile());
       path = path.getParent();
     }
-
-    // Works with Oracle's JDK
-    //frame.setResizable(false);
-
-    frame.addComponentListener(new ResizeAdapter(this));
 
     //Spawning to be done here
     //Temporary Testing - Grunt
@@ -128,6 +141,7 @@ void setup() {
      }
      }
      */
+    drawAll();
   }
 }
 
@@ -193,6 +207,9 @@ public void drawAll() {
   if (newWallButton != null) {
     newWallButton.forceDisplay();
   }
+  if (nextRoundButton != null) {
+    nextRoundButton.forceDisplay();
+  }
   forceShowCurrency();
   showRound();
 }
@@ -227,6 +244,10 @@ public void showRound() {
   textAlign(CENTER, CENTER);
   fill(#EEEEEE);
   text("Round: " + round, boardWidth + Constants.SIDEBAR_WIDTH / 2, boardHeight - Constants.CURRENCY_HEIGHT_FROM_BOTTOM - Constants.ROUND_HEIGHT_ABOVE_CURRENCY / 2 - textAscent() * 0.1);
+}
+
+public void startRound() {
+  roundInProgress = true;
 }
 
 public void showCurrency() {
@@ -482,13 +503,21 @@ void mouseMoved() {
       if (!newWallButtonClicked) {
         newWallButton.display();
       }
+      nextRoundButton.display();
     } else if (userX > boardWidth && userX < boardWidth + Constants.SIDEBAR_WIDTH) { // User within first sidebar
       if (userY < Constants.NEW_WALL_BUTTON_HEIGHT) { // User within new wall button
         if (!newWallButtonClicked) {
           newWallButton.hover();
         }
+        nextRoundButton.display();
       } else if (userY < Constants.NEW_WALL_BUTTON_HEIGHT + Constants.INFO_DISPLAY_HEIGHT) { // User within info display
         infoDisplay.hoverAction(userX, userY);
+        if (!newWallButtonClicked) {
+          newWallButton.display();
+        }
+        nextRoundButton.display();
+      } else if (userY > boardHeight - Constants.NEXT_ROUND_BUTTON_HEIGHT_FROM_BOTTOM && userY < boardHeight - Constants.CURRENCY_HEIGHT_FROM_BOTTOM - Constants.ROUND_HEIGHT_ABOVE_CURRENCY) { // User within next round button
+        nextRoundButton.hover();
         if (!newWallButtonClicked) {
           newWallButton.display();
         }
@@ -496,11 +525,13 @@ void mouseMoved() {
         if (!newWallButtonClicked) {
           newWallButton.display();
         }
+        nextRoundButton.display();
       }
     } else if (userX > boardWidth + Constants.SIDEBAR_WIDTH) { // User outside first sidebar
       if (!newWallButtonClicked) {
         newWallButton.display();
       }
+      nextRoundButton.display();
     }
     if (newWallButtonClicked) {
       newWallButton.clicked();
@@ -525,7 +556,7 @@ boolean counting=false;
  */
 
 void mouseClicked() {
-  if (mouseX < boardWidth && mouseY < boardHeight) {
+  if (mouseX < boardWidth && mouseY < boardHeight) { // User within board
     if (newWallButtonClicked && !roundInProgress) {
       int tileHereX = mouseX / Constants.PIXEL_TO_BOARD_INDEX_RATIO;
       int tileHereY = mouseY / Constants.PIXEL_TO_BOARD_INDEX_RATIO;
@@ -540,7 +571,7 @@ void mouseClicked() {
       int tileHereY = mouseY / Constants.PIXEL_TO_BOARD_INDEX_RATIO;
       tiles[tileHereY][tileHereX].getTile().clickAction(mouseX, mouseY, infoDisplay);
     }
-  } else if (mouseY < Constants.NEW_WALL_BUTTON_HEIGHT && !roundInProgress) {
+  } else if (mouseY < Constants.NEW_WALL_BUTTON_HEIGHT && !roundInProgress) { // User within new wall button
     newWallButtonClicked = !newWallButtonClicked;
     if (newWallButtonClicked) {
       tileHoverColor = color(222, 22, 0, 100);
@@ -551,7 +582,9 @@ void mouseClicked() {
       newWallButton.display();
       cursor(ARROW);
     }
-  } else if (mouseY < Constants.NEW_WALL_BUTTON_HEIGHT + Constants.INFO_DISPLAY_HEIGHT) {
+  } else if (mouseY < Constants.NEW_WALL_BUTTON_HEIGHT + Constants.INFO_DISPLAY_HEIGHT) { // User within InfoDisplay
     infoDisplay.clickAction(mouseX, mouseY);
+  } else if (mouseY < boardHeight && mouseY > boardHeight - Constants.NEXT_ROUND_BUTTON_HEIGHT_FROM_BOTTOM) { // User within next round button
+    startRound();
   }
 }

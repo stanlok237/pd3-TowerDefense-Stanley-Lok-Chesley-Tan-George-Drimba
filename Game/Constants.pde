@@ -8,12 +8,16 @@ public static class Constants {
   public static boolean SHOW_PATH = true;
   public static int SIDEBAR_WIDTH = 200;
   public static int NEW_WALL_BUTTON_HEIGHT = 100;
+  public static int NEW_WALL_BUTTON_TEXT_SIZE = 20;
   public static int INFO_DISPLAY_HEIGHT = 300;
   public static int INFO_TEXT_SIZE = 16;
   public static int CURRENCY_HEIGHT_FROM_BOTTOM = 50;
   public static int CURRENCY_TEXT_SIZE = 14;
   public static int ROUND_HEIGHT_ABOVE_CURRENCY = 50;
   public static int ROUND_TEXT_SIZE = 14;
+  public static int NEXT_ROUND_BUTTON_HEIGHT_FROM_BOTTOM = 150;
+  public static int NEXT_ROUND_BUTTON_HEIGHT = 50;
+  public static int NEXT_ROUND_BUTTON_TEXT_SIZE = 16;
   public static int WALL_PRICE = 500;
   public static int TURRET_PRICE = 100;
   public static int CANNON_PRICE = 200;
