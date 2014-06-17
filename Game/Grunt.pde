@@ -1,7 +1,7 @@
 public class Grunt extends Enemy {
 
   public Grunt (int level, Tile t) {
-    super(t, 25 * level, 10, 0, 1 * level, "Grunt" );
+    super(t, 25 * level, 10, 0, 1 * level, 5, "Grunt" );
   }
 
   //public act here -----------------------
