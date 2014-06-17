@@ -19,6 +19,13 @@
 <tr><td>6/3</td><td>Worked on Base Search</td></tr>
 <tr><td>6/6</td><td>Intro Screen, Game State </td></tr>
 <tr><td>6/9</td><td>Exp, Towers, Enemies</td></tr>
+<tr><td>6/10</td><td>Game State</td></tr>
+<tr><td>6/13</td><td>A* debugging </td></tr>
+
+<tr><td>6/14</td><td>PImage and Pvectors</td></tr>
+<tr><td>6/15</td><td>move, act()</td></tr>
+<tr><td>6/16</td><td> Hit detection</td></tr>
+
 <hr>
 <table>
 <h1>Chesley Tan</h1>
