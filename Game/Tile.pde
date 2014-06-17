@@ -44,6 +44,26 @@ public class Tile {
         a.setBoard(board);
         a.setTile(this);
       }
+    } else if (s.equals(Constants.CANNON)) {
+      if (myAgent instanceof Wall) {
+        a = new Cannon(this);
+        Cannon c = (Cannon)a;
+        Wall w = (Wall)myAgent;
+        c.setWall(w);
+        w.setTower(c);
+        a.setBoard(board);
+        a.setTile(this);
+      }
+    } else if (s.equals(Constants.RAY_GUN)) {
+      if (myAgent instanceof Wall) {
+        a = new RayGun(this);
+        RayGun r = (RayGun)a;
+        Wall w = (Wall)myAgent;
+        r.setWall(w);
+        w.setTower(r);
+        a.setBoard(board);
+        a.setTile(this);
+      }
     }
     if (a != null) {
       agents.add(a);

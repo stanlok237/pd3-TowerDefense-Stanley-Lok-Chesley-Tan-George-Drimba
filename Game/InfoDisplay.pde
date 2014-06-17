@@ -57,7 +57,19 @@ public class InfoDisplay {
         if (t != null) {
           showInfo(t);
         } else { //Brute Adding Turret Buttons That Do Nothing as of now
-          GuiButton turretButton = new GuiButton(this);
+          GuiButton turretButton = new GuiButton(this) {
+            @Override
+            public void clickAction() {
+              Wall w = (Wall)myAgent;
+              myAgent.getTile().addAgent(Constants.TURRET);
+              idParent.showInfo(w.getTower());
+              int x = myAgent.getTile().getX();
+              int y= myAgent.getTile().getY();
+              idParent.getParent().tiles[y][x].forceDisplay();
+              idParent.getButtons().get(0).hover(); // hover effect on the new button created
+              idParent.getParent().removeCurrency(Constants.TURRET_PRICE);
+            }
+          };
           myButtons.add(turretButton);
           turretButton.attachAgent(w);
           turretButton.setStroke(false);
@@ -68,13 +80,25 @@ public class InfoDisplay {
           turretButton.setBorders(7, 7, 7, 7);
           turretButton.setTextColor(color(200));
           turretButton.setHoverTextColor(color(240));
-          String turretString = "Turret ($25)";
+          String turretString = "Turret ($" + Constants.TURRET_PRICE + ")";
           turretButton.setText(turretString);
           turretButton.setWidth(ceil(textWidth(turretString)) + 10);
           turretButton.setX(parent.boardWidth + (Constants.SIDEBAR_WIDTH - turretButton.getWidth()) / 2);
           turretButton.setTextSize(14);
           turretButton.forceDisplay();
-          GuiButton cannonButton = new GuiButton(this);
+          GuiButton cannonButton = new GuiButton(this) {
+            @Override
+            public void clickAction() {
+              Wall w = (Wall)myAgent;
+              myAgent.getTile().addAgent(Constants.CANNON);
+              idParent.showInfo(w.getTower());
+              int x = myAgent.getTile().getX();
+              int y= myAgent.getTile().getY();
+              idParent.getParent().tiles[y][x].forceDisplay();
+              idParent.getButtons().get(0).hover(); // hover effect on the new button created
+              idParent.getParent().removeCurrency(Constants.CANNON_PRICE);
+            }
+          };
           myButtons.add(cannonButton);
           cannonButton.attachAgent(w);
           cannonButton.setStroke(false);
@@ -85,13 +109,25 @@ public class InfoDisplay {
           cannonButton.setBorders(7, 7, 7, 7);
           cannonButton.setTextColor(color(200));
           cannonButton.setHoverTextColor(color(240));
-          String cannonString = "Canon ($100)";
+          String cannonString = "Cannon ($" + Constants.CANNON_PRICE + ")";
           cannonButton.setText(cannonString);
           cannonButton.setWidth(ceil(textWidth(cannonString)) + 10);
           cannonButton.setX(parent.boardWidth + (Constants.SIDEBAR_WIDTH - cannonButton.getWidth()) / 2);
           cannonButton.setTextSize(14);
           cannonButton.forceDisplay();
-          GuiButton rayButton = new GuiButton(this);
+          GuiButton rayButton = new GuiButton(this) {
+            @Override
+            public void clickAction() {
+              Wall w = (Wall)myAgent;
+              myAgent.getTile().addAgent(Constants.RAY_GUN);
+              idParent.showInfo(w.getTower());
+              int x = myAgent.getTile().getX();
+              int y= myAgent.getTile().getY();
+              idParent.getParent().tiles[y][x].forceDisplay();
+              idParent.getButtons().get(0).hover(); // hover effect on the new button created
+              idParent.getParent().removeCurrency(Constants.RAY_GUN_PRICE);
+            }
+          };
           myButtons.add(rayButton);
           rayButton.attachAgent(w);
           rayButton.setStroke(false);
@@ -102,7 +138,7 @@ public class InfoDisplay {
           rayButton.setBorders(7, 7, 7, 7);
           rayButton.setTextColor(color(200));
           rayButton.setHoverTextColor(color(240));
-          String rayString = "Ray Gun ($1000)";
+          String rayString = "Ray Gun ($" + Constants.RAY_GUN_PRICE + ")";
           rayButton.setText(rayString);
           rayButton.setWidth(ceil(textWidth(rayString)) + 10);
           rayButton.setX(parent.boardWidth + (Constants.SIDEBAR_WIDTH - rayButton.getWidth()) / 2);
