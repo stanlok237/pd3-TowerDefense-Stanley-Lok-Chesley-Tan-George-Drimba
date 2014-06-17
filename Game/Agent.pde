@@ -81,16 +81,24 @@ public abstract class Agent{
     
     public void updateTile(String in){
       if(in.equals("u")){
+        myTile.removeAgentOn(this);
         myTile = myBoard.getUpper(myTile);
+        myTile.addAgentOn(this);
       }
       else if(in.equals("d")){
+        myTile.removeAgentOn(this);
         myTile = myBoard.getLower(myTile);
+        myTile.addAgentOn(this);
       }
       else if(in.equals("l")){
-        myTile = myBoard.getLeft(myTile );
+        myTile.removeAgentOn(this);
+        myTile = myBoard.getLeft(myTile);
+        myTile.addAgentOn(this);
       }
       else if(in.equals("r")){
-        myTile = myBoard.getRight(myTile );
+        myTile.removeAgentOn(this);
+        myTile = myBoard.getRight(myTile);
+        myTile.addAgentOn(this);
       }
     }
     

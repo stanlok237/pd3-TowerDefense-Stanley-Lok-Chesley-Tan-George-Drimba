@@ -67,8 +67,10 @@ public abstract class Enemy extends Agent {
 
   public void die() {
     getTile().removeAgentOn(this);
-    //Add Gold Value Here
+    myBoard.getParent().removeFromAlive(this);
+    myBoard.getParent().addCurrency(reward);
   }
+  
   public void slow(int s) {
     if (currentSpeed - s < 5) {
       currentSpeed = 5;

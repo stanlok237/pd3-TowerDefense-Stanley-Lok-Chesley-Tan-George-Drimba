@@ -3,6 +3,7 @@ import java.awt.Frame;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.text.NumberFormat;
+import java.util.ArrayList;
 PApplet self = this;
 AudioPlayer music;
 Board board = new Board(this);
@@ -25,9 +26,7 @@ int currency;
 int shownCurrency;
 boolean currencyLocked = false;
 boolean roundInProgress = false;
-
-//Base base = new Base();
-//AStarSearch god = new AStarSearch(board.getRows(), base, board);
+ArrayList<Enemy> enemiesSpawned; // Keeps track of how many enemies are still on the field
 //Spawning location;
 //Tile tmpTile = new Tile(0, 0);
 
@@ -67,10 +66,9 @@ void setup() {
     }
 
     infoDisplay = new InfoDisplay(this);
+    enemiesSpawned = new ArrayList<Enemy>();
 
     drawAll();
-
-    //ASTARSEARCH TEST AREA
 
     //music = new Minim(this).loadFile("../resources/Thor.mp3");
     //music.play();
@@ -93,11 +91,42 @@ void setup() {
 
     // Works with Oracle's JDK
     //frame.setResizable(false);
+
+    frame.addComponentListener(new ResizeAdapter(this));
+
+    //Spawning to be done here
+    //Temporary Testing - Grunt
+
+
+    /*
+  Enemy test = new Grunt(1,tmp);
+     tiles[0][0].getTile().addAgentOn(test);
+     println(tiles[0][0].getTile().getAgentsOn().get(0));
+     */
+    //Temporary Testing - Zombie
+    /*
+  Enemy test = new Zombie(1,tmp);
+     tiles[0][0].getTile().addAgentOn(test);
+     */
+    //Bat
+    /*
+  Enemy test = new Bat(1,tmp);
+     tiles[0][0].getTile().addAgentOn(test);
+     */
+    //Giant
     Tile tmp = tiles[0][0].getTile();
     Enemy test = new Giant(1, tmp, board);
     tiles[0][0].getTile().addAgentOn(test);
-
-    frame.addComponentListener(new ResizeAdapter(this));
+    enemiesSpawned.add(test);
+    /*
+  for (int i = 0; i < board.getRows (); i++) {
+     for (int u = 0; u < board.getCols (); u++) {
+     if (tiles[i][u].getTile().getAgent() instanceof Wall) {
+     tiles[i][u].getTile().addAgent(Constants.TURRET);
+     }
+     }
+     }
+     */
   }
 }
 
@@ -109,6 +138,9 @@ void draw() {
     if (frame.getState() != Frame.NORMAL)
       frame.setState(Frame.NORMAL);
     showCurrency();
+    for (Enemy e : enemiesSpawned) {
+      e.act();
+    }
   }
 }
 
@@ -131,36 +163,6 @@ void setupBoard() {
   for (int i = 0; i < board.getRows (); i++) {
     for (int u = 0; u < board.getCols (); u++) {
       tiles[i][u] = new GraphicsTile(u * Constants.PIXEL_TO_BOARD_INDEX_RATIO, i * Constants.PIXEL_TO_BOARD_INDEX_RATIO, board.get(i, u));
-    }
-  }
-  //Spawning to be done here
-  //Temporary Testing - Grunt
-
-
-  /*
-  Enemy test = new Grunt(1,tmp);
-   tiles[0][0].getTile().addAgentOn(test);
-   println(tiles[0][0].getTile().getAgentsOn().get(0));
-   */
-  //Temporary Testing - Zombie
-  /*
-  Enemy test = new Zombie(1,tmp);
-   tiles[0][0].getTile().addAgentOn(test);
-   */
-  //Bat
-  /*
-  Enemy test = new Bat(1,tmp);
-   tiles[0][0].getTile().addAgentOn(test);
-   */
-  //Giant
-  //Enemy test = new Giant(1, tmp, board);
-  //tiles[0][0].getTile().addAgentOn(test);
-
-  for (int i = 0; i < board.getRows (); i++) {
-    for (int u = 0; u < board.getCols (); u++) {
-      //if (tiles[i][u].getTile().getAgent() instanceof Wall) {
-      //tiles[i][u].getTile().addAgent(Constants.TURRET);
-      //}
     }
   }
 }
@@ -221,10 +223,8 @@ public void forceShowCurrency() {
 }
 
 public void addCurrency(int n) {
-  if (!currencyLocked) {
-    currency += n;
-    showCurrency();
-  }
+  currency += n;
+  showCurrency();
 }
 
 public void removeCurrency(int n) {
@@ -235,10 +235,8 @@ public void removeCurrency(int n) {
 }
 
 public void setCurrency(int n) {
-  if (!currencyLocked) {
-    currency = n;
-    showCurrency();
-  }
+  currency = n;
+  showCurrency();
 }
 
 public int getCurrency() {
@@ -251,6 +249,10 @@ public void lockCurrency() {
 
 public void unlockCurrency() {
   currencyLocked = false;
+}
+
+public void removeFromAlive(Enemy e) {
+  enemiesSpawned.remove(e);
 }
 
 public boolean isCurrencyLocked() {
