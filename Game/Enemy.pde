@@ -4,7 +4,7 @@ public abstract class Enemy extends Agent {
   protected AStarSearch search;
   protected Stack<Tile> path;
 
-  public Enemy(Tile t , Board b, int health, int speed, int armor, int damage, int value, String name) {
+  public Enemy(Tile t, Board b, int health, int speed, int armor, int damage, int value, String name) {
     setTile(t);
     setBoard(b);
     maxHealth = health;
@@ -96,6 +96,46 @@ public abstract class Enemy extends Agent {
   }
 
   public void act() {
+    if (!path.empty()) {
+      if (currentHealth <= 0) {
+        die();
+        //break;
+      } else {
+        move();
+      }
+    }
+  }
+
+  public void move() {
+    Tile next = path.peek();
+    //Checking Next Tile 
+    //Up
+    if (next.getY() > myTile.getY()) {
+      if (ycor - currentSpeed < myTile.getY() * Constants.PIXEL_TO_BOARD_INDEX_RATIO) {
+        path.pop();
+        updateTile("u");
+      }
+      ycor -= currentSpeed;
+    } else if (next.getY() < myTile.getY()) {
+      if (ycor + currentSpeed > myTile.getY() * (Constants.PIXEL_TO_BOARD_INDEX_RATIO + 1)) {
+        path.pop();
+        updateTile("d");
+      }
+      ycor += currentSpeed;
+      //updateTile();
+    } else if (next.getX() < myTile.getX()) {
+      if (xcor - currentSpeed < myTile.getX() * Constants.PIXEL_TO_BOARD_INDEX_RATIO) {
+        path.pop();
+        updateTile("l");
+      }
+      xcor -= currentSpeed;
+    } else if (next.getX() > myTile.getX()) {
+      if (xcor + currentSpeed > myTile.getX() * (Constants.PIXEL_TO_BOARD_INDEX_RATIO + 1)) {
+        path.pop();
+        updateTile("r");
+      }
+      xcor += currentSpeed;
+    }
   }
 
   /* public void move() {

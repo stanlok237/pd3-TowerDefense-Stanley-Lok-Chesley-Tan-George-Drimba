@@ -79,6 +79,21 @@ public abstract class Agent{
       direction = angle;
     }
     
+    public void updateTile(String in){
+      if(in.equals("u")){
+        myTile = myBoard.getUpper(myTile);
+      }
+      else if(in.equals("d")){
+        myTile = myBoard.getLower(myTile);
+      }
+      else if(in.equals("l")){
+        myTile = myBoard.getLeft(myTile );
+      }
+      else if(in.equals("r")){
+        myTile = myBoard.getRight(myTile );
+      }
+    }
+    
     public abstract boolean inBody(int x, int y);
 
     public abstract String toString();
