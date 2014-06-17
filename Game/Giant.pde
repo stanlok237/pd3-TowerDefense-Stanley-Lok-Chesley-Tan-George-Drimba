@@ -1,7 +1,7 @@
 public class Giant extends Enemy {
 
   public Giant(int level, Tile t) {
-    super(t, 400 + 100 * level, 2, 10 + 1 * level, 50 * level, "Giant" );
+    super(t, 400 + 100 * level, 2, 10 + 1 * level, 50 * level, 5, "Giant" );
   }
 
   public void act() {

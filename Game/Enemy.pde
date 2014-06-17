@@ -1,9 +1,9 @@
 public abstract class Enemy extends Agent {
 
-  protected int currentHealth, maxHealth, currentSpeed, maxSpeed, currentArmor, maxArmor, damage;
+  protected int currentHealth, maxHealth, currentSpeed, maxSpeed, currentArmor, maxArmor, damage,reward;
   protected AStarSearch search;
 
-  public Enemy(Tile t, int health, int speed, int armor, int damage, String name) {
+  public Enemy(Tile t, int health, int speed, int armor, int damage, int value, String name) {
     setTile(t);
     maxHealth = health;
     currentHealth = maxHealth;
@@ -12,6 +12,7 @@ public abstract class Enemy extends Agent {
     maxArmor = armor;
     currentArmor = maxArmor;
     this.damage = damage;
+    reward = value;
     myName = name;
   }
 
@@ -42,6 +43,10 @@ public abstract class Enemy extends Agent {
   public int getMaxArmor() {
     return maxArmor;
   }
+  
+ public int getReward(){
+   return reward;
+ }
 
   public void takeDamage(int d) {
     if (currentHealth - d < 0) {
