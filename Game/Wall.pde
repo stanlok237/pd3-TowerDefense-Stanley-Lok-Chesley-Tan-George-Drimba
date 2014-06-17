@@ -27,6 +27,12 @@ public class Wall extends Agent {
   }
   
   public void display() {
+    if (Constants.GAME_NO_STROKE) {
+      noStroke();
+    }
+    else {
+      stroke(Constants.GAME_STROKE_COLOR);
+    }
     fill(150, 0, 0);
     rect(xcor, ycor, Constants.PIXEL_TO_BOARD_INDEX_RATIO, Constants.PIXEL_TO_BOARD_INDEX_RATIO);
   }

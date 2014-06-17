@@ -17,6 +17,7 @@ int state = 0;
 int boardHeight, boardWidth;
 final color defaultTileHoverColor = color(100, 100);
 color tileHoverColor = defaultTileHoverColor;
+GraphicsTile hovered;
 final boolean preload = true;
 boolean newWallButtonClicked = false;
 boolean displayGlitchCorrected = false;
@@ -162,6 +163,11 @@ void draw() {
       } else {
         for (Enemy e : enemiesSpawned) {
           e.act();
+        }
+        for (int i = 0; i < tiles.length; i++) {
+          for (int u = 0; u < tiles[0].length; u++) {
+            tiles[i][u].displayAgents();
+          }
         }
       }
     }
@@ -411,7 +417,7 @@ class GraphicsTile {
   }
 
   void display() {
-    if (myTile.getAgent() != null || myTile.getAgentsOn().size() > 0) {
+    if (myTile.getAgentsOn().size() > 0) {
       forceRestoreColor();
       myTile.display();
     } else {
@@ -420,7 +426,7 @@ class GraphicsTile {
   }
 
   void forceDisplay() {
-    if (myTile.getAgent() != null || myTile.getAgentsOn().size() > 0) {
+    if (myTile.getAgentsOn().size() > 0) {
       forceRestoreColor();
       myTile.display();
     } else {
@@ -428,12 +434,23 @@ class GraphicsTile {
     }
   }
 
-  void hover() {
-    if (myTile.getAgent() != null) {
-      setColor(tileHoverColor);
-    } else {
-      setColor(tileHoverColor);
+  void displayAgents() {
+    int numAgents = myTile.getAgentsOn().size();
+    String agentName = myTile.getAgentName();
+    if (numAgents > 0 && !(agentName.equals(Constants.BASE) || agentName.equals(Constants.WALL))) {
+      if (!Constants.GAME_NO_STROKE) {
+        stroke(Constants.GAME_STROKE_COLOR);
+      } else {
+        noStroke();
+      }
+      fill(myColor);
+      rect(x, y, Constants.PIXEL_TO_BOARD_INDEX_RATIO, Constants.PIXEL_TO_BOARD_INDEX_RATIO);
+      myTile.display();
     }
+  }
+
+  void hover() {
+    setColor(tileHoverColor);
   }
 
   void clear() {
@@ -492,14 +509,13 @@ void mouseMoved() {
     if (userY < boardHeight && userX < boardWidth) { // User within board
       int tileHoveredX = userX / Constants.PIXEL_TO_BOARD_INDEX_RATIO;
       int tileHoveredY = userY / Constants.PIXEL_TO_BOARD_INDEX_RATIO;
-      for (int i = 0; i < tiles.length; i++) {
-        for (int u = 0; u < tiles[0].length; u++) {
-          if (i != tileHoveredY || u != tileHoveredX) {
-            tiles[i][u].display();
-          }
+      if (tiles[tileHoveredY][tileHoveredX] != hovered) {
+        tiles[tileHoveredY][tileHoveredX].hover();
+        if (hovered != null) {
+          hovered.display();
         }
+        hovered = tiles[tileHoveredY][tileHoveredX];
       }
-      tiles[tileHoveredY][tileHoveredX].hover();
       if (!newWallButtonClicked) {
         newWallButton.display();
       }
@@ -538,22 +554,6 @@ void mouseMoved() {
     }
   }
 }
-/*
-boolean counting=false; 
- int countstart, countend; 
- float record; 
- 
- void setup(){}        
- void draw (){} 
- void mousePressed(){     
- if (!counting) { countstart=millis();} 
- else { countend=millis(); 
- record=(countend-countstart)*.001; 
- println(record); 
- } 
- counting=!counting; 
- } 
- */
 
 void mouseClicked() {
   if (mouseX < boardWidth && mouseY < boardHeight) { // User within board

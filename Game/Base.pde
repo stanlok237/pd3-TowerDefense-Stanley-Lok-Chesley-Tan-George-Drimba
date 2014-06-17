@@ -23,6 +23,7 @@ public class Base extends Agent {
 
   public int takeDamage(int change) {
     currentHealth -= change;
+    display();
     return -1;
   }
 
@@ -68,6 +69,12 @@ public class Base extends Agent {
   }
 
   public void display() {
+    if (Constants.GAME_NO_STROKE) {
+      noStroke();
+    }
+    else {
+      stroke(Constants.GAME_STROKE_COLOR);
+    }
     fill(0, 0, 200, 100);
     rect(xcor, ycor, Constants.PIXEL_TO_BOARD_INDEX_RATIO, Constants.PIXEL_TO_BOARD_INDEX_RATIO);
     generateHealthBar();
