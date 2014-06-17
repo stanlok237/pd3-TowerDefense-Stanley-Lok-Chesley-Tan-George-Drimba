@@ -23,7 +23,7 @@ public class Turret extends Tower {
   }
 
   public void display() {
-    fill(25, 75, 125);
+    fill(25, 100, 100);
     //Isoceles Triangle Shaped
     triangle(xcor, ycor + Constants.PIXEL_TO_BOARD_INDEX_RATIO, xcor + Constants.PIXEL_TO_BOARD_INDEX_RATIO, ycor + Constants.PIXEL_TO_BOARD_INDEX_RATIO, xcor + .5 * Constants.PIXEL_TO_BOARD_INDEX_RATIO, ycor);
   }
