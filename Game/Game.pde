@@ -144,6 +144,7 @@ void draw() {
       if (enemiesSpawned.size() == 0) { // Round over
         roundInProgress = false;
         round += 1;
+        showRound();
       } else {
         for (Enemy e : enemiesSpawned) {
           e.act();
@@ -193,6 +194,7 @@ public void drawAll() {
     newWallButton.forceDisplay();
   }
   forceShowCurrency();
+  showRound();
 }
 
 public void setState(int n) {
@@ -213,6 +215,20 @@ public int getRound() {
   return round;
 }
 
+public void showRound() {
+  if (Constants.GAME_NO_STROKE) {
+    noStroke();
+  } else {
+    stroke(Constants.GAME_STROKE_COLOR);
+  }
+  fill(Constants.GAME_BACKGROUND_COLOR);
+  rect(boardWidth, boardHeight - Constants.CURRENCY_HEIGHT_FROM_BOTTOM - Constants.ROUND_HEIGHT_ABOVE_CURRENCY, Constants.SIDEBAR_WIDTH, Constants.ROUND_HEIGHT_ABOVE_CURRENCY);
+  textSize(Constants.ROUND_TEXT_SIZE);
+  textAlign(CENTER, CENTER);
+  fill(#EEEEEE);
+  text("Round: " + round, boardWidth + Constants.SIDEBAR_WIDTH / 2, boardHeight - Constants.CURRENCY_HEIGHT_FROM_BOTTOM - Constants.ROUND_HEIGHT_ABOVE_CURRENCY / 2 - textAscent() * 0.1);
+}
+
 public void showCurrency() {
   if (currency != shownCurrency) {
     forceShowCurrency();
@@ -227,10 +243,10 @@ public void forceShowCurrency() {
   }
   fill(Constants.GAME_BACKGROUND_COLOR);
   rect(boardWidth, boardHeight - Constants.CURRENCY_HEIGHT_FROM_BOTTOM, Constants.SIDEBAR_WIDTH, Constants.CURRENCY_HEIGHT_FROM_BOTTOM);
-  fill(#EEEEEE);
   textSize(Constants.CURRENCY_TEXT_SIZE);
   textAlign(CENTER, CENTER);
   String s = "$" + NumberFormat.getInstance().format(currency);
+  fill(#EEEEEE);
   text(s, boardWidth + Constants.SIDEBAR_WIDTH / 2, boardHeight - Constants.CURRENCY_HEIGHT_FROM_BOTTOM / 2 - textAscent() * 0.1);
   shownCurrency = currency;
 }

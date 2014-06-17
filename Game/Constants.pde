@@ -12,6 +12,8 @@ public static class Constants {
   public static int INFO_TEXT_SIZE = 16;
   public static int CURRENCY_HEIGHT_FROM_BOTTOM = 50;
   public static int CURRENCY_TEXT_SIZE = 14;
+  public static int ROUND_HEIGHT_ABOVE_CURRENCY = 50;
+  public static int ROUND_TEXT_SIZE = 14;
   public static int WALL_PRICE = 500;
   public static int TURRET_PRICE = 100;
   public static int CANNON_PRICE = 200;
