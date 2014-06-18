@@ -114,30 +114,32 @@ public abstract class Enemy extends Agent {
 
   public void move() {
     Tile next = path.peek();
-    println(next);
+    //println(next);
     //Checking Next Tile 
     //Up
     if (next.getY() < myTile.getY()) {
-      if (ycor - currentSpeed < myTile.getY() * (Constants.PIXEL_TO_BOARD_INDEX_RATIO)) {
+      if (ycor - currentSpeed < (myTile.getY() - 1)* (Constants.PIXEL_TO_BOARD_INDEX_RATIO)) {
         path.pop();
         updateTile("u");
       }
       ycor -= currentSpeed;
     } else if (next.getY() > myTile.getY()) {
-      if (ycor + currentSpeed > myTile.getY() * (Constants.PIXEL_TO_BOARD_INDEX_RATIO + 1)) {
+      if (ycor + currentSpeed > (myTile.getY() + 1) * (Constants.PIXEL_TO_BOARD_INDEX_RATIO)) {
         path.pop();
         updateTile("d");
       }
       ycor += currentSpeed;
       //updateTile();
     } else if (next.getX() < myTile.getX()) {
-      if (xcor - currentSpeed < myTile.getX() * Constants.PIXEL_TO_BOARD_INDEX_RATIO) {
+      if (xcor - currentSpeed < (myTile.getX() - 1) * (Constants.PIXEL_TO_BOARD_INDEX_RATIO)) {
         path.pop();
         updateTile("l");
       }
       xcor -= currentSpeed;
     } else if (next.getX() > myTile.getX()) {
-      if (xcor + currentSpeed > myTile.getX() * (Constants.PIXEL_TO_BOARD_INDEX_RATIO + 1)) {
+      if (xcor + currentSpeed > (myTile.getX() + 1) * (Constants.PIXEL_TO_BOARD_INDEX_RATIO)) {
+        println(xcor);
+        println(myTile.getX() * (Constants.PIXEL_TO_BOARD_INDEX_RATIO +1));
         path.pop();
         updateTile("r");
       }
