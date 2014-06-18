@@ -2,7 +2,7 @@
 public class RayGun extends Tower {
 
   public RayGun (Tile t) {
-    super(t, 200, 1, 2, 1000, 500, "Ray Gun", Constants.RAYGUN_EFFECT);
+    super(t, 200, 1, 8, 1000, 500, "Ray Gun", Constants.RAYGUN_EFFECT);
   }
 
   //public act here --------------------

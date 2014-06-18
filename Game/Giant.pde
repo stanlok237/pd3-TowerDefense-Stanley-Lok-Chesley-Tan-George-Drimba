@@ -1,7 +1,7 @@
 public class Giant extends Enemy {
 
   public Giant(int level, Tile t, Board b) {
-    super(t, b , 400 + 100 * level, 1, 10 + 1 * level, 50 * level, 5, "Giant" );
+    super(t, b , 400 + 150 * level, 1, 10 + 1 * level, 50 * level, 5, "Giant" );
   }
 
   public boolean inBody(int x, int y) {

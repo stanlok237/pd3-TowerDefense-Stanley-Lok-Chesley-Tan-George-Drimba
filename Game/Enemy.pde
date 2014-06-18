@@ -111,6 +111,11 @@ public abstract class Enemy extends Agent {
         move();
       }
     }
+    else{
+      myBoard.getBase().takeDamage(damage);
+      die();
+      //myBoard.getParent().removeFromAlive(this); Exception Here Needs To be Fixed
+    }
   }
 
   public void move() {

@@ -2,7 +2,7 @@
 public class Cannon extends Tower {
 
   public Cannon (Tile t) {
-    super(t, 25, 10, 1, 100, 65, "Cannon", Constants.TURRET_EFFECT);
+    super(t, 3, 5, 5, 100, 65, "Cannon", Constants.TURRET_EFFECT);
   }
 
   //public act here --------------------

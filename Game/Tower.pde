@@ -84,7 +84,7 @@ public abstract class Tower extends Agent {
   //Generic Shooting
   public void shoot(ArrayList<Enemy> enemiesSpawned) {
     //println("s");
-    if (System.currentTimeMillis() - lastShot > speed * 100) {
+    if (System.currentTimeMillis() - lastShot > (float)(1000 / speed)) {
       for (Iterator<Enemy> it = enemiesSpawned.iterator (); it.hasNext(); ) {
         Enemy t = it.next();
         float d = dist(myTile.getX(), myTile.getY(), t.getTile().getX(), t.getTile().getY());

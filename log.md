@@ -11,6 +11,7 @@
 <tr><td>6/8 - 6/12</td><td>A* Search - Finished, Implement A* Search in side the GUI and worked on Blockage for the Path Finding.  Debugged Improper Pathing, Implement Colored Path, general debugging  </td></tr>
 <tr><td>6/15</td><td>A* Search - Debugged with Board and Gui, Prevent Path Blocking, Fix Path Coloring, Enemy Display, Enemy methods, Worked on Abstract Classes Enemy and Towers, Implement Different Enemies and Towers (Zombie, Raygun etc)</td></tr>
 <tr><td>6/16</td><td>Add Building options when clicked on tile, fix conflict between dynamic and static agents with astarsearch, fix improper painting for bad walls, Add Path Finding to each enemy, Add Purchase Buttons when selecting a tile, Fix display methods for turrets to differentiate between them, general debugging done to simplify code</td></tr>
+<tr><td>6/17</td><td>Bug Squashing: Enemies - Movement, Tower Shooting - Pixel vs Tile coordinates, Tower Shooting - Speed; Game Balancing: Tower Damage, Enemy Health Speed, Enemy Spawning, Base Damage</td></tr>
 </table>
 <hr>
 <table>

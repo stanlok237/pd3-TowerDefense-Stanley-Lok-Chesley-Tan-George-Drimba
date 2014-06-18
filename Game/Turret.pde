@@ -1,7 +1,7 @@
 public class Turret extends Tower {
 
   public Turret (Tile t) {
-    super(t, 15, 25, 1, 100, 65, "Turret", Constants.TURRET_EFFECT);
+    super(t, 1, 10, 2, 100, 65, "Turret", Constants.TURRET_EFFECT);
   }
 
   //public act here --------------------
@@ -32,9 +32,9 @@ public class Turret extends Tower {
     if (upgradePrice < myBoard.getParent().getCurrency()) {
       myBoard.getParent().removeCurrency(upgradePrice);
       int lev = getLevel();
-      upRange(4 + 1 * lev);
-      upDamage(13 + 2 * lev);
-      upSpeed(2 + 1*lev);
+      upRange(1);
+      upDamage(2);
+      upSpeed(1);
       upUpgradePrice(50 + 25 * lev);
       upSellPrice();
       upLevel();
