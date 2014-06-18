@@ -30,6 +30,7 @@ boolean currencyLocked = false;
 boolean roundInProgress = false;
 int round = 1;
 ArrayList<Enemy> enemiesSpawned; // Keeps track of how many enemies are still on the field
+ArrayList<Tower> towersCreated;
 
 void setup() {
   if (state == 0) {
@@ -84,6 +85,7 @@ void setup() {
 
     infoDisplay = new InfoDisplay(this);
     enemiesSpawned = new ArrayList<Enemy>();
+    towersCreated = new ArrayList<Tower>();
 
     //music = new Minim(this).loadFile("../resources/Thor.mp3");
     //music.play();
@@ -163,6 +165,9 @@ void draw() {
       } else {
         for (Enemy e : enemiesSpawned) {
           e.act();
+        }
+        for (Tower t : towersCreated) {
+          t.shoot(enemiesSpawned);
         }
         for (int i = 0; i < tiles.length; i++) {
           for (int u = 0; u < tiles[0].length; u++) {
@@ -323,6 +328,14 @@ public void removeFromAlive(Enemy e) {
   enemiesSpawned.remove(e);
 }
 
+public void addToTowers(Tower t) {
+  towersCreated.add(t);
+}
+
+public void removeFromTowers(Tower t) {
+  towersCreated.remove(t);
+}
+
 public boolean isCurrencyLocked() {
   return currencyLocked;
 }
@@ -438,15 +451,14 @@ class GraphicsTile {
     int numAgents = myTile.getAgentsOn().size();
     String agentName = myTile.getAgentName();
     if (numAgents > 0 && !(agentName.equals(Constants.BASE) || agentName.equals(Constants.WALL))) {
-      if (!Constants.GAME_NO_STROKE) {
+      if (!Constants.GAME_NO_STROKE) 
         stroke(Constants.GAME_STROKE_COLOR);
-      } else {
-        noStroke();
-      }
-      fill(myColor);
-      rect(x, y, Constants.PIXEL_TO_BOARD_INDEX_RATIO, Constants.PIXEL_TO_BOARD_INDEX_RATIO);
-      myTile.display();
+    } else {
+      noStroke();
     }
+    fill(myColor);
+    rect(x, y, Constants.PIXEL_TO_BOARD_INDEX_RATIO, Constants.PIXEL_TO_BOARD_INDEX_RATIO);
+    myTile.display();
   }
 
   void hover() {

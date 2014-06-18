@@ -3,11 +3,13 @@ public abstract class Tower extends Agent {
   protected Wall myWall;
   protected int range, damage, speed, upgradePrice, sellPrice, level;
   protected String name, effect;
+  protected long lastShot;
 
   public Tower(Tile t, int damage, int speed, int range, int upPrice, int sellPrice, String name, String effect) {
     setTile(t);
     this.damage = damage;
     this.speed = speed;
+    this.range = range;
     upgradePrice = upPrice;
     this.sellPrice = sellPrice;
     this.name = name;
@@ -15,7 +17,7 @@ public abstract class Tower extends Agent {
     level = 1;
   }
 
-  public int getLevel(){
+  public int getLevel() {
     return level;
   }
 
@@ -63,14 +65,14 @@ public abstract class Tower extends Agent {
     sellPrice = upgradePrice / 2;
   }
 
-  public void upLevel(){
+  public void upLevel() {
     level++;
   }
-  
+
   public Wall getWall() {
     return myWall;
   }
-  
+
   public void setWall(Wall w) {
     myWall = w;
   }
@@ -78,21 +80,30 @@ public abstract class Tower extends Agent {
   //Should we make it like GridWorld type of getting monsters and modifying them
   //Abstract Functions to be implemented in subclasses
   //Replace shoot() with act() in Agent Class
-  
+
   //Generic Shooting
-  public void shoot(){
-    /*
-    float d = dist(myTile.getX() * Constants.PIXEL_TO_BOARD_INDEX_RATIO), myTile.getY() * Constants.PIXEL_TO_BOARD_INDEX_RATIO) , t.getX() * Constants.PIXEL_TO_BOARD_INDEX_RATIO), t.getY() * Constants.PIXEL_TO_BOARD_INDEX_RATIO));
-  while d < range {
-    delay(100 - speed);
-    act(); // need to implement an act
-    */
+  public void shoot(ArrayList<Enemy> enemiesSpawned) {
+    if (System.currentTimeMillis() - lastShot > speed * 100) {
+      for (Iterator<Enemy> it = enemiesSpawned.iterator (); it.hasNext(); ) {
+        Enemy t = it.next();
+        float d = dist(myTile.getX(), myTile.getY(), t.getX(), t.getY());
+        if (d <= range) {
+          t.takeDamage(damage);
+          if (t.getHealth() <= 0) {
+            it.remove(); // Remove the enemy from Game's enemiesSpawned
+          }
+          lastShot = System.currentTimeMillis();
+          break;
+        }
+      }
+    }
   }
 
   public abstract void upgrade();
   //Upgrades Stats at a cost
 
   public void sell() {
+    myBoard.getParent().removeFromTowers(this);
     myWall.removeTower();
     myTile.removeAgentOn(this);
     myBoard.getParent().addCurrency(sellPrice);

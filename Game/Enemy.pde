@@ -58,7 +58,8 @@ public abstract class Enemy extends Agent {
   }
 
   public void takeDamage(int d) {
-    if (currentHealth - d < 0) {
+    if (currentHealth - d <= 0) {
+      currentHealth = currentHealth - d;
       die();
     } else {
       currentHealth = currentHealth - d;
@@ -67,7 +68,7 @@ public abstract class Enemy extends Agent {
 
   public void die() {
     getTile().removeAgentOn(this);
-    myBoard.getParent().removeFromAlive(this);
+    //myBoard.getParent().removeFromAlive(this); This is done in the Tower's shoot() method to prevent a concurrent modification error
     myBoard.getParent().addCurrency(reward);
   }
   

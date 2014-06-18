@@ -1,7 +1,7 @@
 public class Turret extends Tower {
 
   public Turret (Tile t) {
-    super(t, 25, 10, 100, 100, 65, "Turret", Constants.TURRET_EFFECT);
+    super(t, 25, 10, 1, 100, 65, "Turret", Constants.TURRET_EFFECT);
   }
 
   //public act here --------------------

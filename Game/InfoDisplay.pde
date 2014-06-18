@@ -66,6 +66,7 @@ public class InfoDisplay {
                 idParent.getParent().removeCurrency(Constants.TURRET_PRICE);
                 Wall w = (Wall)myAgent;
                 myAgent.getTile().addAgent(Constants.TURRET);
+                idParent.getParent().addToTowers(w.getTower());
                 idParent.showInfo(w.getTower());
                 int x = myAgent.getTile().getX();
                 int y= myAgent.getTile().getY();
@@ -97,6 +98,7 @@ public class InfoDisplay {
                 idParent.getParent().removeCurrency(Constants.CANNON_PRICE);
                 Wall w = (Wall)myAgent;
                 myAgent.getTile().addAgent(Constants.CANNON);
+                idParent.getParent().addToTowers(w.getTower());
                 idParent.showInfo(w.getTower());
                 int x = myAgent.getTile().getX();
                 int y= myAgent.getTile().getY();
@@ -128,6 +130,7 @@ public class InfoDisplay {
                 idParent.getParent().removeCurrency(Constants.RAY_GUN_PRICE);
                 Wall w = (Wall)myAgent;
                 myAgent.getTile().addAgent(Constants.RAY_GUN);
+                idParent.getParent().addToTowers(w.getTower());
                 idParent.showInfo(w.getTower());
                 int x = myAgent.getTile().getX();
                 int y= myAgent.getTile().getY();
