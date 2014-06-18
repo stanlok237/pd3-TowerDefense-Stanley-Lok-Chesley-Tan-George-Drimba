@@ -173,6 +173,11 @@ void draw() {
         }
         for (int i = 0; i < tiles.length; i++) {
           for (int u = 0; u < tiles[0].length; u++) {
+            tiles[i][u].clear();
+          }
+        }
+        for (int i = 0; i < tiles.length; i++) {
+          for (int u = 0; u < tiles[0].length; u++) {
             tiles[i][u].displayAgents();
           }
         }
@@ -452,14 +457,12 @@ class GraphicsTile {
   void displayAgents() {
     int numAgents = myTile.getAgentsOn().size();
     String agentName = myTile.getAgentName();
-    if (numAgents > 0 && !(agentName.equals(Constants.BASE) || agentName.equals(Constants.WALL))) {
+    if (numAgents > 0 && !(agentName.equals(Constants.WALL))) {
       if (!Constants.GAME_NO_STROKE) {
         stroke(Constants.GAME_STROKE_COLOR);
       } else {
         noStroke();
       }
-      fill(myColor);
-      rect(x, y, Constants.PIXEL_TO_BOARD_INDEX_RATIO, Constants.PIXEL_TO_BOARD_INDEX_RATIO);
       myTile.display();
     }
   }
@@ -469,8 +472,11 @@ class GraphicsTile {
   }
 
   void clear() {
-    fill(Constants.GAME_BACKGROUND_COLOR);
-    rect(x, y, Constants.PIXEL_TO_BOARD_INDEX_RATIO, Constants.PIXEL_TO_BOARD_INDEX_RATIO);
+    //if (myTile.getAgent() == null || myTile.getAgentName().equals(Constants.SPAWN)) {
+    if (pathTiles.contains(myTile)) {
+      fill(myColor);
+      rect(x, y, Constants.PIXEL_TO_BOARD_INDEX_RATIO, Constants.PIXEL_TO_BOARD_INDEX_RATIO);
+    }
   }
 }
 

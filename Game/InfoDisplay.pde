@@ -227,7 +227,6 @@ public class InfoDisplay {
         sellButton.forceDisplay();
       }
     }
-    stroke(Constants.GAME_STROKE_COLOR);
   }
   public ArrayList<GuiButton> getButtons() {
     return myButtons;

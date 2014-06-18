@@ -3,7 +3,7 @@ public class GuiButton {
   int x, y, myHeight, myWidth, borderTopLeft, borderTopRight, borderBottomRight, borderBottomLeft;
   color myColor, myTextColor, myHoverColor, myHoverTextColor, myClickedColor, myClickedTextColor, currentColor, currentTextColor;
   int myTextSize;
-  boolean noStroke = false;
+  boolean noStroke = true;
   Agent myAgent;
   InfoDisplay idParent;
 
