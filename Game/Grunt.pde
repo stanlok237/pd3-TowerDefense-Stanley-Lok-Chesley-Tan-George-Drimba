@@ -1,7 +1,7 @@
 public class Grunt extends Enemy {
 
   public Grunt (int level, Tile t, Board b) {
-    super(t, b, 100 + 50 * level, 1 , 0, 10 * level, 15 + 5 * level, "Grunt" );
+    super(t, b, 100 + 50 * level, 10, 0, 10 * level, 15 + 5 * level, "Grunt" );
   }
 
   //public act here -----------------------
@@ -15,9 +15,16 @@ public class Grunt extends Enemy {
     return n + ": " + h + " / " + mh + "\nSpeed: "  + s + "\nArmor: " + a;
   }
 
+  public void generateHealthBar() {
+    float perc = 1.0 * currentHealth / maxHealth;
+    int length = round(perc * Constants.PIXEL_TO_BOARD_INDEX_RATIO / 2);
+    fill(50, 200, 0, 100);
+    rect(xcor + .25 * Constants.PIXEL_TO_BOARD_INDEX_RATIO, ycor + .25* Constants.PIXEL_TO_BOARD_INDEX_RATIO, length, round(Constants.PIXEL_TO_BOARD_INDEX_RATIO * Constants.HEALTH_BAR_HEIGHT_PERCENTAGE));
+  }
+
   public void display() {
     fill(20, 150, 175);
-    triangle(xcor, ycor, xcor + 0.5 * Constants.PIXEL_TO_BOARD_INDEX_RATIO, ycor, xcor + 0.25 * Constants.PIXEL_TO_BOARD_INDEX_RATIO, ycor + 0.5 * Constants.PIXEL_TO_BOARD_INDEX_RATIO);
+    triangle(xcor + 0.25 * Constants.PIXEL_TO_BOARD_INDEX_RATIO, ycor + 0.25 * Constants.PIXEL_TO_BOARD_INDEX_RATIO, xcor + 0.75 * Constants.PIXEL_TO_BOARD_INDEX_RATIO, ycor + .25 * Constants.PIXEL_TO_BOARD_INDEX_RATIO, xcor + 0.5 * Constants.PIXEL_TO_BOARD_INDEX_RATIO, ycor + 0.75 * Constants.PIXEL_TO_BOARD_INDEX_RATIO);
     generateHealthBar();
   }
 
