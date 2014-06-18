@@ -451,14 +451,15 @@ class GraphicsTile {
     int numAgents = myTile.getAgentsOn().size();
     String agentName = myTile.getAgentName();
     if (numAgents > 0 && !(agentName.equals(Constants.BASE) || agentName.equals(Constants.WALL))) {
-      if (!Constants.GAME_NO_STROKE) 
+      if (!Constants.GAME_NO_STROKE) {
         stroke(Constants.GAME_STROKE_COLOR);
-    } else {
-      noStroke();
+      } else {
+        noStroke();
+      }
+      fill(myColor);
+      rect(x, y, Constants.PIXEL_TO_BOARD_INDEX_RATIO, Constants.PIXEL_TO_BOARD_INDEX_RATIO);
+      myTile.display();
     }
-    fill(myColor);
-    rect(x, y, Constants.PIXEL_TO_BOARD_INDEX_RATIO, Constants.PIXEL_TO_BOARD_INDEX_RATIO);
-    myTile.display();
   }
 
   void hover() {
@@ -466,7 +467,7 @@ class GraphicsTile {
   }
 
   void clear() {
-    fill(0);
+    fill(Constants.GAME_BACKGROUND_COLOR);
     rect(x, y, Constants.PIXEL_TO_BOARD_INDEX_RATIO, Constants.PIXEL_TO_BOARD_INDEX_RATIO);
   }
 }
