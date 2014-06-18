@@ -24,6 +24,9 @@ public class Base extends Agent {
   public int takeDamage(int change) {
     currentHealth -= change;
     display();
+    if (currentHealth <= 0) {
+      myBoard.getParent().gameOver();
+    }
     return -1;
   }
 

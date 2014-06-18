@@ -3,6 +3,7 @@ public abstract class Enemy extends Agent {
   protected int currentHealth, maxHealth, currentSpeed, maxSpeed, currentArmor, maxArmor, damage, reward;
   protected AStarSearch search;
   protected Stack<Tile> path;
+  protected boolean isDead = false;
 
   public Enemy(Tile t, Board b, int health, int speed, int armor, int damage, int value, String name) {
     setTile(t);
@@ -72,8 +73,13 @@ public abstract class Enemy extends Agent {
     getTile().removeAgentOn(this);
     //myBoard.getParent().removeFromAlive(this); This is done in the Tower's shoot() method to prevent a concurrent modification error
     myBoard.getParent().addCurrency(reward);
+    isDead = true;
   }
-  
+
+  public boolean isDead() {
+    return isDead;
+  }
+
   public void slow(int s) {
     if (currentSpeed - s < 5) {
       currentSpeed = 5;
@@ -110,11 +116,10 @@ public abstract class Enemy extends Agent {
         //println("t");
         move();
       }
-    }
-    else{
+    } else {
       myBoard.getBase().takeDamage(damage);
-      die();
-      //myBoard.getParent().removeFromAlive(this); Exception Here Needs To be Fixed
+      getTile().removeAgentOn(this);
+      isDead = true;
     }
   }
 

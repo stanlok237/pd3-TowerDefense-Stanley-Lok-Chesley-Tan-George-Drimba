@@ -163,9 +163,12 @@ void draw() {
         round += 1;
         showRound();
       } else {
-        for (Enemy e : enemiesSpawned) {
-          //println("t");
+        for (Iterator<Enemy> it = enemiesSpawned.iterator();it.hasNext();) {
+          Enemy e = it.next();
           e.act();
+          if (e.isDead()) {
+            it.remove();
+          }
         }
         for (Tower t : towersCreated) {
           //println("t");
@@ -244,6 +247,11 @@ public void startGame() {
   state = 1;
   setup();
   f.dispose();
+}
+
+public void gameOver() {
+  println("GAME OVER");
+  noLoop();
 }
 
 public int getRound() {
