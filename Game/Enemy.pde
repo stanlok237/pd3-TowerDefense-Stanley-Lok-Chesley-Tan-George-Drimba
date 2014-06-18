@@ -24,6 +24,7 @@ public abstract class Enemy extends Agent {
       path.add(tmp.getTile());
       tmp = tmp.getParent();
     }
+    path.pop();
   }
   public int getHealth() {
     return currentHealth;
@@ -99,11 +100,13 @@ public abstract class Enemy extends Agent {
   }
 
   public void act() {
+    //println("test");
     if (!path.empty()) {
       if (currentHealth <= 0) {
         die();
         //break;
       } else {
+        //println("t");
         move();
       }
     }
@@ -111,6 +114,7 @@ public abstract class Enemy extends Agent {
 
   public void move() {
     Tile next = path.peek();
+    println(next);
     //Checking Next Tile 
     //Up
     if (next.getY() > myTile.getY()) {

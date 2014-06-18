@@ -15,10 +15,6 @@ public class Grunt extends Enemy {
     return n + ": " + h + " / " + mh + "\nSpeed: "  + s + "\nArmor: " + a;
   }
 
-  public void act() {
-    //If within range of turret, take damage
-  }
-
   public void display() {
     fill(20, 150, 175);
     triangle(xcor, ycor, xcor + 0.5 * Constants.PIXEL_TO_BOARD_INDEX_RATIO, ycor, xcor + 0.25 * Constants.PIXEL_TO_BOARD_INDEX_RATIO, ycor + 0.5 * Constants.PIXEL_TO_BOARD_INDEX_RATIO);

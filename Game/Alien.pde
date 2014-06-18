@@ -4,10 +4,6 @@ public class Alien extends Enemy {
     super(t, b , 400 + 100 * level, 2, 10 + 1 * level, 50 * level, 5, "Alien" );
   }
 
-  public void act() {
-    //To be Implemented when Turrets are done
-  }
-
   public boolean inBody(int x, int y) {
     return (x > xcor && x < xcor + Constants.PIXEL_TO_BOARD_INDEX_RATIO * .5 && y > ycor && y < ycor + Constants.PIXEL_TO_BOARD_INDEX_RATIO * .5);
   }

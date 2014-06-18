@@ -164,6 +164,7 @@ void draw() {
         showRound();
       } else {
         for (Enemy e : enemiesSpawned) {
+          //println("t");
           e.act();
         }
         for (Tower t : towersCreated) {
