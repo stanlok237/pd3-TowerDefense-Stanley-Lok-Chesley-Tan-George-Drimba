@@ -87,9 +87,9 @@ void setup() {
     enemiesSpawned = new ArrayList<Enemy>();
     towersCreated = new ArrayList<Tower>();
 
-    //music = new Minim(this).loadFile("../resources/Thor.mp3");
-    //music.play();
-    //music.loop();
+    music = new Minim(this).loadFile("data/resources/Thor.mp3");
+    music.play();
+    music.loop();
 
     // Works with Oracle's JDK
     //frame.setResizable(false);
