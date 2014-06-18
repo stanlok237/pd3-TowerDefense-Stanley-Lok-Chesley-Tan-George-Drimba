@@ -13,7 +13,13 @@ A dynamic tower defense game where the user must strategically place down walls 
 <b>OR:</b><br>
 <span>1. You can also run the standalone application.</span>
 <h2>What Works</h2>
-Most, if not all, of the user interface is functional and the A* Search works.  
+<ul>
+    <li>User interface is functional</li>
+    <li>Targeting system works</li>
+    <li>Movement system works</li>
+    <li>Graphics/screen repainting works</li>
+    <li>A* Search works</li>
+</ul>
 <h2>What Doesn't Work</h2>
 There is an occasional bug when pressing play that has the incorrect aspect ratio or stays minimized instead of popping back up.  If that happens, just fullscreen it and continue on playing.
 
