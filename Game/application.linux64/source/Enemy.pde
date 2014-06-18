@@ -21,7 +21,6 @@ public abstract class Enemy extends Agent {
     Node tmp =  search.search(myTile);
     path = new Stack<Tile>();
     while (tmp != null) {
-      //println(tmp);
       path.add(tmp.getTile());
       tmp = tmp.getParent();
     }
@@ -65,7 +64,6 @@ public abstract class Enemy extends Agent {
       die();
     } else {
       currentHealth = currentHealth - d;
-      println(currentHealth);
     }
   }
 

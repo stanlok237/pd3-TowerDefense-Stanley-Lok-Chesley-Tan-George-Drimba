@@ -18,7 +18,7 @@ public static class Constants {
   public static int NEXT_ROUND_BUTTON_HEIGHT_FROM_BOTTOM = 150;
   public static int NEXT_ROUND_BUTTON_HEIGHT = 50;
   public static int NEXT_ROUND_BUTTON_TEXT_SIZE = 16;
-  public static int WALL_PRICE = 100;
+  public static int WALL_PRICE = 75;
   public static int TURRET_PRICE = 100;
   public static int CANNON_PRICE = 200;
   public static int RAY_GUN_PRICE = 1000;

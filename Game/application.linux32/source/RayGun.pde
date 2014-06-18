@@ -28,12 +28,16 @@ public class RayGun extends Tower {
   }
 
   public void upgrade() {
-    int lev = getLevel();
-    upRange(4 + 1 * lev);
-    upDamage(65 + 10 * lev);
-    upSpeed(1 + 1*lev);
-    upUpgradePrice(500 + 250 * lev);
-    upSellPrice();
-    upLevel();
+    if (upgradePrice <= myBoard.getParent().getCurrency()) {
+      myBoard.getParent().removeCurrency(upgradePrice);
+      int lev = getLevel();
+      upRange(defaultRange + round(1.5 * lev));
+      upDamage(defaultDamage + 10 * lev);
+      upSpeed(defaultSpeed + round(0.3*lev));
+      upUpgradePrice(500 + 250 * lev);
+      upSellPrice();
+      upLevel();
+    }
   }
 }
+

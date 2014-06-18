@@ -136,7 +136,6 @@ public void setup() {
       pathTiles.add(path.getTile());
       path = path.getParent();
     }
-
     drawAll();
   }
 }
@@ -151,10 +150,11 @@ public void draw() {
     showCurrency();
     if (roundInProgress) {
       mySpawn.act();
-      if (enemiesSpawned.size() == 0) { // Round over
+      if (enemiesSpawned.size() == 0 && mySpawn.queueEmpty()) { // Round over
         roundInProgress = false;
         round += 1;
         showRound();
+        addCurrency(round);
       } else {
         for (Iterator<Enemy> it = enemiesSpawned.iterator();it.hasNext();) {
           Enemy e = it.next();
@@ -237,7 +237,10 @@ public void startGame() {
 }
 
 public void gameOver() {
-  println("GAME OVER");
+  background(Constants.GAME_BACKGROUND_COLOR);
+  textSize(30);
+  fill(0xff2D9303);
+  text("Game Over", width / 2, height / 2);
   noLoop();
 }
 
@@ -797,16 +800,16 @@ public abstract class Agent{
 public class Alien extends Enemy {
   //tank
   public Alien(int level, Tile t, Board b) {
-    super(t, b , 400 + 100 * level, 2, 10 + 1 * level, 50 * level, 7 * level, "Alien" );
+    super(t, b , 200 + 20 * level, 2, 10 + 1 * level, 20 * level, 7 * level, "Alien" );
   }
 
   public boolean inBody(int x, int y) {
-    return (x > xcor && x < xcor + Constants.PIXEL_TO_BOARD_INDEX_RATIO * .5f && y > ycor && y < ycor + Constants.PIXEL_TO_BOARD_INDEX_RATIO * .5f);
+    return (x > xcor + 0.2f * Constants.PIXEL_TO_BOARD_INDEX_RATIO && x < xcor + .8f * Constants.PIXEL_TO_BOARD_INDEX_RATIO && y > ycor + .2f * Constants.PIXEL_TO_BOARD_INDEX_RATIO && y < ycor + Constants.PIXEL_TO_BOARD_INDEX_RATIO * .8f);
   }
 
   public void display() {
     fill(0, 7, 77);
-    quad(xcor + .75f * Constants.PIXEL_TO_BOARD_INDEX_RATIO, ycor + .25f * Constants.PIXEL_TO_BOARD_INDEX_RATIO, xcor + .25f * Constants.PIXEL_TO_BOARD_INDEX_RATIO, ycor + .75f * Constants.PIXEL_TO_BOARD_INDEX_RATIO, xcor + .75f * Constants.PIXEL_TO_BOARD_INDEX_RATIO, ycor + Constants.PIXEL_TO_BOARD_INDEX_RATIO, xcor + Constants.PIXEL_TO_BOARD_INDEX_RATIO, ycor + .75f * Constants.PIXEL_TO_BOARD_INDEX_RATIO);
+    quad(xcor + 0.5f * Constants.PIXEL_TO_BOARD_INDEX_RATIO, ycor + 0.2f * Constants.PIXEL_TO_BOARD_INDEX_RATIO, xcor + 0.8f * Constants.PIXEL_TO_BOARD_INDEX_RATIO, ycor + 0.7f * Constants.PIXEL_TO_BOARD_INDEX_RATIO, xcor + 0.5f * Constants.PIXEL_TO_BOARD_INDEX_RATIO, ycor + 0.8f * Constants.PIXEL_TO_BOARD_INDEX_RATIO, xcor + 0.2f * Constants.PIXEL_TO_BOARD_INDEX_RATIO, ycor + 0.7f * Constants.PIXEL_TO_BOARD_INDEX_RATIO);
     generateHealthBar();
   }
 
@@ -911,11 +914,11 @@ public class Base extends Agent {
 public class Bat extends Enemy {
 
   public Bat(int level, Tile t, Board b) {
-    super(t, b, 60 + 10 * level, 4, 0, 3 * level, 5 * level, "Bat" );
+    super(t, b, 60 + 10 * level, 3, 0, 3 * level, 5 * level, "Bat" );
   }
 
   public boolean inBody(int x, int y) {
-    return (x > xcor && x < xcor + Constants.PIXEL_TO_BOARD_INDEX_RATIO * .5f && y > ycor && y < ycor + Constants.PIXEL_TO_BOARD_INDEX_RATIO * .5f);
+    return (x > xcor + 0.25f * Constants.PIXEL_TO_BOARD_INDEX_RATIO && x < xcor + Constants.PIXEL_TO_BOARD_INDEX_RATIO * .75f && y > ycor + 0.25f * Constants.PIXEL_TO_BOARD_INDEX_RATIO && y < ycor + Constants.PIXEL_TO_BOARD_INDEX_RATIO * .75f);
   }
 
   public void display() {
@@ -1099,13 +1102,13 @@ public class Cannon extends Tower {
   }
 
   public void upgrade() {
-    if (upgradePrice < myBoard.getParent().getCurrency()) {
+    if (upgradePrice <= myBoard.getParent().getCurrency()) {
       myBoard.getParent().removeCurrency(upgradePrice);
       int lev = getLevel();
-      upRange(4 + 1 * lev);
-      upDamage(13 + 2 * lev);
-      upSpeed(2 + 1*lev);
-      upUpgradePrice(50 + 25 * lev);
+      setRange(defaultRange + 1 * lev);
+      setDamage(defaultDamage + 2 * lev);
+      setSpeed(defaultSpeed + round(0.75f*lev));
+      upUpgradePrice(50 + 30 * lev);
       upSellPrice();
       upLevel();
     }
@@ -1131,7 +1134,7 @@ public static class Constants {
   public static int NEXT_ROUND_BUTTON_HEIGHT_FROM_BOTTOM = 150;
   public static int NEXT_ROUND_BUTTON_HEIGHT = 50;
   public static int NEXT_ROUND_BUTTON_TEXT_SIZE = 16;
-  public static int WALL_PRICE = 100;
+  public static int WALL_PRICE = 75;
   public static int TURRET_PRICE = 100;
   public static int CANNON_PRICE = 200;
   public static int RAY_GUN_PRICE = 1000;
@@ -1174,7 +1177,6 @@ public abstract class Enemy extends Agent {
     Node tmp =  search.search(myTile);
     path = new Stack<Tile>();
     while (tmp != null) {
-      //println(tmp);
       path.add(tmp.getTile());
       tmp = tmp.getParent();
     }
@@ -1218,7 +1220,6 @@ public abstract class Enemy extends Agent {
       die();
     } else {
       currentHealth = currentHealth - d;
-      println(currentHealth);
     }
   }
 
@@ -1305,7 +1306,7 @@ public abstract class Enemy extends Agent {
 public class Giant extends Enemy {
 
   public Giant(int level, Tile t, Board b) {
-    super(t, b , 400 + 300 * level, 1, 10 + 1 * level, 50 * level, level * 10, "Giant" );
+    super(t, b , 500 + 50 * level, 1, 10 + 1 * level, 40 * level, level * 10, "Giant" );
   }
 
   public boolean inBody(int x, int y) {
@@ -1314,7 +1315,7 @@ public class Giant extends Enemy {
 
   public void display() {
     fill(0, 7, 77);
-    quad(xcor + .5f * Constants.PIXEL_TO_BOARD_INDEX_RATIO, ycor, xcor, ycor + .5f * Constants.PIXEL_TO_BOARD_INDEX_RATIO, xcor + .5f * Constants.PIXEL_TO_BOARD_INDEX_RATIO, ycor + Constants.PIXEL_TO_BOARD_INDEX_RATIO, xcor + Constants.PIXEL_TO_BOARD_INDEX_RATIO, ycor + .5f * Constants.PIXEL_TO_BOARD_INDEX_RATIO);
+    quad(xcor + .5f * Constants.PIXEL_TO_BOARD_INDEX_RATIO, ycor + 0.1f * Constants.PIXEL_TO_BOARD_INDEX_RATIO, xcor + 0.1f * Constants.PIXEL_TO_BOARD_INDEX_RATIO, ycor + .5f * Constants.PIXEL_TO_BOARD_INDEX_RATIO, xcor + .5f * Constants.PIXEL_TO_BOARD_INDEX_RATIO, ycor + .9f * Constants.PIXEL_TO_BOARD_INDEX_RATIO, xcor + .9f * Constants.PIXEL_TO_BOARD_INDEX_RATIO, ycor + .5f * Constants.PIXEL_TO_BOARD_INDEX_RATIO);
     generateHealthBar();
   }
 
@@ -1331,9 +1332,9 @@ public class Giant extends Enemy {
     int current = super.getHealth();
     int max = super.getMaxHealth();
     float perc = 1.0f * current / max;
-    int length = round(perc * Constants.PIXEL_TO_BOARD_INDEX_RATIO);
+    int length = round(perc * Constants.PIXEL_TO_BOARD_INDEX_RATIO / 1.2f);
     fill(50, 200, 0, 100);
-    rect(xcor, ycor, length, round(Constants.PIXEL_TO_BOARD_INDEX_RATIO * Constants.HEALTH_BAR_HEIGHT_PERCENTAGE));
+    rect(xcor + 0.1f * Constants.PIXEL_TO_BOARD_INDEX_RATIO, ycor + 0.1f * Constants.PIXEL_TO_BOARD_INDEX_RATIO, length, round(Constants.PIXEL_TO_BOARD_INDEX_RATIO * Constants.HEALTH_BAR_HEIGHT_PERCENTAGE));
   }
   
 }
@@ -1366,7 +1367,7 @@ public class Grunt extends Enemy {
   }
 
   public boolean inBody(int x, int y) {
-    return (x > xcor && x < xcor + Constants.PIXEL_TO_BOARD_INDEX_RATIO * .5f && y > ycor && y < ycor + Constants.PIXEL_TO_BOARD_INDEX_RATIO * .5f);
+    return (x > xcor + 0.25f * Constants.PIXEL_TO_BOARD_INDEX_RATIO && x < xcor + Constants.PIXEL_TO_BOARD_INDEX_RATIO * .75f && y > ycor + Constants.PIXEL_TO_BOARD_INDEX_RATIO * .25f && y < ycor + Constants.PIXEL_TO_BOARD_INDEX_RATIO * .75f);
   }
 }
 public class GuiButton {
@@ -2097,21 +2098,26 @@ public class RayGun extends Tower {
   }
 
   public void upgrade() {
-    int lev = getLevel();
-    upRange(4 + 1 * lev);
-    upDamage(65 + 10 * lev);
-    upSpeed(1 + 1*lev);
-    upUpgradePrice(500 + 250 * lev);
-    upSellPrice();
-    upLevel();
+    if (upgradePrice <= myBoard.getParent().getCurrency()) {
+      myBoard.getParent().removeCurrency(upgradePrice);
+      int lev = getLevel();
+      upRange(defaultRange + round(1.5f * lev));
+      upDamage(defaultDamage + 10 * lev);
+      upSpeed(defaultSpeed + round(0.3f*lev));
+      upUpgradePrice(500 + 250 * lev);
+      upSellPrice();
+      upLevel();
+    }
   }
 }
+
 public class Spawn extends Agent {
   private LinkedList<Enemy> spawnQueue = new LinkedList<Enemy>();
   private Game myGame;
   private int roundLoaded;
   private long lastSpawn;
   private long coolDown = 1000; // milliseconds
+  private boolean queueEmpty;
 
   public Spawn(Game g) {
     myName = Constants.SPAWN;
@@ -2139,7 +2145,7 @@ public class Spawn extends Agent {
         } else if (round < 11) {
           for (int i = 0; i < round; i++)
             spawnQueue.add(new Alien(round, myTile, myBoard));
-          for (int i = 0; i < round; i++)
+          for (int i = 0; i < round / 2; i++)
             spawnQueue.add(new Giant(round, myTile, myBoard));
         } else if (round < 13) {
           for (int i = 0; i < round; i++)
@@ -2162,6 +2168,7 @@ public class Spawn extends Agent {
             spawnQueue.add(new Giant(round, myTile, myBoard));
         }
         roundLoaded = round;
+        queueEmpty = false;
       }
     }
     if (!spawnQueue.isEmpty() && System.currentTimeMillis() - lastSpawn > coolDown) {
@@ -2170,6 +2177,13 @@ public class Spawn extends Agent {
       myGame.addToAlive(e);
       myTile.addAgentOn(e);
     }
+    else if (spawnQueue.isEmpty()) {
+      queueEmpty = true;
+    }
+  }
+  
+  public boolean queueEmpty() {
+    return queueEmpty;
   }
 
   public String toString() {
@@ -2346,14 +2360,18 @@ public abstract class Tower extends Agent {
 
   protected Wall myWall;
   protected int range, damage, speed, upgradePrice, sellPrice, level;
+  protected int defaultRange, defaultDamage, defaultSpeed;
   protected String name, effect;
   protected long lastShot;
 
   public Tower(Tile t, int damage, int speed, int range, int upPrice, int sellPrice, String name, String effect) {
     setTile(t);
     this.damage = damage;
+    defaultDamage = damage;
     this.speed = speed;
+    defaultSpeed = speed;
     this.range = range;
+    defaultRange = range;
     upgradePrice = upPrice;
     this.sellPrice = sellPrice;
     this.name = name;
@@ -2413,9 +2431,23 @@ public abstract class Tower extends Agent {
     level++;
   }
 
+  public void setRange(int r) {
+    range = r;
+  }
+
+  public void setDamage(int d) {
+    damage = d;
+  }
+
+  public void setSpeed(int s) {
+    speed = s;
+  }
+  
   public Wall getWall() {
     return myWall;
   }
+
+
 
   public void setWall(Wall w) {
     myWall = w;
@@ -2428,7 +2460,6 @@ public abstract class Tower extends Agent {
         Enemy t = it.next();
         float d = dist(myTile.getX(), myTile.getY(), t.getTile().getX(), t.getTile().getY());
         if (d <= range) {
-          println("t");
           t.takeDamage(damage);
           if (t.getHealth() <= 0) {
             it.remove(); // Remove the enemy from Game's enemiesSpawned
@@ -2449,6 +2480,7 @@ public abstract class Tower extends Agent {
     myBoard.getParent().addCurrency(sellPrice);
   }
 }
+
 public class Turret extends Tower {
 
   public Turret (Tile t) {
@@ -2479,12 +2511,12 @@ public class Turret extends Tower {
   }
 
   public void upgrade() {
-    if (upgradePrice < myBoard.getParent().getCurrency()) {
+    if (upgradePrice <= myBoard.getParent().getCurrency()) {
       myBoard.getParent().removeCurrency(upgradePrice);
       int lev = getLevel();
-      upRange(1);
-      upDamage(2);
-      upSpeed(1);
+      setRange(defaultRange + round(1.2f * lev));
+      setDamage(defaultDamage + 1 * lev);
+      setSpeed(defaultSpeed + 2 * lev);
       upUpgradePrice(50 + 25 * lev);
       upSellPrice();
       upLevel();

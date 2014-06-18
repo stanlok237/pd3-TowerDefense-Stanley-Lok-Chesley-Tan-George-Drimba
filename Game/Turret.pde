@@ -28,12 +28,12 @@ public class Turret extends Tower {
   }
 
   public void upgrade() {
-    if (upgradePrice < myBoard.getParent().getCurrency()) {
+    if (upgradePrice <= myBoard.getParent().getCurrency()) {
       myBoard.getParent().removeCurrency(upgradePrice);
       int lev = getLevel();
-      upRange(1);
-      upDamage(2);
-      upSpeed(1);
+      setRange(defaultRange + round(1.2 * lev));
+      setDamage(defaultDamage + 1 * lev);
+      setSpeed(defaultSpeed + 2 * lev);
       upUpgradePrice(50 + 25 * lev);
       upSellPrice();
       upLevel();

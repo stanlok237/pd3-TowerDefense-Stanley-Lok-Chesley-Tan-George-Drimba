@@ -28,13 +28,13 @@ public class Cannon extends Tower {
   }
 
   public void upgrade() {
-    if (upgradePrice < myBoard.getParent().getCurrency()) {
+    if (upgradePrice <= myBoard.getParent().getCurrency()) {
       myBoard.getParent().removeCurrency(upgradePrice);
       int lev = getLevel();
-      upRange(4 + 1 * lev);
-      upDamage(13 + 2 * lev);
-      upSpeed(2 + 1*lev);
-      upUpgradePrice(50 + 25 * lev);
+      setRange(defaultRange + 1 * lev);
+      setDamage(defaultDamage + 2 * lev);
+      setSpeed(defaultSpeed + round(0.75*lev));
+      upUpgradePrice(50 + 30 * lev);
       upSellPrice();
       upLevel();
     }

@@ -1,7 +1,7 @@
 public class Giant extends Enemy {
 
   public Giant(int level, Tile t, Board b) {
-    super(t, b , 400 + 300 * level, 1, 10 + 1 * level, 50 * level, level * 10, "Giant" );
+    super(t, b , 500 + 50 * level, 1, 10 + 1 * level, 40 * level, level * 10, "Giant" );
   }
 
   public boolean inBody(int x, int y) {
@@ -10,7 +10,7 @@ public class Giant extends Enemy {
 
   public void display() {
     fill(0, 7, 77);
-    quad(xcor + .5 * Constants.PIXEL_TO_BOARD_INDEX_RATIO, ycor, xcor, ycor + .5 * Constants.PIXEL_TO_BOARD_INDEX_RATIO, xcor + .5 * Constants.PIXEL_TO_BOARD_INDEX_RATIO, ycor + Constants.PIXEL_TO_BOARD_INDEX_RATIO, xcor + Constants.PIXEL_TO_BOARD_INDEX_RATIO, ycor + .5 * Constants.PIXEL_TO_BOARD_INDEX_RATIO);
+    quad(xcor + .5 * Constants.PIXEL_TO_BOARD_INDEX_RATIO, ycor + 0.1 * Constants.PIXEL_TO_BOARD_INDEX_RATIO, xcor + 0.1 * Constants.PIXEL_TO_BOARD_INDEX_RATIO, ycor + .5 * Constants.PIXEL_TO_BOARD_INDEX_RATIO, xcor + .5 * Constants.PIXEL_TO_BOARD_INDEX_RATIO, ycor + .9 * Constants.PIXEL_TO_BOARD_INDEX_RATIO, xcor + .9 * Constants.PIXEL_TO_BOARD_INDEX_RATIO, ycor + .5 * Constants.PIXEL_TO_BOARD_INDEX_RATIO);
     generateHealthBar();
   }
 
@@ -27,9 +27,9 @@ public class Giant extends Enemy {
     int current = super.getHealth();
     int max = super.getMaxHealth();
     float perc = 1.0 * current / max;
-    int length = round(perc * Constants.PIXEL_TO_BOARD_INDEX_RATIO);
+    int length = round(perc * Constants.PIXEL_TO_BOARD_INDEX_RATIO / 1.2);
     fill(50, 200, 0, 100);
-    rect(xcor, ycor, length, round(Constants.PIXEL_TO_BOARD_INDEX_RATIO * Constants.HEALTH_BAR_HEIGHT_PERCENTAGE));
+    rect(xcor + 0.1 * Constants.PIXEL_TO_BOARD_INDEX_RATIO, ycor + 0.1 * Constants.PIXEL_TO_BOARD_INDEX_RATIO, length, round(Constants.PIXEL_TO_BOARD_INDEX_RATIO * Constants.HEALTH_BAR_HEIGHT_PERCENTAGE));
   }
   
 }

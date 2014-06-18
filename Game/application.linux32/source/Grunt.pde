@@ -27,6 +27,6 @@ public class Grunt extends Enemy {
   }
 
   public boolean inBody(int x, int y) {
-    return (x > xcor && x < xcor + Constants.PIXEL_TO_BOARD_INDEX_RATIO * .5 && y > ycor && y < ycor + Constants.PIXEL_TO_BOARD_INDEX_RATIO * .5);
+    return (x > xcor + 0.25 * Constants.PIXEL_TO_BOARD_INDEX_RATIO && x < xcor + Constants.PIXEL_TO_BOARD_INDEX_RATIO * .75 && y > ycor + Constants.PIXEL_TO_BOARD_INDEX_RATIO * .25 && y < ycor + Constants.PIXEL_TO_BOARD_INDEX_RATIO * .75);
   }
 }

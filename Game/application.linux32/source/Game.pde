@@ -108,7 +108,6 @@ void setup() {
       pathTiles.add(path.getTile());
       path = path.getParent();
     }
-
     drawAll();
   }
 }
@@ -123,10 +122,11 @@ void draw() {
     showCurrency();
     if (roundInProgress) {
       mySpawn.act();
-      if (enemiesSpawned.size() == 0) { // Round over
+      if (enemiesSpawned.size() == 0 && mySpawn.queueEmpty()) { // Round over
         roundInProgress = false;
         round += 1;
         showRound();
+        addCurrency(round);
       } else {
         for (Iterator<Enemy> it = enemiesSpawned.iterator();it.hasNext();) {
           Enemy e = it.next();
@@ -209,7 +209,10 @@ public void startGame() {
 }
 
 public void gameOver() {
-  println("GAME OVER");
+  background(Constants.GAME_BACKGROUND_COLOR);
+  textSize(30);
+  fill(#2D9303);
+  text("Game Over", width / 2, height / 2);
   noLoop();
 }
 

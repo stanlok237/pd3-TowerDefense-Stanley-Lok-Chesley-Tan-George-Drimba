@@ -4,6 +4,7 @@ public class Spawn extends Agent {
   private int roundLoaded;
   private long lastSpawn;
   private long coolDown = 1000; // milliseconds
+  private boolean queueEmpty;
 
   public Spawn(Game g) {
     myName = Constants.SPAWN;
@@ -31,7 +32,7 @@ public class Spawn extends Agent {
         } else if (round < 11) {
           for (int i = 0; i < round; i++)
             spawnQueue.add(new Alien(round, myTile, myBoard));
-          for (int i = 0; i < round; i++)
+          for (int i = 0; i < round / 2; i++)
             spawnQueue.add(new Giant(round, myTile, myBoard));
         } else if (round < 13) {
           for (int i = 0; i < round; i++)
@@ -54,6 +55,7 @@ public class Spawn extends Agent {
             spawnQueue.add(new Giant(round, myTile, myBoard));
         }
         roundLoaded = round;
+        queueEmpty = false;
       }
     }
     if (!spawnQueue.isEmpty() && System.currentTimeMillis() - lastSpawn > coolDown) {
@@ -62,6 +64,13 @@ public class Spawn extends Agent {
       myGame.addToAlive(e);
       myTile.addAgentOn(e);
     }
+    else if (spawnQueue.isEmpty()) {
+      queueEmpty = true;
+    }
+  }
+  
+  public boolean queueEmpty() {
+    return queueEmpty;
   }
 
   public String toString() {
