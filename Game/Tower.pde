@@ -87,8 +87,9 @@ public abstract class Tower extends Agent {
     if (System.currentTimeMillis() - lastShot > speed * 100) {
       for (Iterator<Enemy> it = enemiesSpawned.iterator (); it.hasNext(); ) {
         Enemy t = it.next();
-        float d = dist(myTile.getX(), myTile.getY(), t.getX(), t.getY());
+        float d = dist(myTile.getX(), myTile.getY(), t.getTile().getX(), t.getTile().getY());
         if (d <= range) {
+          println("t");
           t.takeDamage(damage);
           if (t.getHealth() <= 0) {
             it.remove(); // Remove the enemy from Game's enemiesSpawned

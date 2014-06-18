@@ -168,6 +168,7 @@ void draw() {
           e.act();
         }
         for (Tower t : towersCreated) {
+          //println("t");
           t.shoot(enemiesSpawned);
         }
         for (int i = 0; i < tiles.length; i++) {

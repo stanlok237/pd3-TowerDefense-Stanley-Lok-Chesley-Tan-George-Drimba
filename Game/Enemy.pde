@@ -64,6 +64,7 @@ public abstract class Enemy extends Agent {
       die();
     } else {
       currentHealth = currentHealth - d;
+      println(currentHealth);
     }
   }
 
@@ -138,8 +139,8 @@ public abstract class Enemy extends Agent {
       xcor -= currentSpeed;
     } else if (next.getX() > myTile.getX()) {
       if (xcor + currentSpeed > (myTile.getX() + 1) * (Constants.PIXEL_TO_BOARD_INDEX_RATIO)) {
-        println(xcor);
-        println(myTile.getX() * (Constants.PIXEL_TO_BOARD_INDEX_RATIO +1));
+        //println(xcor);
+        //println(myTile.getX() * (Constants.PIXEL_TO_BOARD_INDEX_RATIO +1));
         path.pop();
         updateTile("r");
       }
