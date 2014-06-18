@@ -33,6 +33,25 @@ public class Spawn extends Agent {
             spawnQueue.add(new Alien(round, myTile, myBoard));
           for (int i = 0; i < round; i++)
             spawnQueue.add(new Giant(round, myTile, myBoard));
+        } else if (round < 13) {
+          for (int i = 0; i < round; i++)
+            spawnQueue.add(new Alien(round, myTile, myBoard));
+          for (int i = 0; i < round; i++)
+            spawnQueue.add(new Bat(round, myTile, myBoard));
+        } else if (round < 15) {
+          for (int i = 0; i < round; i++)
+            spawnQueue.add(new Grunt(round, myTile, myBoard));
+          for (int i = 0; i < round; i++)
+            spawnQueue.add(new Grunt(round, myTile, myBoard));
+        } else if (round >= 15) {
+          for (int i = 0; i < round; i++)
+            spawnQueue.add(new Grunt(round, myTile, myBoard));
+          for (int i = 0; i < round; i++)
+            spawnQueue.add(new Bat(round, myTile, myBoard));
+          for (int i = 0; i < round; i++)
+            spawnQueue.add(new Alien(round, myTile, myBoard));
+          for (int i = 0; i < round; i++)
+            spawnQueue.add(new Giant(round, myTile, myBoard));
         }
         roundLoaded = round;
       }

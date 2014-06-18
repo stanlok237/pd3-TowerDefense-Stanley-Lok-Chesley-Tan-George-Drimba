@@ -1,7 +1,7 @@
 public class Bat extends Enemy {
 
   public Bat(int level, Tile t, Board b) {
-    super(t, b, 60 + 10 * level, 4, 0, 3 * level, 5, "Bat" );
+    super(t, b, 60 + 10 * level, 4, 0, 3 * level, 5 * level, "Bat" );
   }
 
   public boolean inBody(int x, int y) {

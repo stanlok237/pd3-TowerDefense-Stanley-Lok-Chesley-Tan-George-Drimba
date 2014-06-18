@@ -1,7 +1,7 @@
 public class Alien extends Enemy {
   //tank
   public Alien(int level, Tile t, Board b) {
-    super(t, b , 400 + 100 * level, 2, 10 + 1 * level, 50 * level, 5, "Alien" );
+    super(t, b , 400 + 100 * level, 2, 10 + 1 * level, 50 * level, 7 * level, "Alien" );
   }
 
   public boolean inBody(int x, int y) {
