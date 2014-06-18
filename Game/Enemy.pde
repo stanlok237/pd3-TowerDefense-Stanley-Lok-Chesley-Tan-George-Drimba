@@ -117,13 +117,13 @@ public abstract class Enemy extends Agent {
     println(next);
     //Checking Next Tile 
     //Up
-    if (next.getY() > myTile.getY()) {
-      if (ycor - currentSpeed < myTile.getY() * Constants.PIXEL_TO_BOARD_INDEX_RATIO) {
+    if (next.getY() < myTile.getY()) {
+      if (ycor - currentSpeed < myTile.getY() * (Constants.PIXEL_TO_BOARD_INDEX_RATIO)) {
         path.pop();
         updateTile("u");
       }
       ycor -= currentSpeed;
-    } else if (next.getY() < myTile.getY()) {
+    } else if (next.getY() > myTile.getY()) {
       if (ycor + currentSpeed > myTile.getY() * (Constants.PIXEL_TO_BOARD_INDEX_RATIO + 1)) {
         path.pop();
         updateTile("d");
