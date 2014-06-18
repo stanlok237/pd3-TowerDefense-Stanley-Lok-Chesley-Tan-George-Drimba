@@ -5,7 +5,6 @@ public class RayGun extends Tower {
     super(t, 200, 1, 8, 1000, 500, "Ray Gun", Constants.RAYGUN_EFFECT);
   }
 
-  //public act here --------------------
   public String toString() {
     String n = getName();
     String e = getEffect();
@@ -16,11 +15,10 @@ public class RayGun extends Tower {
   }
 
   public void act() {
-    //shoot
   }
 
   public boolean inBody(int x, int y) {
-    return false; //Temporary
+    return true;
   }
 
   public void display() {
@@ -30,7 +28,6 @@ public class RayGun extends Tower {
   }
 
   public void upgrade() {
-    //Subtract Gold Cost Here
     int lev = getLevel();
     upRange(4 + 1 * lev);
     upDamage(65 + 10 * lev);

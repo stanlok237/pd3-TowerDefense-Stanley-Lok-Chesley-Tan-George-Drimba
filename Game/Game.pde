@@ -109,41 +109,6 @@ void setup() {
       path = path.getParent();
     }
 
-    //Spawning to be done here
-    //Temporary Testing - Grunt
-
-
-    /*
-  Enemy test = new Grunt(1,tmp);
-     tiles[0][0].getTile().addAgentOn(test);
-     println(tiles[0][0].getTile().getAgentsOn().get(0));
-     */
-    //Temporary Testing - Zombie
-    /*
-  Enemy test = new Zombie(1,tmp);
-     tiles[0][0].getTile().addAgentOn(test);
-     */
-    //Bat
-    /*
-  Enemy test = new Bat(1,tmp);
-     tiles[0][0].getTile().addAgentOn(test);
-     */
-    //Giant
-    /*
-    Tile tmp = tiles[0][0].getTile();
-     Enemy test = new Giant(1, tmp, board);
-     tiles[0][0].getTile().addAgentOn(test);
-     enemiesSpawned.add(test);
-     */
-    /*
-  for (int i = 0; i < board.getRows (); i++) {
-     for (int u = 0; u < board.getCols (); u++) {
-     if (tiles[i][u].getTile().getAgent() instanceof Wall) {
-     tiles[i][u].getTile().addAgent(Constants.TURRET);
-     }
-     }
-     }
-     */
     drawAll();
   }
 }
@@ -171,7 +136,6 @@ void draw() {
           }
         }
         for (Tower t : towersCreated) {
-          //println("t");
           t.shoot(enemiesSpawned);
         }
         for (int i = 0; i < tiles.length; i++) {
@@ -198,12 +162,7 @@ void setupBoard() {
   boardHeight = board.getRows() * Constants.PIXEL_TO_BOARD_INDEX_RATIO;
   boardWidth = board.getCols() * Constants.PIXEL_TO_BOARD_INDEX_RATIO;
   frame.setSize(boardWidth + frame.getInsets().left + frame.getInsets().right + Constants.SIDEBAR_WIDTH, boardHeight + frame.getInsets().top + frame.getInsets().bottom);
-  // Window size is inconsistent when frame resizeable is set to false immediately, so it is delayed
   size(boardWidth + Constants.SIDEBAR_WIDTH, boardHeight);
-  if (height != boardHeight) {
-    System.err.println("Sanity check failed: Resize consistency error. Exiting...");
-    System.exit(1);
-  }
   tiles = new GraphicsTile[board.getRows()][board.getCols()];
   for (int i = 0; i < board.getRows (); i++) {
     for (int u = 0; u < board.getCols (); u++) {
@@ -493,7 +452,6 @@ void placeWall(int x, int y) {
     lockCurrency();
     tiles[y][x].getTile().addAgent(Constants.WALL);
     path = god.search(mySpawn.getTile());
-    //println(path);
     if (path == null) {
       tiles[y][x].getTile().removeAgent();
     } else {
@@ -511,7 +469,6 @@ void placeWall(int x, int y) {
       }
       pathTiles.clear();
       while (path.hasParent ()) {
-        //Add the tiles in the pat into an ArrayList
         Tile travelPath = path.getTile();
         if (Constants.SHOW_PATH) {
           tiles[travelPath.getY()][travelPath.getX()].setDefaultColor(Constants.GAME_PATH_COLOR);

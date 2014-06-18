@@ -4,7 +4,6 @@ public class Turret extends Tower {
     super(t, 1, 10, 2, 100, 65, "Turret", Constants.TURRET_EFFECT);
   }
 
-  //public act here --------------------
   public String toString() {
     String n = getName();
     String e = getEffect();
@@ -15,11 +14,11 @@ public class Turret extends Tower {
   }
 
   public void act() {
-    //shoot
+
   }
 
   public boolean inBody(int x, int y) {
-    return false; //Temporary
+    return true;
   }
 
   public void display() {
@@ -40,34 +39,4 @@ public class Turret extends Tower {
       upLevel();
     }
   }
-
-  /* Old Code
-   public void Turret (int xstart, int ystart) {
-   xcor = xstart;
-   ycor = ystart;
-   pos = new PVector(xcor, ycor);
-   turret = loadImage("imagename");
-   }
-   public void level(int exp) {
-   experience = experience + exp;
-   if (exp > expneed) {
-   level = level + 1;
-   
-   Random r = new Random();
-   int i = r.nextInt(2); 
-   if (i == 1) {
-   range = range + 5;
-   expneed= expneed + 5 * (level - 1);
-   }
-   if (i == 2) {
-   damage = damage + 5;
-   expneed = expneed + 5 * (level - 1);
-   } else {
-   speed = speed + 5;
-   expneed = expneed + 5 * (level - 1);
-   }
-   maxhealth = strength;
-   health = maxhealth; //health regeneration
-   }
-   */
 }

@@ -6,8 +6,6 @@ public abstract class Agent{
     protected int xcor; // pixel coordinate
     protected int ycor; // pixel coordinate
     protected int direction; // angle between 0 and 360, counter-clockwise
-    
-    //Will Add Necessary Stuff Later
 
     public Agent() {
       myBoard = null;

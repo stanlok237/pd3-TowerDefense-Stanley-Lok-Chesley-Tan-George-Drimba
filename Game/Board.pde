@@ -6,17 +6,6 @@ public class Board {
   Base base;
 
   public Board(Game p) {
-    /*
-    numRows = defaultSize;
-    numCols = defaultSize;
-    board = new Tile[numRows][numCols];
-    for (int i = 0; i < numRows; i++) {
-      for (int j = 0; j < numCols; j++) {
-        board[i][j] = new Tile(i, j);
-        board[i][j].setBoard(this);
-      }
-    }
-    */
     parent = p;
   }
 

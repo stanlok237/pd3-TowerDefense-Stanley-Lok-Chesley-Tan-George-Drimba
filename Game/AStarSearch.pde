@@ -17,8 +17,6 @@ public class AStarSearch {
     }
 
     public int compare(Node a, Node b) {
-      //Node a = (Node)(tma);
-      //Node b = (Node)(tmb);
       int hDistanceA = Math.abs(a.getTile().getX() - base.getTile().getX()) + Math.abs(a.getTile().getY() - base.getTile().getY()); //Tile A Heuristic Distance
       int hDistanceB = Math.abs(b.getTile().getX() - base.getTile().getX()) + Math.abs(b.getTile().getY() - base.getTile().getY()); //Tile B Heuristic Distance
       //Get Start Location
@@ -32,9 +30,6 @@ public class AStarSearch {
         hDistanceB++;
         tmpb = tmpb.getParent();
       }
-
-      //hDistanceA += Math.abs(a.getTile().getX() - tmpa.getTile().getX()) + Math.abs(a.getTile().getY() - tmpa.getTile().getY());
-      //hDistanceB += Math.abs(b.getTile().getX() - tmpb.getTile().getX()) + Math.abs(b.getTile().getY() - tmpb.getTile().getY());
 
       if (hDistanceA > hDistanceB) {
         return 1;
@@ -62,23 +57,16 @@ public class AStarSearch {
     frontier.add(s);//Initial Frontier
     while (frontier.size () > 0) {
       Node current = frontier.remove();
-      //System.out.println(base.getTileX());
-      //System.out.println(current + " " + board.getBase().getTile());
-      //System.out.println("remove");
       if (current.getTile().equals(board.getBase().getTile())) {
         return current;
       }
       checkedNodes.add(current.getTile());
       //Making Nearby Nodes
-      //System.out.println(current.getTile());
-
       Node up = new Node(current, board.getUpper(current.getTile()));
       Node down = new Node(current, board.getLower(current.getTile()));
       Node left = new Node(current, board.getLeft(current.getTile()));
       Node right = new Node(current, board.getRight(current.getTile()));
       if (up.getTile() != null && !checkedNodes.contains(up.getTile()) && (up.getTile().getAgent() == null || up.getTile().getAgent().getName() == Constants.BASE))  {
-        //System.out.println("up");
-        println(up.getTile().getAgentName());
         frontier.add(up);
       }
       if (down.getTile() != null && !checkedNodes.contains(down.getTile()) && (down.getTile().getAgent() == null || down.getTile().getAgent().getName() == Constants.BASE)) {

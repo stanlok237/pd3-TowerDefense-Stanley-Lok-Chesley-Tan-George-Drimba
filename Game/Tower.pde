@@ -77,13 +77,8 @@ public abstract class Tower extends Agent {
     myWall = w;
   }
 
-  //Should we make it like GridWorld type of getting monsters and modifying them
-  //Abstract Functions to be implemented in subclasses
-  //Replace shoot() with act() in Agent Class
-
   //Generic Shooting
   public void shoot(ArrayList<Enemy> enemiesSpawned) {
-    //println("s");
     if (System.currentTimeMillis() - lastShot > (float)(1000 / speed)) {
       for (Iterator<Enemy> it = enemiesSpawned.iterator (); it.hasNext(); ) {
         Enemy t = it.next();
@@ -102,7 +97,6 @@ public abstract class Tower extends Agent {
   }
 
   public abstract void upgrade();
-  //Upgrades Stats at a cost
 
   public void sell() {
     myBoard.getParent().removeFromTowers(this);

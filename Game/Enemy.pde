@@ -107,13 +107,10 @@ public abstract class Enemy extends Agent {
   }
 
   public void act() {
-    //println("test");
     if (!path.empty()) {
       if (currentHealth <= 0) {
         die();
-        //break;
       } else {
-        //println("t");
         move();
       }
     } else {
@@ -125,9 +122,6 @@ public abstract class Enemy extends Agent {
 
   public void move() {
     Tile next = path.peek();
-    //println(next);
-    //Checking Next Tile 
-    //Up
     if (next.getY() < myTile.getY()) {
       if (ycor - currentSpeed < (myTile.getY() - 1)* (Constants.PIXEL_TO_BOARD_INDEX_RATIO)) {
         path.pop();
@@ -140,7 +134,6 @@ public abstract class Enemy extends Agent {
         updateTile("d");
       }
       ycor += currentSpeed;
-      //updateTile();
     } else if (next.getX() < myTile.getX()) {
       if (xcor - currentSpeed < (myTile.getX() - 1) * (Constants.PIXEL_TO_BOARD_INDEX_RATIO)) {
         path.pop();
@@ -149,30 +142,10 @@ public abstract class Enemy extends Agent {
       xcor -= currentSpeed;
     } else if (next.getX() > myTile.getX()) {
       if (xcor + currentSpeed > (myTile.getX() + 1) * (Constants.PIXEL_TO_BOARD_INDEX_RATIO)) {
-        //println(xcor);
-        //println(myTile.getX() * (Constants.PIXEL_TO_BOARD_INDEX_RATIO +1));
         path.pop();
         updateTile("r");
       }
       xcor += currentSpeed;
     }
   }
-
-  /* public void move() {
-   --- need some way to store the path in a class 
-   if (nextStepinPath.equals("completed")) {
-   return;
-   }
-   else if (nextStepinPath.equals("step")) {
-   }
-   if (.angleBetween(v1, v2)) {getTile().getRight(this);}
-   else if (.angleBetween(v1, v2)) {getTile().getRight(this);} --- insert radian args -- use pvector for simple dimension
-   else if (.angleBetween(v1, v2) ) {getTile().getLower(this);}
-   else {getTile().getUpper(this);} 
-   fill(250,0,0);
-   stroke(0);
-   ellipse(xcor,ycor,tileSize/2,tileSize/2);
-   fill(0);
-   }
-   */
 }
